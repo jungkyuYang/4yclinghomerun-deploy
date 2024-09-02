@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "postinstall": "husky install",
     "format": "prettier --cache --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.3.1",
