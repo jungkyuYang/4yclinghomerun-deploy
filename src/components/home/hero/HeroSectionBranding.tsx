@@ -15,6 +15,7 @@ const HeroSectionBranding = () => {
     } else {
       controls.start({ opacity: 1 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView]);
 
   return (
