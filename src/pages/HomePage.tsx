@@ -1,8 +1,9 @@
 import { useFetch } from '@/hooks/useFetch';
+
 import { TestNewsUrl } from '@/api/jsonplaceholderdb';
 
 import ErrorBoundary from '@/components/error/ErrorBoundary';
-import { NewsArea } from '@/components/news/NewsArea';
+import NewsArea from '@/components/news/NewsArea';
 import NewsError from '@/components/news/NewsError';
 import NewsSkeleton from '@/components/news/NewsSkeleton';
 

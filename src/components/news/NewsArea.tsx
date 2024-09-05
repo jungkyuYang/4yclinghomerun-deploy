@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import { TNewsTest } from '@/types/news';
+
 import NewListItem from './NewsItem';
 
-export const NewsArea = ({
+const NewsArea = ({
   news,
   title,
   isError,
@@ -44,3 +45,5 @@ export const NewsArea = ({
     </article>
   );
 };
+
+export default NewsArea;
