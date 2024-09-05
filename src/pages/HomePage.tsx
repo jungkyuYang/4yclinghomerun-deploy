@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 
+import TeamSchedule from '@/components/home/schedule/TeamSchedule';
 import { usePageScroll } from '@/hooks/usePageScroll';
 
 const sections = [
   { id: 'sec1', content: 'HERO', color: 'bg-black' },
-  { id: 'sec2', content: 'OUR TEAM', color: 'bg-blue-500' },
+  { id: 'sec2', content: <TeamSchedule />, color: 'bg-black' },
   { id: 'sec3', content: 'NEWS', color: 'bg-yellow-500' },
   { id: 'sec4', content: 'STORE', color: 'bg-red-500' },
   { id: 'sec5', content: 'EVENT', color: 'bg-purple-500' },
