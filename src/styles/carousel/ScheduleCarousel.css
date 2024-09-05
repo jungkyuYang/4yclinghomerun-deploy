@@ -1,0 +1,61 @@
+.slick-dots li button:before {
+  color: white !important;
+  opacity: 0.3;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-dots li button:before {
+  font-size: 15px;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+}
+
+/* custom arrow */
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.custom-arrow::before {
+  content: '';
+  width: 30px;
+  height: 30px;
+  display: block;
+  border-top: 4px solid white;
+  border-right: 4px solid white;
+}
+
+.custom-prev-arrow {
+  left: -40px;
+}
+
+.custom-next-arrow {
+  right: -40px;
+}
+
+.custom-prev-arrow::before {
+  transform: rotate(-135deg);
+}
+
+.custom-next-arrow::before {
+  transform: rotate(45deg);
+}
+
+.arrow-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
