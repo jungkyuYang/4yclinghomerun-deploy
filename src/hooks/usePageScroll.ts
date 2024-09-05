@@ -16,7 +16,7 @@ interface TouchEventWithPrevY extends TouchEvent {
   prevTouchY?: number;
 }
 
-export const usePageScroll = ({
+const usePageScroll = ({
   sections,
   initialSection = 0,
 }: UsePageScrollOptions) => {
@@ -87,3 +87,5 @@ export const usePageScroll = ({
 
   return { currentSection };
 };
+
+export { usePageScroll };
