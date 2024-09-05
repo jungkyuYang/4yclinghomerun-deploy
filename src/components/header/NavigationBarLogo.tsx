@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
@@ -10,8 +10,19 @@ const NavigationBarLogo = () => {
   const [yPos, setYPos] = useState(
     window.innerHeight / 2 - window.innerHeight / 8,
   );
+  const [isScrolled, setIsScrolled] = useState(true);
   const controls = useAnimation();
   const { scrollYProgress } = useScroll();
+
+  useLayoutEffect(() => {
+    if (window.scrollY > 0) {
+      setIsScrolled(true);
+      controls.set({ scale: 1, y: 0 });
+    } else {
+      setIsScrolled(false);
+      controls.set({ scale: 4, y: yPos });
+    }
+  }, []);
 
   useEffect(() => {
     if (location.pathname !== '/') {
@@ -51,10 +62,7 @@ const NavigationBarLogo = () => {
       <motion.img
         src={logo}
         className="drop-shadow-[0_11px_6px_rgb(0,0,0)]"
-        initial={{
-          scale: 4,
-          y: yPos,
-        }}
+        initial={isScrolled ? { scale: 1, y: 0 } : { scale: 4, y: yPos }}
         animate={controls}
       />
     </Link>
