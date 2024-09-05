@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const NavigationBarMenu = () => {
   return (
-    <div className="mt-2 flex justify-between text-2xl font-bold">
+    <div className="ml-40 flex justify-between text-2xl font-bold">
       <ul className="flex">
         <li className="w-40 text-right">
           <Link to="/introduce">KT WIZ</Link>
