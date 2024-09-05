@@ -33,6 +33,7 @@ const HeroSectionBanner = () => {
     };
 
     scrollYProgress.on('change', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollYProgress, bannerControls]);
 
   return (
