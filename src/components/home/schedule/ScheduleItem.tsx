@@ -1,8 +1,10 @@
 import { LuCalendarDays } from 'react-icons/lu';
 import { IoLocationOutline } from 'react-icons/io5';
 
+import HoverOverlay from '@/common/HoverOverlay';
 import { cn } from '@/utils/cn';
 import { ScheduleData } from '@/types/ScheduleType';
+import { Button } from '@/ui/button/button';
 
 const ScheduleItem = ({
   place,
@@ -19,8 +21,8 @@ const ScheduleItem = ({
       className={cn(
         'relative w-full max-w-md overflow-hidden rounded-lg p-1 shadow-lg transition-all duration-300',
         isUpcoming
-          ? 'bg-gradient-to-br from-yellow-400 via-red-700 to-yellow-300'
-          : 'bg-gradient-to-br from-[#35383E] to-[#F53232]',
+          ? 'animate-gradient bg-gradient-to-br from-yellow-400 via-red-700 to-yellow-300'
+          : 'animate-gradient bg-gradient-to-br from-[#35383E] to-[#F53232]',
       )}
     >
       <div className="rounded-lg bg-black p-6">
@@ -88,18 +90,17 @@ const ScheduleItem = ({
         </main>
       </div>
 
-      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-65 opacity-0 transition-opacity duration-300 hover:opacity-100">
-        <button
-          className={cn(
-            'relative z-10 rounded-full px-6 py-3 text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2',
-            isUpcoming
-              ? 'bg-yellow-400 text-black hover:bg-yellow-500 focus:ring-yellow-400'
-              : 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
-          )}
-        >
-          경기 정보
-        </button>
-      </div>
+      <HoverOverlay>
+        {isUpcoming ? (
+          <Button variant="secondary" size="large" className="hover:scale-105">
+            경기 정보
+          </Button>
+        ) : (
+          <Button variant="primary" size="large" className="hover:scale-105">
+            경기 정보
+          </Button>
+        )}
+      </HoverOverlay>
     </article>
   );
 };
