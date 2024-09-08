@@ -3,8 +3,8 @@ import { items, mainItem } from '@/mocks/home/ShopItem';
 const Shop = () => {
   return (
     <>
-      <div className="h-screen w-full bg-black px-48 py-16 text-white">
-        <div className="mb-10 flex justify-between">
+      {/* <div className="h-screen w-full bg-black px-48 py-16 text-white"> */}
+        <div className="mb-6 flex justify-between">
           <h2 className="text-4xl">Shop</h2>
           {/* 공통스타일 추후 합쳐서 빼기 - transition 효과 */}
           <button className="w-32 border py-3 transition-colors duration-300 hover:bg-white hover:text-black">
@@ -50,7 +50,7 @@ const Shop = () => {
             </li>
           </ul>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };
