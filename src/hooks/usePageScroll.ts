@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 type Section = {
   id: string;
@@ -23,8 +23,13 @@ const usePageScroll = ({
   const [currentSection, setCurrentSection] = useState(initialSection);
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent | TouchEvent) => {
+  const handleScroll = useCallback(
+    (event: WheelEvent | TouchEvent) => {
+      // 요소 내부의 스크롤인지 확인
+      if ((event.target as HTMLElement).closest('.dropdown-scroll')) {
+        return; // 요소 내부의 스크롤이면 기본 동작 허용
+      }
+
       event.preventDefault();
 
       if (scrollTimeout.current) return;
@@ -48,13 +53,16 @@ const usePageScroll = ({
       scrollTimeout.current = setTimeout(() => {
         scrollTimeout.current = null;
       }, 1000);
-    };
+    },
+    [currentSection, sections.length],
+  );
 
-    const handleTouchStart = (event: TouchEvent) => {
-      const touchEvent = event as TouchEventWithPrevY;
-      touchEvent.prevTouchY = event.touches[0].clientY;
-    };
+  const handleTouchStart = useCallback((event: TouchEvent) => {
+    const touchEvent = event as TouchEventWithPrevY;
+    touchEvent.prevTouchY = event.touches[0].clientY;
+  }, []);
 
+  useEffect(() => {
     window.addEventListener('wheel', handleScroll, { passive: false });
     window.addEventListener('touchmove', handleScroll, { passive: false });
     window.addEventListener('touchstart', handleTouchStart);
@@ -64,7 +72,7 @@ const usePageScroll = ({
       window.removeEventListener('touchmove', handleScroll);
       window.removeEventListener('touchstart', handleTouchStart);
     };
-  }, [currentSection, sections.length]);
+  }, [handleScroll, handleTouchStart]);
 
   useEffect(() => {
     const handleHashChange = () => {
