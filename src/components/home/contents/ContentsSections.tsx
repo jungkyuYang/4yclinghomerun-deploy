@@ -26,6 +26,7 @@ const ContentsSection = () => {
       >
         {sections.map((section, index) => (
           <ContentsSectionItem
+            key={section.id}
             section={section}
             index={index}
             currentSection={currentSection}
