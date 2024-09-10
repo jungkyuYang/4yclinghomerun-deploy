@@ -14,8 +14,14 @@ const NavigationBarLogo = () => {
   const [isScrolled, setIsScrolled] = useState(true);
   const controls = useAnimation();
   const { scrollYProgress } = useScroll();
+  const isHomePage = location.pathname === '/';
 
   useLayoutEffect(() => {
+    if (!isHomePage) {
+      controls.set({ scale: 1, y: 0 });
+      return;
+    }
+
     if (window.scrollY > 0) {
       setIsScrolled(true);
       controls.set({ scale: 1, y: 0 });
@@ -23,15 +29,11 @@ const NavigationBarLogo = () => {
       setIsScrolled(false);
       controls.set({ scale: 4, y: yPos });
     }
-  }, [controls, yPos]);
+  }, [controls, yPos, isHomePage]);
 
   useEffect(() => {
-    if (location.pathname !== '/') {
-      controls.set({ scale: 1, y: 0 });
-    }
-  }, [location.pathname, controls]);
+    if (!isHomePage) return;
 
-  useEffect(() => {
     const handleScroll = () => {
       const progress = scrollYProgress.get();
 
@@ -55,7 +57,8 @@ const NavigationBarLogo = () => {
       }
     };
     scrollYProgress.on('change', handleScroll);
-  }, [scrollYProgress, controls, yPos]);
+    return () => scrollYProgress.clearListeners();
+  }, [scrollYProgress, controls, yPos, isHomePage]);
 
   return (
     <Link
