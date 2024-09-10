@@ -18,7 +18,7 @@ const HeroSectionBranding = () => {
   }, [isInView, controls]);
 
   return (
-    <section className="relative h-screen">
+    <section className="relative flex h-screen items-center justify-center">
       <motion.img
         ref={ref}
         src={winningKt}
