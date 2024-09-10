@@ -6,7 +6,7 @@ import { MockEvents } from '@/mocks/home/MockEvents';
 import { LOGO_URL } from '@/constants/constant';
 
 import { CustomNextArrow, CustomPrevArrow } from './ArrowButton';
-import ErrorBoundary from '../error/ErrorBoundary';
+import ErrorBoundary from '@/components/error/ErrorBoundary';
 import EventArea from './EventArea';
 import EventCarousel from './EventCarousel';
 import EventError from './EventError';
