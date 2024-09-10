@@ -22,12 +22,14 @@ const NavigationBarLogo = () => {
       setIsScrolled(false);
       controls.set({ scale: 4, y: yPos });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (location.pathname !== '/') {
       controls.set({ scale: 1, y: 0 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   useEffect(() => {
@@ -53,8 +55,8 @@ const NavigationBarLogo = () => {
         });
       }
     };
-
     scrollYProgress.on('change', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollYProgress]);
 
   return (
