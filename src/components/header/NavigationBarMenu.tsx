@@ -1,28 +1,31 @@
+import { ROUTER_PATH } from '@/constants/constant';
 import { Link } from 'react-router-dom';
 
 const NavigationBarMenu = () => {
+  const { INTRODUCE, WIZ_PARK, DIRECTION, GAME, PLAYER, NEWS } = ROUTER_PATH;
   return (
-    <div className="ml-40 flex justify-between text-2xl font-bold">
-      <ul className="flex">
-        <li className="w-40 text-right">
-          <Link to="/introduce">KT WIZ</Link>
+    <div className="flex w-full justify-between text-2xl font-bold">
+      <ul className="flex w-1/2 justify-between">
+        <li>
+          <Link to={INTRODUCE}>KT WIZ</Link>
         </li>
-        <li className="w-40 text-right">
-          <Link to="/wiz-park">WIZ PARK</Link>
+        <li>
+          <Link to={WIZ_PARK}>WIZ PARK</Link>
         </li>
-        <li className="mr-44 w-40 text-right">
-          <Link to="/direction">DIRECTION</Link>
+        <li>
+          <Link to={DIRECTION}>DIRECTION</Link>
         </li>
       </ul>
-      <ul className="flex">
-        <li className="w-40 text-left">
-          <Link to="/game">GAME</Link>
+      <div className="w-60" />
+      <ul className="flex w-1/2 justify-between">
+        <li>
+          <Link to={GAME}>GAME</Link>
         </li>
-        <li className="w-40 text-left">
-          <Link to="/player">PLAYER</Link>
+        <li>
+          <Link to={PLAYER}>PLAYER</Link>
         </li>
-        <li className="w-40 text-left">
-          <Link to="/news">NEWS</Link>
+        <li>
+          <Link to={NEWS}>NEWS</Link>
         </li>
       </ul>
     </div>

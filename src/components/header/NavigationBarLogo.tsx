@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 
 import logo from '@/assets/logo/logo_gray_3d.svg';
+import { ROUTER_PATH } from '@/constants/constant';
 
 const NavigationBarLogo = () => {
   const location = useLocation();
@@ -57,7 +58,10 @@ const NavigationBarLogo = () => {
   }, [scrollYProgress, controls, yPos]);
 
   return (
-    <Link to="/" className="fixed left-0 right-0 top-2 mx-auto size-24">
+    <Link
+      to={ROUTER_PATH.HOME}
+      className="fixed left-0 right-0 top-2 mx-auto size-24"
+    >
       <motion.img
         src={logo}
         className="drop-shadow-[0_11px_6px_rgb(0,0,0)]"
