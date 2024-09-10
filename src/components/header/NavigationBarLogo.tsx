@@ -55,7 +55,6 @@ const NavigationBarLogo = () => {
         });
       }
     };
-
     scrollYProgress.on('change', handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollYProgress]);
