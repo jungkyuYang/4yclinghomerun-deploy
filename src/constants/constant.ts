@@ -24,5 +24,6 @@ export const KT_COMMERCE_URL = 'https://www.ktcommerce.co.kr/login.jsp';
 export const KT_DW_URL = 'https://www.ktdw.co.kr/';
 export const KT_RECRUIT_URL = 'https://recruit.kt.com/';
 export const KT_PARTNER_URL = 'https://partner.kt.com/';
+export const KT_WIZ_STORE_URL = 'https://www.ktwizstore.co.kr/';
 
 export const LOGO_URL = '/src/assets/images/logo/KTwiz_logo.svg';
