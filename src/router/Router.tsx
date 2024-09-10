@@ -10,21 +10,33 @@ import PlayerPage from '@/pages/PlayerPage';
 import NewsPage from '@/pages/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
+import { ROUTER_PATH } from '@/constants/constant';
 
 const Router = () => {
+  const {
+    HOME,
+    INTRODUCE,
+    WIZ_PARK,
+    DIRECTION,
+    GAME,
+    PLAYER,
+    NEWS,
+    LOGIN,
+    SIGNUP,
+  } = ROUTER_PATH;
   const router = createBrowserRouter([
     {
       element: <Layout />,
       children: [
-        { path: '/', element: <HomePage /> },
-        { path: '/introduce', element: <IntroductionPage /> },
-        { path: '/wiz-park', element: <WizParkPage /> },
-        { path: '/direction', element: <DirectionPage /> },
-        { path: '/game', element: <GamePage /> },
-        { path: '/player', element: <PlayerPage /> },
-        { path: '/news', element: <NewsPage /> },
-        { path: '/login', element: <LoginPage /> },
-        { path: '/signup', element: <SingupPage /> },
+        { path: HOME, element: <HomePage /> },
+        { path: INTRODUCE, element: <IntroductionPage /> },
+        { path: WIZ_PARK, element: <WizParkPage /> },
+        { path: DIRECTION, element: <DirectionPage /> },
+        { path: GAME, element: <GamePage /> },
+        { path: PLAYER, element: <PlayerPage /> },
+        { path: NEWS, element: <NewsPage /> },
+        { path: LOGIN, element: <LoginPage /> },
+        { path: SIGNUP, element: <SingupPage /> },
       ],
     },
   ]);

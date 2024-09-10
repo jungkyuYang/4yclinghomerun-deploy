@@ -27,3 +27,15 @@ export const KT_PARTNER_URL = 'https://partner.kt.com/';
 export const KT_WIZ_STORE_URL = 'https://www.ktwizstore.co.kr/';
 
 export const LOGO_URL = '/src/assets/images/logo/KTwiz_logo.svg';
+
+export const ROUTER_PATH = {
+  HOME: '/',
+  INTRODUCE: '/introduce',
+  WIZ_PARK: '/wiz-park',
+  DIRECTION: '/direction',
+  GAME: '/game',
+  PLAYER: '/player',
+  NEWS: '/news',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+};
