@@ -25,7 +25,7 @@ const CarouselNavbar = ({ items }: { items: TEvents }) => {
   return (
     <div
       className={cn(
-        'bg-kt-white container rounded-md p-2.5 opacity-70 transition-opacity duration-300 hover:border-b-4 hover:opacity-100',
+        'container rounded-md bg-kt-white p-2.5 opacity-70 transition-opacity duration-300 hover:border-b-4 hover:opacity-100',
         kategorieBorderStyle[kategorie],
       )}
     >
