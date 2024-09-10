@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 import TeamSchedule from '@/components/home/schedule/TeamSchedule';
+import Footer from '@/components/footer/Footer';
 import { usePageScroll } from '@/hooks/usePageScroll';
 
 const sections = [
@@ -9,7 +10,7 @@ const sections = [
   { id: 'sec3', content: 'NEWS', color: 'bg-yellow-500' },
   { id: 'sec4', content: 'STORE', color: 'bg-red-500' },
   { id: 'sec5', content: 'EVENT', color: 'bg-purple-500' },
-  { id: 'sec6', content: 'FOOTER', color: 'bg-black', isFooter: true },
+  { id: 'sec6', content: <Footer />, color: 'bg-white', isFooter: true },
 ];
 
 const sectionVariants = {
@@ -22,7 +23,7 @@ const HomePage = () => {
 
   const getTransformValue = () => {
     if (currentSection === sections.length - 1) {
-      return `translateY(calc(-${(sections.length - 2) * 100}vh - 30vh))`;
+      return `translateY(calc(-${(sections.length - 2) * 100}vh - 40vh))`;
     }
     return `translateY(-${currentSection * 100}vh)`;
   };
@@ -46,12 +47,16 @@ const HomePage = () => {
                 : 'hidden'
             }
             className={`w-full text-4xl font-bold text-white ${section.color} ${
-              section.isFooter ? 'h-[30vh]' : 'h-screen'
+              section.isFooter ? 'h-[40vh]' : 'h-screen'
             }`}
           >
-            <div className="h-full w-full px-20 pt-24 text-white">
-              {section.content}
-            </div>
+            {!section.isFooter ? (
+              <div className="h-full w-full px-20 pt-24 text-white">
+                {section.content}
+              </div>
+            ) : (
+              <div className="h-full w-full">{section.content}</div>
+            )}
           </motion.div>
         ))}
       </div>

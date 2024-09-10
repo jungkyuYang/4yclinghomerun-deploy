@@ -29,7 +29,7 @@ const NavigationBarLogo = () => {
     if (location.pathname !== '/') {
       controls.set({ scale: 1, y: 0 });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   useEffect(() => {
