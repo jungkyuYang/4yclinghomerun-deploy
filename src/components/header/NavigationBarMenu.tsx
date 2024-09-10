@@ -1,34 +1,91 @@
 import { ROUTER_PATH } from '@/constants/constant';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavigationBarMenu = () => {
   const { INTRODUCE, WIZ_PARK, DIRECTION, GAME, PLAYER, NEWS } = ROUTER_PATH;
+
+  const activeStyle = 'text-rose-500 duration-200 transition-all';
+
   return (
-    <div className="flex w-full justify-between text-2xl font-bold">
+    <nav className="flex w-full justify-between text-2xl font-bold">
       <ul className="flex w-1/2 justify-between">
         <li>
-          <Link to={INTRODUCE}>KT WIZ</Link>
+          <NavLink
+            to={INTRODUCE}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            KT WIZ
+          </NavLink>
         </li>
         <li>
-          <Link to={WIZ_PARK}>WIZ PARK</Link>
+          <NavLink
+            to={WIZ_PARK}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            WIZ PARK
+          </NavLink>
         </li>
         <li>
-          <Link to={DIRECTION}>DIRECTION</Link>
+          <NavLink
+            to={DIRECTION}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            DIRECTION
+          </NavLink>
         </li>
       </ul>
       <div className="w-60" />
       <ul className="flex w-1/2 justify-between">
         <li>
-          <Link to={GAME}>GAME</Link>
+          <NavLink
+            to={GAME}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            GAME
+          </NavLink>
         </li>
         <li>
-          <Link to={PLAYER}>PLAYER</Link>
+          <NavLink
+            to={PLAYER}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            PLAYER
+          </NavLink>
         </li>
         <li>
-          <Link to={NEWS}>NEWS</Link>
+          <NavLink
+            to={NEWS}
+            className={({ isActive }) =>
+              isActive
+                ? activeStyle
+                : 'transition-all duration-200 hover:text-rose-400'
+            }
+          >
+            NEWS
+          </NavLink>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
