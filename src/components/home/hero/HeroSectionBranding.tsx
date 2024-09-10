@@ -15,8 +15,7 @@ const HeroSectionBranding = () => {
     } else {
       controls.start({ opacity: 1 });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInView]);
+  }, [isInView, controls]);
 
   return (
     <section className="relative h-screen">

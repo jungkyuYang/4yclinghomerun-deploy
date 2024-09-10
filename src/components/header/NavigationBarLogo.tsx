@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 
-import logo from '@/assets/logo/logo_gray.svg';
+import logo from '@/assets/logo/logo_gray_3d.svg';
 
 const NavigationBarLogo = () => {
   const location = useLocation();
@@ -22,15 +22,13 @@ const NavigationBarLogo = () => {
       setIsScrolled(false);
       controls.set({ scale: 4, y: yPos });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [controls, yPos]);
 
   useEffect(() => {
     if (location.pathname !== '/') {
       controls.set({ scale: 1, y: 0 });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname, controls]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,8 +54,7 @@ const NavigationBarLogo = () => {
       }
     };
     scrollYProgress.on('change', handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollYProgress]);
+  }, [scrollYProgress, controls, yPos]);
 
   return (
     <Link to="/" className="fixed left-0 right-0 top-2 mx-auto size-24">

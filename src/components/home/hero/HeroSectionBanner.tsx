@@ -33,8 +33,7 @@ const HeroSectionBanner = () => {
     };
 
     scrollYProgress.on('change', handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scrollYProgress, bannerControls]);
+  }, [scrollYProgress, bannerControls, arrowControls]);
 
   return (
     <section className="relative h-screen">
