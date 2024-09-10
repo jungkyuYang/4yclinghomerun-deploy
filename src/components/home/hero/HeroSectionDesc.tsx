@@ -2,8 +2,8 @@ import { useRef } from 'react';
 
 import { useInView } from 'framer-motion';
 
-import magicBall from '@/assets/images/home/magic_ball.webp';
-import magicBat from '@/assets/images/home/magic_bat.webp';
+import magicBall from '@/assets/home/hero/magic_ball.webp';
+import magicBat from '@/assets/home/hero/magic_bat.webp';
 
 const HeroSectionDesc = () => {
   const ref = useRef(null);
