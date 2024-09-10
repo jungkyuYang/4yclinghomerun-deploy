@@ -10,6 +10,7 @@ import item09 from '@/assets/images/shop/09.png';
 import item10 from '@/assets/images/shop/10.png';
 import item11 from '@/assets/images/shop/11.png';
 import item12 from '@/assets/images/shop/12.png';
+import { ShopItem } from '@/types/ShopItemType';
 
 const items = [
   {
@@ -99,7 +100,7 @@ const items = [
 ];
 
 // items 배열에서 랜덤으로 count개 선택하는 함수
-const getRandomItems = (items: any, count: number) => {
+const getRandomItems = (items: ShopItem[], count: number) => {
   const shuffledItems = [...items].sort(() => Math.random() - 0.5);
   return shuffledItems.slice(0, count);
 };
