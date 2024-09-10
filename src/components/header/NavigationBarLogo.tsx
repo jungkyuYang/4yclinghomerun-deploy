@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useAnimation, useScroll } from 'framer-motion';
 
-import logo from '@/assets/logo/logo_white.png';
+import logo from '@/assets/logo/logo_gray.svg';
 
 const NavigationBarLogo = () => {
   const location = useLocation();
