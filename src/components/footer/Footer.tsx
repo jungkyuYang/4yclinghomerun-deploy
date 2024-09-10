@@ -5,14 +5,14 @@ import { FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa';
 import { SiNaver } from 'react-icons/si';
 
 import Dropdown from './Dropdown';
-import footerImg from '@/assets/home/footer-logo.webp';
+import footerImg from '@/assets/home/footer/footer-logo.webp';
 import {
   INSTAGRAM_URL,
   FACEBOOK_URL,
   YOUTUBE_URL,
   NAVERTV_URL,
 } from '@/constants/constant';
-import Modal from '../modal/Modal';
+import Modal from './modal/Modal';
 import { TermsOfServiceData } from '@/mocks/home/TermsOfServiceData';
 
 const Footer = () => {

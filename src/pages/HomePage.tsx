@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 
-import TeamSchedule from '@/components/home/schedule/TeamSchedule';
+import TeamSchedule from '@/components/home/contents/schedule/TeamSchedule';
 import Footer from '@/components/footer/Footer';
 import { usePageScroll } from '@/hooks/usePageScroll';
-import News from '@/components/news/News';
+import News from '@/components/home/contents/news/News';
 import Events from '@/components/events/Events';
 
 const sections = [

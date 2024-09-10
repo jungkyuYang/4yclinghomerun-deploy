@@ -5,7 +5,7 @@ import { LOGO_URL } from '@/constants/constant';
 import { MockNews } from '@/mocks/home/MockNews';
 import { TestNewsUrl } from '@/api/jsonplaceholderdb';
 
-import ErrorBoundary from '../error/ErrorBoundary';
+import ErrorBoundary from '@/components/error/ErrorBoundary';
 import NewsArea from './NewsArea';
 import NewsError from './NewsError';
 import NewsItem from './NewsItem';
