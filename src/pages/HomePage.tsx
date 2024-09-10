@@ -3,13 +3,15 @@ import { motion } from 'framer-motion';
 import TeamSchedule from '@/components/home/schedule/TeamSchedule';
 import Footer from '@/components/footer/Footer';
 import { usePageScroll } from '@/hooks/usePageScroll';
+import News from '@/components/news/News';
+import Events from '@/components/events/Events';
 
 const sections = [
   { id: 'sec1', content: 'HERO', color: 'bg-black' },
   { id: 'sec2', content: <TeamSchedule />, color: 'bg-black' },
-  { id: 'sec3', content: 'NEWS', color: 'bg-yellow-500' },
+  { id: 'sec3', content: <News />, color: 'bg-yellow-500' },
   { id: 'sec4', content: 'STORE', color: 'bg-red-500' },
-  { id: 'sec5', content: 'EVENT', color: 'bg-purple-500' },
+  { id: 'sec5', content: <Events />, color: 'bg-purple-500' },
   { id: 'sec6', content: <Footer />, color: 'bg-white', isFooter: true },
 ];
 
