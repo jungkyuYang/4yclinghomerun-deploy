@@ -79,10 +79,10 @@ const ScheduleCarousel = ({ schedules }: ScheduleItems) => {
   };
 
   return (
-    <div className="max-w-full px-4">
+    <div className="max-w-full">
       <Slider {...settings}>
         {schedules.map((schedule, index) => (
-          <div key={index} className="px-4">
+          <div key={index} className="px-0.5">
             <ScheduleItem
               {...schedule}
               isUpcoming={index === upcomingGameIndex}

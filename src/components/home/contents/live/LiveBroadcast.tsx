@@ -9,9 +9,7 @@ const LiveBroadcast = () => {
     <section className="relative h-full overflow-hidden rounded-lg bg-gradient-to-br from-[#494c53] to-[#241f1f] p-1">
       <article className="flex h-full justify-between rounded-lg bg-gradient-to-tr from-black to-gray-800 p-6 text-white">
         <header>
-          <h1 className="mb-2 text-2xl font-bold text-yellow-600">
-            생중계 보기
-          </h1>
+          <h1 className="mb-2 text-2xl font-bold text-red-500">생중계 보기</h1>
           <div className="mb-3 flex items-center space-x-2 text-base text-gray-300">
             <span className="font-semibold text-white">TVING</span>
             <span>•</span>

@@ -32,7 +32,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="px-4 py-10">
+    <footer className="bg-white px-4 py-10">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-row items-start justify-between gap-10">
           <img src={footerImg} alt="kt wiz logo" className="h-12" />

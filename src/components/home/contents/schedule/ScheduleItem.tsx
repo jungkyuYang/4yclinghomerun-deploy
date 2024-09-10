@@ -21,7 +21,7 @@ const ScheduleItem = ({
       className={cn(
         'relative w-full max-w-md overflow-hidden rounded-lg p-1 shadow-lg transition-all duration-300',
         isUpcoming
-          ? 'animate-gradient bg-gradient-to-br from-yellow-400 via-red-700 to-yellow-300'
+          ? 'animate-gradient bg-gradient-to-br from-yellow-500 via-red-500 to-yellow-300'
           : 'animate-gradient bg-gradient-to-br from-[#35383E] to-[#F53232]',
       )}
     >
@@ -33,7 +33,7 @@ const ScheduleItem = ({
             </span>
           </div>
         )}
-        <header className="mb-10 flex items-center justify-between">
+        <header className="flex items-center justify-between">
           <div className="flex items-center space-x-2 text-gray-300">
             <IoLocationOutline size={24} />
             <span className="text-lg font-medium">{place}</span>

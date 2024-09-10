@@ -44,7 +44,7 @@ const ContentsSectionItem = ({
             {section.seeMoreLink !== undefined && (
               <Link
                 to={section.seeMoreLink}
-                className="w-fit border px-5 py-2 text-center text-4xl transition-colors duration-300 hover:bg-white hover:text-black"
+                className="w-fit border px-5 py-2 text-center text-lg transition-colors duration-300 hover:bg-white hover:text-black"
               >
                 더보기
               </Link>

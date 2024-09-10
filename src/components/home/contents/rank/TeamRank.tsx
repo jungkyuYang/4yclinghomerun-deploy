@@ -24,10 +24,10 @@ const TeamRank = ({ rank, wins, losses, ties, psRate }: TeamRankProps) => {
         </header>
 
         <main className="flex flex-grow items-center justify-between px-6">
-          <div className="flex items-center space-x-12">
+          <div className="flex items-center space-x-8">
             <section className="flex items-center">
               <div>
-                <h2 className="text-lg font-medium text-gray-300">
+                <h2 className="text-base font-medium text-gray-300">
                   현재 기록 (현재 {totalGames}경기 중)
                 </h2>
                 <p className="text-2xl font-bold">
@@ -38,14 +38,14 @@ const TeamRank = ({ rank, wins, losses, ties, psRate }: TeamRankProps) => {
 
             <section className="flex items-center">
               <div>
-                <h3 className="text-lg font-medium text-gray-300">승률</h3>
+                <h3 className="text-base font-medium text-gray-300">승률</h3>
                 <p className="text-2xl font-bold">{winningPercentage}%</p>
               </div>
             </section>
 
             <section className="flex items-center">
               <div>
-                <h3 className="text-lg font-medium text-gray-300">
+                <h3 className="text-base font-medium text-gray-300">
                   PS 진출 확률
                 </h3>
                 <p className="text-2xl font-bold">{psRate}%</p>
