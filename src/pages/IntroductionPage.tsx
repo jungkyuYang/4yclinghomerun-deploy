@@ -1,7 +1,9 @@
+import IntroduceClub from '@/components/introduce/IntroduceClub';
+
 const IntroductionPage = () => {
   return (
     <>
-      <h1>Introduction Page</h1>
+      <IntroduceClub />
     </>
   );
 };
