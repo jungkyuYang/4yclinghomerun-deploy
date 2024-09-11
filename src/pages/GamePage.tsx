@@ -1,18 +1,42 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 import topImg from '@/assets/game/top_img.webp';
 import DetailPageLayout from '@/common/DetailPageLayout';
 import ScheduleCarousel from '@/components/home/contents/schedule/ScheduleCarousel';
-import Calendar from '@/components/game/Calendar';
+import CalendarHeader from '@/components/game/CalendarHeader';
+import CalendarView from '@/components/game/CalendarView';
+import ListView from '@/components/game/ListView';
 import { GameScheduleData } from '@/mocks/home/GameSchedule';
 
 const GamePage = () => {
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+  const [viewType, setViewType] = useState<'calendar' | 'list'>('calendar');
+
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, {
     once: true,
     amount: 1.0,
   });
+
+  const handlePrevMonth = () => {
+    if (month === 1) {
+      setYear(year - 1);
+      setMonth(12);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (month === 12) {
+      setYear(year + 1);
+      setMonth(1);
+    } else {
+      setMonth(month + 1);
+    }
+  };
 
   return (
     <DetailPageLayout
@@ -32,7 +56,22 @@ const GamePage = () => {
           <ScheduleCarousel schedules={GameScheduleData} />
         </motion.div>
 
-        <Calendar />
+        <div className="mx-auto w-full py-14 pb-4 text-white">
+          <CalendarHeader
+            year={year}
+            month={month}
+            onPrevMonth={handlePrevMonth}
+            onNextMonth={handleNextMonth}
+            viewType={viewType}
+            setViewType={setViewType}
+          />
+
+          {viewType === 'calendar' ? (
+            <CalendarView year={year} month={month} />
+          ) : (
+            <ListView year={year} month={month} />
+          )}
+        </div>
 
         <div className="flex justify-end">
           <p className="text-base text-red-400">

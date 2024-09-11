@@ -1,11 +1,15 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaList, FaRegCalendarAlt } from 'react-icons/fa';
 
+import { cn } from '@/utils/cn';
+
 type CalendarHeaderProps = {
   year: number;
   month: number;
   onPrevMonth: () => void;
   onNextMonth: () => void;
+  viewType: 'calendar' | 'list';
+  setViewType: (viewType: 'calendar' | 'list') => void;
 };
 
 const CalendarHeader = ({
@@ -13,23 +17,37 @@ const CalendarHeader = ({
   month,
   onPrevMonth,
   onNextMonth,
+  viewType,
+  setViewType,
 }: CalendarHeaderProps) => {
   return (
     <header className="mb-4 flex items-center justify-between">
       <nav className="flex items-center gap-5">
-        <div className="flex cursor-pointer items-center gap-2 transition-all duration-200 hover:text-lime-600">
+        <button
+          className={cn(
+            'flex items-center gap-2 transition-all duration-200 hover:text-gray-400',
+            viewType === 'calendar' ? 'text-gray-500' : '',
+          )}
+          onClick={() => setViewType('calendar')}
+        >
           <FaRegCalendarAlt size={28} />
           <p className="text-lg font-bold">달력형</p>
-        </div>
-        <div className="flex cursor-pointer items-center gap-2 transition-all duration-200 hover:text-lime-600">
+        </button>
+        <button
+          className={cn(
+            'flex items-center gap-2 transition-all duration-200 hover:text-gray-400',
+            viewType === 'list' ? 'text-gray-500' : '',
+          )}
+          onClick={() => setViewType('list')}
+        >
           <FaList size={28} />
           <p className="text-lg font-bold">리스트형</p>
-        </div>
+        </button>
       </nav>
 
       <div className="absolute left-1/2 flex -translate-x-1/2 transform items-center space-x-8">
         <button
-          className="transition-all duration-200 hover:scale-110 hover:text-orange-600"
+          className="transition-all duration-200 hover:scale-110 hover:text-rose-400"
           onClick={onPrevMonth}
         >
           <IoIosArrowBack size={36} />
@@ -38,7 +56,7 @@ const CalendarHeader = ({
           {year}년 {month}월
         </h2>
         <button
-          className="transition-all duration-200 hover:scale-110 hover:text-orange-600"
+          className="transition-all duration-200 hover:scale-110 hover:text-rose-400"
           onClick={onNextMonth}
         >
           <IoIosArrowForward size={36} />
