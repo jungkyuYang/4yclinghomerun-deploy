@@ -5,7 +5,7 @@ import { TNews } from '@/types/news';
 const NewsItem = ({ items }: { items: TNews }) => {
   return (
     <>
-      <li className="w-[400px] list-none hover:text-kt-red-3">
+      <li className="w-[400px] list-none px-[12px] hover:text-kt-red-3">
         <Link to={items.linkUrl}>
           <div
             style={{
