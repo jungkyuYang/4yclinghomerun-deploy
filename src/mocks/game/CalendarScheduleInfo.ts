@@ -1,16 +1,7 @@
 import { TeamInfo } from './TeamInfo';
+import { TGameType } from '@/types/GameType';
 
-type GameData = {
-  [key: number]: {
-    team: string;
-    time: string;
-    home: boolean;
-    result?: string;
-    score?: string;
-  };
-};
-
-const gameData: GameData = {
+const gameData: TGameType = {
   4: { team: 'LOTTE', time: '18:30', home: false, result: '패', score: '5:7' },
   5: { team: 'LOTTE', time: '18:30', home: false, result: '승', score: '12:2' },
   6: { team: 'NC', time: '18:30', home: false, result: '승', score: '9:3' },
