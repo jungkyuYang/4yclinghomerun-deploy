@@ -42,7 +42,6 @@ const usePageScroll = ({
 
       if (delta > 0 && currentSection < sections.length - 1) {
         setCurrentSection((prev) => prev + 1);
-        console.log('test');
       } else if (delta < 0 && currentSection > 0) {
         setCurrentSection((prev) => prev - 1);
       } else if (currentSection === 0) {
