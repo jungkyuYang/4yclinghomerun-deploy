@@ -57,7 +57,7 @@ const DetailPageLayout = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
-          <div className="relative h-64 w-full bg-gradient-to-b from-transparent via-black/60 to-black">
+          <div className="bg-gradient-to-b relative h-64 w-full from-transparent via-black/60 to-black">
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
                 animate={{
@@ -78,7 +78,7 @@ const DetailPageLayout = ({
           </div>
         </motion.div>
       </div>
-      <div className="relative h-44 w-full bg-gradient-to-b from-black via-transparent to-white"></div>
+      <div className="bg-gradient-to-b relative h-44 w-full from-black via-transparent to-white"></div>
       <footer className="relative z-20">
         <Footer />
       </footer>

@@ -33,6 +33,9 @@ export default {
     animation: {
       gradient: 'gradient 3s ease infinite',
     },
+    backgroundImage: {
+      'kt-logo': "url('./src/assets/logo/KTwiz_logo.svg')",
+    },
   },
   plugins: [],
 };
