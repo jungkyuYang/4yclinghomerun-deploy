@@ -25,8 +25,10 @@ const CalendarHeader = ({
       <nav className="flex items-center gap-5">
         <button
           className={cn(
-            'flex items-center gap-2 transition-all duration-200 hover:text-gray-400',
-            viewType === 'calendar' ? 'text-gray-500' : '',
+            'flex items-center gap-2 transition-all duration-200',
+            viewType === 'calendar'
+              ? 'rounded-lg bg-gray-300 p-2 text-black hover:bg-gray-400 hover:text-black'
+              : 'hover:text-gray-400',
           )}
           onClick={() => setViewType('calendar')}
         >
@@ -35,8 +37,10 @@ const CalendarHeader = ({
         </button>
         <button
           className={cn(
-            'flex items-center gap-2 transition-all duration-200 hover:text-gray-400',
-            viewType === 'list' ? 'text-gray-500' : '',
+            'flex items-center gap-2 transition-all duration-200',
+            viewType === 'list'
+              ? 'rounded-lg bg-gray-300 p-2 text-black hover:bg-gray-400 hover:text-black'
+              : 'hover:text-gray-400',
           )}
           onClick={() => setViewType('list')}
         >
