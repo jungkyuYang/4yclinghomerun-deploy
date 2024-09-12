@@ -12,9 +12,15 @@
   }
 
   .card-front-back {
-    @apply z-10 flex flex-col rounded-[20px] bg-red-500 px-6 py-7 shadow-md;
+    @apply z-10 flex flex-col rounded-[20px] px-6 py-7 shadow-md;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+  }
+}
+
+@layer utilities {
+  .rotate-y-180 {
+    transform: rotateY(180deg);
   }
 }
 
