@@ -10,7 +10,6 @@ import PlayerPage from '@/pages/PlayerPage';
 import NewsPage from '@/pages/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
-import ScrollToTop from '@/common/ScrollToTop';
 import { ROUTER_PATH } from '@/constants/constant';
 
 const Router = () => {
@@ -27,12 +26,7 @@ const Router = () => {
   } = ROUTER_PATH;
   const router = createBrowserRouter([
     {
-      element: (
-        <>
-          <ScrollToTop />
-          <Layout />
-        </>
-      ),
+      element: <Layout />,
       children: [
         { path: HOME, element: <HomePage /> },
         { path: INTRODUCE, element: <IntroductionPage /> },
