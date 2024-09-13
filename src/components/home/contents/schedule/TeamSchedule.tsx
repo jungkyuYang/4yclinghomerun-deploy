@@ -9,7 +9,7 @@ const TeamSchedule = () => {
       <ScheduleCarousel schedules={GameScheduleData} />
 
       <div className="grid w-full grid-cols-2 gap-8">
-        <TeamRank rank={5} wins={62} losses={64} ties={2} psRate={0.555} />
+        <TeamRank />
         <LiveBroadcast />
       </div>
     </div>
