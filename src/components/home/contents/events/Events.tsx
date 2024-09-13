@@ -3,7 +3,6 @@ import { TestEventsUrl } from '@/api/jsonplaceholderdb';
 
 import { TEvents } from '@/types/events';
 import { MockEvents } from '@/mocks/home/MockEvents';
-import { LOGO_URL } from '@/constants/constant';
 
 import { CustomNextArrow, CustomPrevArrow } from './ArrowButton';
 import ErrorBoundary from '@/components/error/ErrorBoundary';
@@ -49,7 +48,7 @@ const Events = () => {
         <EventSkeleton />
       ) : (
         <ErrorBoundary fallback={<EventError />}>
-          <EventArea title="EVENTS" isError={isEventError} logoUrl={LOGO_URL}>
+          <EventArea isError={isEventError}>
             <EventCarousel settings={defaultSettings}>
               {MockEvents.map((item) => (
                 <EventItem key={item.id} items={item} />
