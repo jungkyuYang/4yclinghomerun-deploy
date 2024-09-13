@@ -1,7 +1,6 @@
 const wNewsRoomData = [
   {
-    artcContents:
-      '뉴스룸 내용',
+    artcContents: '뉴스룸 내용',
     artcTitle: 'kt wiz, 2024 정조대왕 유니폼 출시',
     boardCode: '002',
     totalPage: 1,
@@ -9,8 +8,7 @@ const wNewsRoomData = [
     viewCnt: 410,
   },
   {
-    artcContents:
-      '네이버 뉴스들 들어올 예정',
+    artcContents: '네이버 뉴스들 들어올 예정',
     artcTitle: 'kt wiz, 아주대병원 개원 30주년 맞아 브랜드 데이 가져',
     boardCode: '002',
     totalPage: 1,
