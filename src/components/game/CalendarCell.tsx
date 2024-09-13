@@ -1,79 +1,54 @@
+import ResultFlag from './ResultFlag';
+import { KtWizMonthSchedule } from '@/types/ScheduleType';
 import { cn } from '@/utils/cn';
-import { getTeamInfo } from '@/mocks/game/CalendarScheduleInfo';
-
-type GameData = {
-  team: string;
-  time: string;
-  home: boolean;
-  result?: string;
-};
 
 type CalendarCellProps = {
   day: number | null;
-  data: GameData | null;
+  data: KtWizMonthSchedule | null;
 };
 
 const CalendarCell = ({ day, data }: CalendarCellProps) => {
-  const teamInfo = data ? getTeamInfo(data.team) : null;
-
-  const renderWinFlag = () => {
-    switch (data?.result) {
-      case '승':
-        return (
-          <span className="flex items-center justify-center rounded-md border border-gray-200 bg-red-700 p-1 text-xs text-white">
-            승리
-          </span>
-        );
-      case '패':
-        return (
-          <span className="flex items-center justify-center rounded-md border border-gray-200 bg-blue-700 p-1 text-xs text-white">
-            패배
-          </span>
-        );
-      case '무':
-        return (
-          <span className="flex items-center justify-center rounded-md border border-gray-200 bg-gray-300 p-1 text-xs text-black">
-            무
-          </span>
-        );
-      default:
-        return data ? (
-          <span className="flex items-center justify-center rounded-md border border-gray-200 bg-slate-600 p-1 text-xs text-white">
-            경기 전
-          </span>
-        ) : null;
+  const formatBroadcast = (broadcastString: string) => {
+    if (broadcastString && broadcastString.includes(',')) {
+      return broadcastString.split(',').join(', ');
     }
+    return broadcastString;
   };
 
   return (
     <td
       className={cn(
         'w-1/7 h-40 border border-gray-700 px-2 py-4',
-        day && data?.home ? 'bg-gray-900' : 'bg-transparent',
+        day && data?.home === 'KT' ? 'bg-gray-900' : 'bg-transparent',
       )}
     >
       {day && (
-        <div className="mb-5 flex h-full flex-col">
+        <div className="mb-2 flex h-full flex-col">
           <div className="flex items-center justify-between">
             <div className="text-base">{day}</div>
-            {data && (
-              <div className="text-sm text-gray-200">{renderWinFlag()}</div>
-            )}
+            {data && <ResultFlag outcome={data.outcome} />}
           </div>
           {data && (
-            <div className="flex flex-grow flex-col items-center justify-center">
-              <img
-                src={teamInfo?.img}
-                alt={teamInfo?.name}
-                className="mb-1 h-16 w-16 object-contain"
-              />
-              <div className="flex items-center justify-center gap-2">
-                <div className="text-sm">{data.time}</div>
-                <div className="text-sm text-red-300">
-                  {data.home ? '수원' : teamInfo?.stadium}
+            <>
+              <div className="flex flex-grow flex-col items-center justify-center">
+                <img
+                  src={data.home === 'KT' ? data.visitLogo : data.homeLogo}
+                  alt={data.home === 'KT' ? data.visit : data.home}
+                  className="h-20 w-20 object-contain"
+                />
+                <div className="flex items-center justify-center gap-2">
+                  <div className="text-sm">{data.gtime}</div>
+                  <div className="text-sm text-red-300">
+                    {data.home === 'KT' ? '수원' : data.stadium}
+                  </div>
                 </div>
               </div>
-            </div>
+              <div className="flex justify-center">
+                <div className="text-xs text-gray-200">
+                  {formatBroadcast(data.broadcast)}
+                </div>
+              </div>
+            </>
           )}
         </div>
       )}

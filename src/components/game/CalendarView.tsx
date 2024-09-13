@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 
 import CalendarCell from './CalendarCell';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
-import { gameData } from '@/mocks/game/CalendarScheduleInfo';
+import { GetMonthSchedule } from '@/api/GetMonthSchedule';
+import { KtWizMonthSchedule } from '@/types/ScheduleType';
 
 type CalendarViewProps = {
   year: number;
@@ -11,6 +12,23 @@ type CalendarViewProps = {
 
 const CalendarView = ({ year, month }: CalendarViewProps) => {
   const { days, weekdays } = useCalendarGenerate(year, month);
+  const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error}</div>;
+
+  const scheduleMap = data.data.list.reduce(
+    (acc, game) => {
+      const gameDate = new Date(
+        game.gameDate.toString().replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),
+      );
+
+      const day = gameDate.getDate();
+      acc[day] = game;
+      return acc;
+    },
+    {} as Record<number, KtWizMonthSchedule>, // Record<number, KtWizMonthSchedule>는 number 타입의 key와 KtWizMonthSchedule 타입의 value를 가지는 객체를 의미함.
+  );
 
   return (
     <motion.div
@@ -39,7 +57,7 @@ const CalendarView = ({ year, month }: CalendarViewProps) => {
                 <CalendarCell
                   key={dayIndex}
                   day={day}
-                  data={day ? gameData[day] : null}
+                  data={day ? scheduleMap[day] : null}
                 />
               ))}
             </tr>

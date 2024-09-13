@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
-import { getTeamInfo, gameData } from '@/mocks/game/CalendarScheduleInfo';
 import { cn } from '@/utils/cn';
+import { GetMonthSchedule } from '@/api/GetMonthSchedule';
+import { KtWizMonthSchedule } from '@/types/ScheduleType';
 
 type ListViewProps = {
   year: number;
@@ -11,21 +12,39 @@ type ListViewProps = {
 
 const ListView = ({ year, month }: ListViewProps) => {
   const { flatDays } = useCalendarGenerate(year, month);
+  const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error}</div>;
+
+  const scheduleMap = data.data.list.reduce(
+    (acc, game) => {
+      const gameDate = new Date(
+        game.gameDate.toString().replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),
+      );
+
+      const day = gameDate.getDate();
+      acc[day] = game;
+      return acc;
+    },
+    {} as Record<number, KtWizMonthSchedule>,
+  );
 
   // 경기가 있는 날짜만 필터링
-  const gamesInMonth = flatDays.filter((day) => gameData[day]);
+  const gamesInMonth = flatDays.filter((day) => scheduleMap[day]);
 
   const resultStyles = {
     승: 'bg-gradient-to-r from-red-400 to-red-500 text-white',
     패: 'bg-gradient-to-r from-blue-400 to-blue-500 text-white',
     무: 'bg-gradient-to-r from-gray-400 to-gray-500 text-black',
+    취: 'bg-gradient-to-r from-zinc-600 to-zinc-700 text-white',
   };
 
   return (
     <div className="space-y-3">
       {gamesInMonth.map((day, index) => {
-        const game = gameData[day];
-        const teamInfo = getTeamInfo(game.team);
+        const game = scheduleMap[day];
+        if (!game) return null;
 
         return (
           <motion.div
@@ -35,34 +54,32 @@ const ListView = ({ year, month }: ListViewProps) => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={cn(
               'overflow-hidden rounded-lg bg-gradient-to-r',
-              game.home
+              game.home === 'KT'
                 ? 'from-gray-900 to-gray-800'
                 : 'from-black to-kt-black-4',
             )}
           >
             <div className="mx-10 grid grid-cols-7 items-center">
               <div className="col-span-2 flex items-center space-x-4 text-lg">
-                <span className="font-bold text-white">{`${year}년 ${month}월 ${day}일`}</span>
-                <span className="text-gray-300">{game.time}</span>
-                <span className="truncate text-gray-300">
-                  {game.home ? '수원' : teamInfo?.stadium}
-                </span>
+                <span className="font-bold text-white">{game.displayDate}</span>
+                <span className="text-gray-300">{game.gtime}</span>
+                <span className="truncate text-gray-300">{game.stadium}</span>
               </div>
 
               <div className="col-span-3 flex items-center justify-center gap-6">
                 <img
-                  src={teamInfo?.img}
-                  alt={teamInfo?.name}
-                  className="h-16 w-16 object-contain"
+                  src={game.home === 'KT' ? game.visitLogo : game.homeLogo}
+                  alt={game.home === 'KT' ? game.visit : game.home}
+                  className="h-20 w-20 object-contain"
                 />
                 <span className="max-w-[150px] truncate text-xl font-semibold text-white">
-                  {teamInfo?.name}
+                  {game.matchTeamName}
                 </span>
               </div>
 
               <div className="col-span-1 flex items-center justify-center text-lg font-bold text-white">
-                {game.score
-                  ? `${game.score.split(':')[0]} : ${game.score.split(':')[1]}`
+                {game.homeScore
+                  ? `${game.homeScore} : ${game.visitScore}`
                   : '경기 전'}
               </div>
 
@@ -70,10 +87,10 @@ const ListView = ({ year, month }: ListViewProps) => {
                 <span
                   className={cn(
                     'flex h-10 w-10 items-center justify-center rounded-lg text-base font-bold',
-                    game.result && resultStyles[game.result],
+                    game.outcome && resultStyles[game.outcome],
                   )}
                 >
-                  {game.result}
+                  {game.outcome}
                 </span>
                 <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
                   상세 보기
