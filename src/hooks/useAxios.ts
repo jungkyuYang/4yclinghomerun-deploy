@@ -86,6 +86,7 @@ const useAxios = <T>({
     if (method === 'GET' && shouldFetchOnMount) {
       handleRequest();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [method, url, shouldFetchOnMount]);
 
   return {
