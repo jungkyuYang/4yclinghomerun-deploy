@@ -6,12 +6,12 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import ScheduleItem from './ScheduleItem';
 import { CustomNextArrow, CustomPrevArrow } from './ArrowButton';
-import { ScheduleItems } from '@/types/ScheduleType';
+import { GetWeekSchedule } from '@/api/GetWeekSchedule';
 import '@/styles/carousel/ScheduleCarousel.css';
 
-const ScheduleCarousel = ({ schedules }: ScheduleItems) => {
+const ScheduleCarousel = () => {
   const [slidesToShow, setSlidesToShow] = useState(3);
-  const [upcomingGameIndex, setUpcomingGameIndex] = useState(-1);
+  const { data, isLoading, isError, error } = GetWeekSchedule();
 
   // 반응형 슬라이드 개수 설정
   useEffect(() => {
@@ -30,26 +30,8 @@ const ScheduleCarousel = ({ schedules }: ScheduleItems) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 디기오는 경기 찾기
-  useEffect(() => {
-    const now = new Date();
-    let closestIndex = -1;
-    let closestDiff = Infinity;
-
-    schedules.forEach((schedule, index) => {
-      const gameDateTime = new Date(`${schedule.date}T${schedule.time}`);
-
-      if (gameDateTime > now) {
-        const diff = gameDateTime.getTime() - now.getTime();
-        if (diff < closestDiff) {
-          closestDiff = diff;
-          closestIndex = index;
-        }
-      }
-    });
-
-    setUpcomingGameIndex(closestIndex);
-  }, [schedules]);
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error}</p>;
 
   const settings = {
     dots: true,
@@ -81,12 +63,9 @@ const ScheduleCarousel = ({ schedules }: ScheduleItems) => {
   return (
     <div className="max-w-full">
       <Slider {...settings}>
-        {schedules.map((schedule, index) => (
-          <div key={index} className="px-0.5">
-            <ScheduleItem
-              {...schedule}
-              isUpcoming={index === upcomingGameIndex}
-            />
+        {data.data.list.map((game) => (
+          <div key={game.gmkey} className="px-0.5">
+            <ScheduleItem game={game} isUpcoming={game.status === '1'} />
           </div>
         ))}
       </Slider>

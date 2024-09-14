@@ -1,17 +1,3 @@
-export type ScheduleData = {
-  place: string;
-  date: string;
-  time: string;
-  homeTeamImage: string;
-  awayTeamImage: string;
-  homeTeamName: string;
-  awayTeamName: string;
-};
-
-export type ScheduleItems = {
-  schedules: ScheduleData[];
-};
-
 export type KtWizMonthSchedule = {
   broadcast: string;
   displayDate: string;
@@ -23,6 +9,7 @@ export type KtWizMonthSchedule = {
   homeKey: string;
   homeLogo: string;
   homeScore: number;
+  status: string;
   visit: string;
   visitKey: string;
   visitLogo: string;

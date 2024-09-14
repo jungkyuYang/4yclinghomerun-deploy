@@ -3,19 +3,23 @@ import { IoLocationOutline } from 'react-icons/io5';
 
 import HoverOverlay from '@/common/HoverOverlay';
 import { cn } from '@/utils/cn';
-import { ScheduleData } from '@/types/ScheduleType';
+import { KtWizMonthSchedule } from '@/types/ScheduleType';
 import { Button } from '@/ui/button/button';
 
-const ScheduleItem = ({
-  place,
-  date,
-  time,
-  homeTeamImage,
-  awayTeamImage,
-  homeTeamName,
-  awayTeamName,
-  isUpcoming,
-}: ScheduleData & { isUpcoming: boolean }) => {
+type ScheduleItemProps = {
+  game: KtWizMonthSchedule;
+  isUpcoming: boolean;
+};
+
+const ScheduleItem = ({ game, isUpcoming }: ScheduleItemProps) => {
+  const gameDate = new Date(
+    game.gameDate.toString().replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),
+  );
+  const year = gameDate.getFullYear();
+  const month = gameDate.getMonth() + 1;
+  const day = gameDate.getDate();
+  const formattedDate = `${year}년 ${String(month).padStart(2, '0')}월 ${String(day).padStart(2, '0')}일`;
+
   return (
     <article
       className={cn(
@@ -36,12 +40,12 @@ const ScheduleItem = ({
         <header className="flex items-center justify-between">
           <div className="flex items-center space-x-2 text-gray-300">
             <IoLocationOutline size={24} />
-            <span className="text-lg font-medium">{place}</span>
+            <span className="text-lg font-medium">{game.stadium}</span>
           </div>
           <div className="flex items-center space-x-2 text-gray-300">
             <LuCalendarDays size={24} />
-            <time className="text-lg font-medium" dateTime={date}>
-              {date} {time}
+            <time className="text-lg font-medium" dateTime={formattedDate}>
+              {formattedDate} {game.gtime}
             </time>
           </div>
         </header>
@@ -49,12 +53,12 @@ const ScheduleItem = ({
         <main className="flex items-center justify-between">
           <section className="flex flex-col items-center space-y-2">
             <img
-              src={homeTeamImage}
-              alt={homeTeamName}
+              src={game.homeLogo}
+              alt={game.home}
               className="h-32 w-auto object-contain"
             />
             <span className="text-lg font-semibold text-white">
-              {homeTeamName}
+              {game.home}
             </span>
           </section>
 
@@ -79,12 +83,12 @@ const ScheduleItem = ({
 
           <section className="flex flex-col items-center space-y-2">
             <img
-              src={awayTeamImage}
-              alt={awayTeamName}
+              src={game.visitLogo}
+              alt={game.visit}
               className="h-32 w-auto object-contain"
             />
             <span className="text-lg font-semibold text-white">
-              {awayTeamName}
+              {game.visit}
             </span>
           </section>
         </main>
