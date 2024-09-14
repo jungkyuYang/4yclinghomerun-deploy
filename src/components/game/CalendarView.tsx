@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import CalendarCell from './CalendarCell';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
+import CalendarSkeleton from './CalendarSkeleton';
 
 type CalendarViewProps = {
   year: number;
@@ -11,10 +13,19 @@ type CalendarViewProps = {
 };
 
 const CalendarView = ({ year, month }: CalendarViewProps) => {
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const { days, weekdays } = useCalendarGenerate(year, month);
   const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
 
-  if (isLoading) return <div>Loading...</div>;
+  // skeleton을 보여주기 위함.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading || showSkeleton) return <CalendarSkeleton />;
   if (isError) return <div>Error: {error}</div>;
 
   const scheduleMap = data.data.list.reduce(

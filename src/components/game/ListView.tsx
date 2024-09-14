@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react';
+
 import { motion } from 'framer-motion';
 
+import ListSkeleton from './ListSkeleton';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
 import { cn } from '@/utils/cn';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
@@ -11,10 +14,18 @@ type ListViewProps = {
 };
 
 const ListView = ({ year, month }: ListViewProps) => {
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const { flatDays } = useCalendarGenerate(year, month);
   const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
 
-  if (isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading || showSkeleton) return <ListSkeleton />;
   if (isError) return <div>Error: {error}</div>;
 
   const scheduleMap = data.data.list.reduce(
@@ -32,6 +43,20 @@ const ListView = ({ year, month }: ListViewProps) => {
 
   // 경기가 있는 날짜만 필터링
   const gamesInMonth = flatDays.filter((day) => scheduleMap[day]);
+
+  // 경기 일정이 없을 경우
+  if (gamesInMonth.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex h-auto items-center justify-center rounded-lg bg-gradient-to-r from-gray-800 to-gray-700 p-10 text-xl font-bold text-white"
+      >
+        {month}월은 경기 일정이 없습니다.
+      </motion.div>
+    );
+  }
 
   const resultStyles = {
     승: 'bg-gradient-to-r from-red-400 to-red-500 text-white',
