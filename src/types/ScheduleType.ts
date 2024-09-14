@@ -9,7 +9,7 @@ export type KtWizMonthSchedule = {
   homeKey: string;
   homeLogo: string;
   homeScore: number;
-  status: string;
+  status: '1' | '2' | '3';
   visit: string;
   visitKey: string;
   visitLogo: string;

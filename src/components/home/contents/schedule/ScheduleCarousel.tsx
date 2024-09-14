@@ -60,12 +60,17 @@ const ScheduleCarousel = () => {
     ],
   };
 
+  const firstUpcomingGame = data.data.list.findIndex((game) => !game.status);
+
   return (
     <div className="max-w-full">
       <Slider {...settings}>
-        {data.data.list.map((game) => (
+        {data.data.list.map((game, index) => (
           <div key={game.gmkey} className="px-0.5">
-            <ScheduleItem game={game} isUpcoming={game.status === '1'} />
+            <ScheduleItem
+              game={game}
+              isFirstUpcoming={index === firstUpcomingGame}
+            />
           </div>
         ))}
       </Slider>

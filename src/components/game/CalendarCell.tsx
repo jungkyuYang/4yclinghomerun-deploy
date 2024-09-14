@@ -15,10 +15,13 @@ const CalendarCell = ({ day, data }: CalendarCellProps) => {
     return broadcastString;
   };
 
+  const isToday = day === new Date().getDate();
+
   return (
     <td
       className={cn(
-        'w-1/7 h-40 border border-gray-700 px-2 py-4',
+        'w-1/7 h-40 border-b border-l border-r border-t border-gray-700 px-2 py-4',
+        isToday && 'border-2 border-amber-600',
         day && data?.home === 'KT' ? 'bg-gray-900' : 'bg-transparent',
       )}
     >
