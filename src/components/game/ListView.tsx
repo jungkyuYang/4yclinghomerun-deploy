@@ -46,6 +46,13 @@ const ListView = ({ year, month }: ListViewProps) => {
         const game = scheduleMap[day];
         if (!game) return null;
 
+        const gameDate = new Date(
+          game.displayDate.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'),
+        );
+        const year = gameDate.getFullYear();
+        const month = gameDate.getMonth() + 1;
+        const formattedDate = `${year}년 ${String(month).padStart(2, '0')}월 ${String(gameDate.getDate()).padStart(2, '0')}일`;
+
         return (
           <motion.div
             key={index}
@@ -61,7 +68,7 @@ const ListView = ({ year, month }: ListViewProps) => {
           >
             <div className="mx-10 grid grid-cols-7 items-center">
               <div className="col-span-2 flex items-center space-x-4 text-lg">
-                <span className="font-bold text-white">{game.displayDate}</span>
+                <span className="font-bold text-white">{formattedDate}</span>
                 <span className="text-gray-300">{game.gtime}</span>
                 <span className="truncate text-gray-300">{game.stadium}</span>
               </div>
