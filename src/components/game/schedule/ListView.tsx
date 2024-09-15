@@ -7,14 +7,11 @@ import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
 import { cn } from '@/utils/cn';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
+import { useScheduleStore } from '@/stores/ScheduleStore';
 
-type ListViewProps = {
-  year: number;
-  month: number;
-};
-
-const ListView = ({ year, month }: ListViewProps) => {
+const ListView = () => {
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const { year, month } = useScheduleStore();
   const { flatDays } = useCalendarGenerate(year, month);
   const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
 

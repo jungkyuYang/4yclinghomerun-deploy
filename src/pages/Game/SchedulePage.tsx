@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 import { motion, useInView } from 'framer-motion';
 
@@ -6,11 +6,10 @@ import ScheduleCarousel from '@/components/home/contents/schedule/ScheduleCarous
 import CalendarHeader from '@/components/game/schedule/CalendarHeader';
 import CalendarView from '@/components/game/schedule/CalendarView';
 import ListView from '@/components/game/schedule/ListView';
+import { useScheduleStore } from '@/stores/ScheduleStore';
 
 const SchedulePage = () => {
-  const [year, setYear] = useState<number>(new Date().getFullYear());
-  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
-  const [viewType, setViewType] = useState<'calendar' | 'list'>('calendar');
+  const { year, month, setYear, setMonth, viewType } = useScheduleStore();
 
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, {
@@ -51,19 +50,11 @@ const SchedulePage = () => {
 
       <div className="mx-auto w-full py-14 pb-4 text-white">
         <CalendarHeader
-          year={year}
-          month={month}
           onPrevMonth={handlePrevMonth}
           onNextMonth={handleNextMonth}
-          viewType={viewType}
-          setViewType={setViewType}
         />
 
-        {viewType === 'calendar' ? (
-          <CalendarView year={year} month={month} />
-        ) : (
-          <ListView year={year} month={month} />
-        )}
+        {viewType === 'calendar' ? <CalendarView /> : <ListView />}
       </div>
 
       <div className="flex justify-end">
