@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 import ListSkeleton from './ListSkeleton';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
@@ -121,9 +122,14 @@ const ListView = () => {
                 >
                   {game.outcome}
                 </span>
-                <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
-                  상세 보기
-                </button>
+
+                <Link
+                  to={`/game/boxscore?gameDate=${game.gameDate}&gmkey=${game.gmkey}`}
+                >
+                  <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
+                    상세 보기
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>
