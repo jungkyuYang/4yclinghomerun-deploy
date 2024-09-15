@@ -3,9 +3,9 @@ import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 import ScheduleCarousel from '@/components/home/contents/schedule/ScheduleCarousel';
-import CalendarHeader from '@/components/game/CalendarHeader';
-import CalendarView from '@/components/game/CalendarView';
-import ListView from '@/components/game/ListView';
+import CalendarHeader from '@/components/game/schedule/CalendarHeader';
+import CalendarView from '@/components/game/schedule/CalendarView';
+import ListView from '@/components/game/schedule/ListView';
 
 const SchedulePage = () => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
