@@ -1,7 +1,6 @@
 import useFetch from '@/hooks/useFetch';
 import { TNews } from '@/types/news';
 
-import { LOGO_URL } from '@/constants/constant';
 import { MockNews } from '@/mocks/home/MockNews';
 import { TestNewsUrl } from '@/api/jsonplaceholderdb';
 
@@ -24,12 +23,7 @@ const News = () => {
         <NewsSkeleton />
       ) : (
         <ErrorBoundary fallback={<NewsError />}>
-          <NewsArea
-            title="NEWS"
-            isError={isNewsError}
-            logoUrl={LOGO_URL}
-            link="/news"
-          >
+          <NewsArea isError={isNewsError}>
             {MockNews.map((item) => (
               <NewsItem key={item.id} items={item} />
             ))}
