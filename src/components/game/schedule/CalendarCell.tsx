@@ -35,9 +35,7 @@ const CalendarCell = ({ day, data }: CalendarCellProps) => {
           </div>
           {data && (
             <>
-              <Link
-                to={`/game/boxscore?gameDate=${data.gameDate}&gmkey=${data.gmkey}`}
-              >
+              <Link to={`/game/boxscore?${data.gameDate}&${data.gmkey}`}>
                 <div className="flex flex-grow flex-col items-center justify-center">
                   <img
                     src={data.home === 'KT' ? data.visitLogo : data.homeLogo}

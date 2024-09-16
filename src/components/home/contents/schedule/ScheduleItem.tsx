@@ -139,9 +139,7 @@ const ScheduleItem = ({ game, isFirstUpcoming }: ScheduleItemProps) => {
       </div>
 
       <HoverOverlay>
-        <Link
-          to={`/game/boxscore?gameDate=${game.gameDate}&gmkey=${game.gmkey}`}
-        >
+        <Link to={`/game/boxscore?${game.gameDate}&${game.gmkey}`}>
           <Button
             variant={isActive ? 'secondary' : 'primary'}
             size="large"

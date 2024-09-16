@@ -123,9 +123,7 @@ const ListView = () => {
                   {game.outcome}
                 </span>
 
-                <Link
-                  to={`/game/boxscore?gameDate=${game.gameDate}&gmkey=${game.gmkey}`}
-                >
+                <Link to={`/game/boxscore?${game.gameDate}&${game.gmkey}`}>
                   <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
                     상세 보기
                   </button>
