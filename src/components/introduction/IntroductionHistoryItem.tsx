@@ -1,5 +1,6 @@
-import { TIntroductionHistory } from '@/types/IntroductionHistory';
 import { motion } from 'framer-motion';
+
+import { TIntroductionHistory } from '@/types/IntroductionHistory';
 
 type THistoryItemProps = {
   cardRef: React.MutableRefObject<null>;

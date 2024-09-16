@@ -20,7 +20,6 @@ const IntroductionHistory = () => {
       const containerTop = containerRef.current.offsetTop;
       const containerBottom = containerTop + containerHeight;
       const cardFrameWidth = (IntroductionHistoryData.length / 2) * 120;
-      console.log(cardFrameWidth);
 
       if (scrollPosition >= containerTop && scrollPosition <= containerBottom) {
         const progress =
