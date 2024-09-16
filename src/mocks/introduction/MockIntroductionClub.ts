@@ -1,6 +1,6 @@
-import { TIntroduceClub } from '@/types/IntroduceClub';
+import { TIntroductionClub } from '@/types/IntroductionClub';
 
-export const IntroduceClubData: TIntroduceClub[] = [
+export const IntroductionClubData: TIntroductionClub[] = [
   {
     id: 'data1',
     header: '신비롭고 강력한 힘, 상상의 야구 실현',
