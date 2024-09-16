@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './Layout';
 import HomePage from '@/pages/HomePage';
-import IntroductionPage from '@/pages/IntroductionPage';
+import IntroductionPage from '@/pages/Introduction/IntroductionPage';
 import WizParkPage from '@/pages/WizParkPage';
 import DirectionPage from '@/pages/DirectionPage';
 import GamePage from '@/pages/GamePage';
@@ -12,11 +12,15 @@ import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
 import ScrollToTop from '@/common/ScrollToTop';
 import { ROUTER_PATH } from '@/constants/constant';
+import IntroductionClub from '@/pages/Introduction/IntroductionClub';
+import IntroductionHistory from '@/pages/Introduction/IntroductionHistory';
 
 const Router = () => {
   const {
     HOME,
     INTRODUCE,
+    INTRODUCE_ABOUT,
+    INTRODUCE_HISTORY,
     WIZ_PARK,
     DIRECTION,
     GAME,
@@ -35,7 +39,14 @@ const Router = () => {
       ),
       children: [
         { path: HOME, element: <HomePage /> },
-        { path: INTRODUCE, element: <IntroductionPage /> },
+        {
+          path: INTRODUCE,
+          element: <IntroductionPage />,
+          children: [
+            { path: INTRODUCE_ABOUT, element: <IntroductionClub /> },
+            { path: INTRODUCE_HISTORY, element: <IntroductionHistory /> },
+          ],
+        },
         { path: WIZ_PARK, element: <WizParkPage /> },
         { path: DIRECTION, element: <DirectionPage /> },
         { path: GAME, element: <GamePage /> },
