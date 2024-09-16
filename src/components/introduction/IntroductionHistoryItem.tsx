@@ -1,18 +1,20 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+
+import { motion, useInView } from 'framer-motion';
 
 import { TIntroductionHistory } from '@/types/IntroductionHistory';
 
-type THistoryItemProps = {
-  cardRef: React.MutableRefObject<null>;
-  listItem: TIntroductionHistory;
-  isCardInView: boolean;
-};
-
 const IntroductionHistoryItem = ({
-  cardRef,
   listItem,
-  isCardInView,
-}: THistoryItemProps) => {
+}: {
+  listItem: TIntroductionHistory;
+}) => {
+  const cardRef = useRef(null);
+  const isCardInView = useInView(cardRef, {
+    once: true,
+    margin: '0px -70% 0px 0px',
+  });
+
   return (
     <motion.div
       ref={cardRef}

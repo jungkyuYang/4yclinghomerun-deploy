@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-import { useInView } from 'framer-motion';
-
 import { IntroductionHistoryData } from '@/mocks/introduction/MockIntroductionHistory';
 import IntroductionHistoryItem from '@/components/introduction/IntroductionHistoryItem';
 
@@ -40,21 +38,9 @@ const IntroductionHistory = () => {
           className="absolute flex h-[80vh] w-full translate-x-full transform items-center justify-evenly gap-20"
           style={{ flexBasis: 'auto' }}
         >
-          {IntroductionHistoryData.map((item) => {
-            const cardRef = useRef(null);
-            const isCardInView = useInView(cardRef, {
-              once: true,
-              margin: '0px -70% 0px 0px',
-            });
-
-            return (
-              <IntroductionHistoryItem
-                cardRef={cardRef}
-                listItem={item}
-                isCardInView={isCardInView}
-              />
-            );
-          })}
+          {IntroductionHistoryData.map((item) => (
+            <IntroductionHistoryItem listItem={item} />
+          ))}
         </div>
       </div>
     </div>
