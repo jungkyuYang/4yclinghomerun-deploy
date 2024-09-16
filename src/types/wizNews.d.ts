@@ -1,4 +1,4 @@
-export type TWNewsItem = {
+export type TWizNewsItem = {
   updDttm: number;
   thumbImgUrl?: string;
   artcTitle: string;
