@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import BoxScoreItem from '@/components/game/boxscore/BoxScoreItem';
+import BoxScoreSkeleton from '@/components/game/boxscore/BoxScoreSkeleton';
 import { GetBoxScore } from '@/api/GetBoxScore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { useScheduleStore } from '@/stores/ScheduleStore';
@@ -55,16 +56,20 @@ const BoxScorePage = () => {
   return (
     <div className="mx-10 p-10">
       <h1 className="mb-5 text-2xl font-extrabold">해당 경기 정보</h1>
-      {boxScoreData?.data && (
-        <BoxScoreItem
-          game={boxScoreData.data.schedule.current}
-          logo={monthScheduleData?.data.list || []}
-          scoreBoard={boxScoreData.data.scoreboard}
-          onNextGame={handleNextGame}
-          onPrevGame={handlePrevGame}
-          hasNextGame={!!boxScoreData.data.schedule.next}
-          hasPrevGame={!!boxScoreData.data.schedule.prev}
-        />
+      {isLoading ? (
+        <BoxScoreSkeleton />
+      ) : (
+        boxScoreData?.data && (
+          <BoxScoreItem
+            game={boxScoreData.data.schedule.current}
+            logo={monthScheduleData?.data.list || []}
+            scoreBoard={boxScoreData.data.scoreboard}
+            onNextGame={handleNextGame}
+            onPrevGame={handlePrevGame}
+            hasNextGame={!!boxScoreData.data.schedule.next}
+            hasPrevGame={!!boxScoreData.data.schedule.prev}
+          />
+        )
       )}
     </div>
   );
