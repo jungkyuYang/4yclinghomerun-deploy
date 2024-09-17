@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 import topImg from '@/assets/game/top_img.webp';
-import DetailPageLayout from '@/common/DetailPageLayout';
+import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 import ScheduleCarousel from '@/components/home/contents/schedule/ScheduleCarousel';
 import CalendarHeader from '@/components/game/CalendarHeader';
 import CalendarView from '@/components/game/CalendarView';

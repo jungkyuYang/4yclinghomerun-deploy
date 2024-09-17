@@ -1,10 +1,10 @@
 import { LuCalendarDays } from 'react-icons/lu';
 import { IoLocationOutline } from 'react-icons/io5';
 
-import HoverOverlay from '@/common/HoverOverlay';
+import HoverOverlay from '@/components/common/HoverOverlay';
 import { cn } from '@/utils/cn';
 import { ScheduleData } from '@/types/ScheduleType';
-import { Button } from '@/ui/button/button';
+import { Button } from '@/components/common/ui/button/button';
 
 const ScheduleItem = ({
   place,

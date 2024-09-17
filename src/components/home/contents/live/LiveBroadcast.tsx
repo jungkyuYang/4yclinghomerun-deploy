@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { HiMiniPlayCircle } from 'react-icons/hi2';
 
-import { Button } from '@/ui/button/button';
+import { Button } from '@/components/common/ui/button/button';
 import { TVING_URL } from '@/constants/constant';
 
 const LiveBroadcast = () => {

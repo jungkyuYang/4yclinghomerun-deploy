@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MdArrowDownward } from 'react-icons/md';
 
 import Footer from '@/components/footer/Footer';
-import { TabNavigation } from '@/ui/tab/TabNavigation';
-import { DropTabNavigation } from '@/ui/tab/DropTabNavigation';
+import { TabNavigation } from '@/components/common/ui/tab/TabNavigation';
+import { DropTabNavigation } from '@/components/common/ui/tab/DropTabNavigation';
 import { DetailPageLayoutWithTabsProps } from '@/types/DetailPageLayoutType';
 
 const DetailPageLayout = ({
