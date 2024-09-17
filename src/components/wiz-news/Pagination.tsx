@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import { BiFirstPage } from 'react-icons/bi';
 import { BiLastPage } from 'react-icons/bi';
 
@@ -41,9 +42,10 @@ const Pagination = ({
         <button
           key={pageNumber}
           onClick={() => onPageChange(pageNumber)}
-          className={`rounded-full px-4 py-2 ${
-            currentPage === pageNumber ? 'bg-kt-gray-1' : 'bg-transparent'
-          }`}
+          className={cn(
+            'rounded-full px-4 py-2',
+            currentPage === pageNumber ? 'bg-kt-gray-1' : 'bg-transparent',
+          )}
         >
           {pageNumber}
         </button>

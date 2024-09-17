@@ -1,19 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import DetailPageLayout from '@/common/DetailPageLayout';
 import TabNavigation from '@/common/TabNavigation';
 
 import WizNews from '@/components/wiz-news/WizNews';
 
-import { wNewsListData } from '@/mocks/wiz-news/WizNewsList';
-import { wNewsPressData } from '@/mocks/wiz-news/WizPressList';
-import { wNewsRoomData } from '@/mocks/wiz-news/WizNewsRoomList';
+import useAxios from '@/hooks/useAxios';
 
 const NewsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const tabList = ['wiz소식', 'wiz보도자료', 'wiz뉴스룸'];
 
-  const tabData = [wNewsListData, wNewsPressData, wNewsRoomData];
+  const urls = [
+    '/article/newslistpage?itemCount=100&pageNum=1',
+    '/article/wizpresslist',
+    '/article/navernewslist',
+  ];
+
+  // 각 탭에 맞게 초기 데이터 분기 설정
+  const initialData =
+    selectedTab === 2
+      ? { list: [] } // navernewslist는 data.list 형태
+      : { data: { list: [] } }; // newslistpage, wizpresslist는 data.data.list 형태
+
+  const { data, isLoading, isError, error } = useAxios({
+    url: urls[selectedTab],
+    method: 'GET',
+    initialData,
+    shouldFetchOnMount: true,
+  });
+
+  // data 구조에 따라 리스트 반환
+  const newsList = selectedTab === 2 ? data?.list || [] : data.data?.list || [];
+
+  // 데이터 확인용(삭제예정)
+  useEffect(() => {
+    if (data) {
+      if (selectedTab === 2 && data.list) {
+        console.log('NaverNews List:', data.list);
+      } else if (data.data?.list) {
+        console.log('WizNews List:', data.data.list);
+      }
+    }
+  }, [data]);
 
   return (
     <>
@@ -27,7 +56,12 @@ const NewsPage = () => {
           setSelectedTab={setSelectedTab}
           tabList={tabList}
         />
-        <WizNews newsList={tabData[selectedTab]} />
+        <WizNews
+          newsList={newsList}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        />
       </DetailPageLayout>
     </>
   );

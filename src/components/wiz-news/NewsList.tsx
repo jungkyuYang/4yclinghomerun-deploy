@@ -4,10 +4,24 @@ import { MdDateRange } from 'react-icons/md';
 import { GrFormView } from 'react-icons/gr';
 
 import { formatTimeStamp } from '@/utils/formattingDate';
-import { TWNewsItem } from '@/types/wNews';
+import { TNaverNewsItem, TWizNewsItem } from '@/types/wizNews';
 
 type NewsListProps = {
-  newsItems: TWNewsItem[];
+  newsItems: (TWizNewsItem | TNaverNewsItem)[];
+};
+
+// 타입 확인
+const isWizNewsItem = (
+  news: TWizNewsItem | TNaverNewsItem,
+): news is TWizNewsItem => {
+  return (news as TWizNewsItem).artcTitle !== undefined;
+};
+
+// HTML 태그 제거하고 텍스트만 반환
+const stripHtmlTags = (html: string) => {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  return div.textContent || div.innerText || '';
 };
 
 const NewsList = ({ newsItems }: NewsListProps) => {
@@ -15,33 +29,50 @@ const NewsList = ({ newsItems }: NewsListProps) => {
     <ul>
       {newsItems.map((news) => (
         <li
-          key={news.updDttm}
+          key={isWizNewsItem(news) ? news.updDttm : news.aid}
           className="group m-4 rounded-sm bg-gradient-to-r from-kt-black-5 to-transparent transition duration-200 hover:bg-gradient-to-l"
         >
-          <Link to={``} className="flex gap-4">
-            {news.thumbImgUrl && (
+          <Link to={``} className="flex">
+            {/* 이미지 렌더링 조건 */}
+            {isWizNewsItem(news) && news.imgFilePath ? (
               <img
-                src={news.thumbImgUrl}
+                src={news.imgFilePath}
                 alt={news.artcTitle}
                 width={300}
                 className="border-8 border-kt-black-5 transition-all duration-200 group-hover:border-kt-gray-1"
               />
-            )}
+            ) : !isWizNewsItem(news) && news.thumbnail ? (
+              <img
+                src={news.thumbnail}
+                alt={news.title}
+                width={300}
+                className="h-[170px] w-full max-w-[300px] border-8 border-kt-black-5 object-cover object-left-top transition-all duration-200 group-hover:border-kt-gray-1"
+              />
+            ) : null}
             <div className="flex w-full justify-between">
-              <p className="w-4/5 px-3 py-6">
-                <h3 className="mb-3 text-2xl font-bold">{news.artcTitle}</h3>
-                <span>{news.artcContents}</span>
-              </p>
-              <p className="w-1/5 p-3">
+              <div className="w-4/5 py-6 pl-5">
+                <h3 className="mb-3 text-2xl font-bold">
+                  {isWizNewsItem(news) ? news.artcTitle : news.title}
+                </h3>
+                <span className="inline-block max-h-[3.75rem] w-full truncate whitespace-normal break-words leading-5">
+                  {isWizNewsItem(news)
+                    ? stripHtmlTags(news.artcContents)
+                    : news.subContent}
+                </span>
+              </div>
+              <div className="w-1/5 p-3">
                 <span className="flex items-center justify-end gap-1">
-                  {formatTimeStamp(news.updDttm)}
+                  {isWizNewsItem(news)
+                    ? formatTimeStamp(news.updDttm)
+                    : news.datetime}
                   <MdDateRange />
                 </span>
                 <span className="flex items-center justify-end gap-1">
-                  {news.viewCnt}
+                  {isWizNewsItem(news) ? news.viewCnt : news.totalCount}
                   <GrFormView />
                 </span>
-              </p>
+                {!isWizNewsItem(news) ? news.officeName : null}
+              </div>
             </div>
           </Link>
         </li>
