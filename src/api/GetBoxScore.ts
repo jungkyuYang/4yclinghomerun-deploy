@@ -3,9 +3,17 @@ import { useAxios } from '@/hooks/useAxios';
 import {
   BoxScoreGameScheduleType,
   BoxScoreScoreBoardType,
+  EtcGamesType,
+  BattersType,
+  PitchersType,
 } from '@/types/BoxScoreType';
 
 interface BoxScoreData {
+  etcgames: EtcGamesType[];
+  hbatters: BattersType[];
+  vbatters: BattersType[];
+  hpitchers: PitchersType[];
+  vpitchers: PitchersType[];
   schedule: {
     current: BoxScoreGameScheduleType;
     next: BoxScoreGameScheduleType;
@@ -45,6 +53,11 @@ const GetBoxScore = (gameDate: number, gmkey: string) => {
     url: `/game/boxscore?gameDate=${gameDate}&gmkey=${gmkey}`,
     initialData: {
       data: {
+        etcgames: [],
+        hbatters: [],
+        vbatters: [],
+        hpitchers: [],
+        vpitchers: [],
         schedule: {
           current: scheduleInitialState,
           next: scheduleInitialState,
