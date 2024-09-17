@@ -2,13 +2,17 @@ import { useState } from 'react';
 
 import Pagination from './Pagination';
 import NewsList from './NewsList';
-import { TWNewsItem } from '@/types/wNews';
+
+import { TWizNewsItem } from '@/types/wizNews';
 
 type WizNewsProps = {
-  newsList: TWNewsItem[];
+  newsList: TWizNewsItem[];
+  isLoading: boolean;
+  isError: boolean;
+  error: string | null;
 };
 
-const WizNews = ({ newsList }: WizNewsProps) => {
+const WizNews = ({ newsList, isLoading, isError, error }: WizNewsProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -22,6 +26,9 @@ const WizNews = ({ newsList }: WizNewsProps) => {
   const pageChangeHandler = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error}</div>;
 
   return (
     <div className="m-auto mt-10 flex max-w-screen-2xl flex-col gap-4">

@@ -7,10 +7,9 @@ import WizParkPage from '@/pages/WizParkPage';
 import DirectionPage from '@/pages/DirectionPage';
 import GamePage from '@/pages/GamePage';
 import PlayerPage from '@/pages/PlayerPage';
-import NewsPage from '@/pages/NewsPage';
+import NewsPage from '@/pages/news/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
-import ScrollToTop from '@/common/ScrollToTop';
 import { ROUTER_PATH } from '@/constants/constant';
 
 const Router = () => {
@@ -27,12 +26,7 @@ const Router = () => {
   } = ROUTER_PATH;
   const router = createBrowserRouter([
     {
-      element: (
-        <>
-          <ScrollToTop />
-          <Layout />
-        </>
-      ),
+      element: <Layout />,
       children: [
         { path: HOME, element: <HomePage /> },
         { path: INTRODUCE, element: <IntroductionPage /> },
@@ -40,7 +34,7 @@ const Router = () => {
         { path: DIRECTION, element: <DirectionPage /> },
         { path: GAME, element: <GamePage /> },
         { path: PLAYER, element: <PlayerPage /> },
-        { path: NEWS, element: <NewsPage /> },
+        { path: `${NEWS}/*`, element: <NewsPage /> },
         { path: LOGIN, element: <LoginPage /> },
         { path: SIGNUP, element: <SingupPage /> },
       ],
