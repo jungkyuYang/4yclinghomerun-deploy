@@ -1,11 +1,11 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 
 import { BoxScoreScoreBoardType } from '@/types/BoxScoreType';
+import { DataTable } from '@/ui/table/DataTable';
+
+type ScoreTableProps = {
+  scoreBoard: BoxScoreScoreBoardType[];
+};
 
 const columnHelper = createColumnHelper<BoxScoreScoreBoardType>(); // type-safe한 방식으로 column을 생성하기 위한 helper
 
@@ -38,60 +38,17 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => 'B',
   }),
-];
-
-interface ScoreTableProps {
-  scoreBoard: BoxScoreScoreBoardType[];
-}
+] as ColumnDef<BoxScoreScoreBoardType>[];
 
 const ScoreTable = ({ scoreBoard }: ScoreTableProps) => {
-  // useReactTable hook을 사용하여 table을 생성
-  const table = useReactTable({
-    data: scoreBoard,
-    columns,
-    getCoreRowModel: getCoreRowModel(), // 기본적인 행 모델 생성
-  });
-
   return (
-    <div className="overflow-hidden rounded-md bg-kt-gray-1">
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr
-                key={headerGroup.id}
-                className="bg-kt-red-2 text-base uppercase text-white"
-              >
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="px-3 py-3 text-center">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="text-sm font-light text-white">
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className="whitespace-nowrap px-3 py-3 text-center"
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <DataTable
+      data={scoreBoard}
+      columns={columns}
+      containerClassName="bg-kt-gray-1 bg-opacity-60"
+      headerRowClassName="bg-opacity-70 uppercase"
+      bodyCellClassName="text-center"
+    />
   );
 };
 

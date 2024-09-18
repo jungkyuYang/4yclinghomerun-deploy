@@ -1,12 +1,7 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 
 import { BattersType } from '@/types/BoxScoreType';
-import { cn } from '@/utils/cn';
+import { DataTable } from '@/ui/table/DataTable';
 
 type BatterRecordTableProps = {
   data: BattersType[];
@@ -60,59 +55,15 @@ const columns = [
       header: () => '타율',
     },
   ),
-];
+] as ColumnDef<BattersType>[];
 
 const BatterRecordTable = ({ data }: BatterRecordTableProps) => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   return (
-    <div className="overflow-hidden rounded-md bg-kt-gray-1">
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr
-                key={headerGroup.id}
-                className="bg-kt-red-2 text-base text-white"
-              >
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="px-3 py-3 text-center">
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="text-sm font-light text-white">
-            {table.getRowModel().rows.map((row, rowIndex) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className={cn(
-                      'whitespace-nowrap border-b border-gray-600 px-3 py-3 text-center',
-                      rowIndex === table.getRowModel().rows.length - 1 &&
-                        'border-b-0',
-                    )}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <DataTable
+      data={data}
+      columns={columns}
+      bodyCellClassName="border-b border-gray-600 text-center"
+    />
   );
 };
 
