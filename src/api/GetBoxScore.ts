@@ -39,11 +39,13 @@ const scheduleInitialState: BoxScoreGameScheduleType = {
   gyear: '',
   home: '',
   homeKey: '',
+  homeLogo: '',
   hscore: 0,
   stadium: '',
   stadiumKey: '',
   visit: '',
   visitKey: '',
+  visitLogo: '',
   vscore: 0,
 };
 

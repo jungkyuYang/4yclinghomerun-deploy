@@ -5,6 +5,7 @@ import BoxScoreSkeleton from '@/components/game/boxscore/BoxScoreSkeleton';
 import MainRecordTable from '@/components/game/boxscore/MainRecordTable';
 import BatterRecordTable from '@/components/game/boxscore/BatterRecordTable';
 import PitcherRecordTable from '@/components/game/boxscore/PitcherRecordTable';
+import SectionLayout from '@/components/game/boxscore/SectionLayout';
 import { GetBoxScore } from '@/api/GetBoxScore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { useScheduleStore } from '@/stores/ScheduleStore';
@@ -59,8 +60,7 @@ const BoxScorePage = () => {
   return (
     <div className="mx-10 p-10">
       <div className="flex flex-col gap-12">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-2xl font-extrabold">해당 경기 정보</h1>
+        <SectionLayout title="해당 경기 정보">
           {isLoading ? (
             <BoxScoreSkeleton />
           ) : (
@@ -75,38 +75,37 @@ const BoxScorePage = () => {
               />
             )
           )}
-        </div>
+        </SectionLayout>
 
-        <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-extrabold">주요 기록</h2>
+        {/* 주요 기록 */}
+        <SectionLayout title="주요 기록">
           <MainRecordTable etcgames={boxScoreData.data.etcgames} />
-        </div>
+        </SectionLayout>
 
-        <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-extrabold">
-            {boxScoreData.data.schedule.current.home} 타자 기록
-          </h2>
+        {/* 타자 기록 */}
+        <SectionLayout
+          title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
+        >
           <BatterRecordTable data={boxScoreData.data.hbatters} />
-        </div>
-        <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-extrabold">
-            {boxScoreData.data.schedule.current.visit} 타자 기록
-          </h2>
+        </SectionLayout>
+        <SectionLayout
+          title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
+        >
           <BatterRecordTable data={boxScoreData.data.vbatters} />
-        </div>
+        </SectionLayout>
 
-        <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-extrabold">
-            {boxScoreData.data.schedule.current.home} 투수 기록
-          </h2>
+        {/* 투수 기록 */}
+        <SectionLayout
+          title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
+        >
           <PitcherRecordTable data={boxScoreData.data.hpitchers} />
-        </div>
-        <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-extrabold">
-            {boxScoreData.data.schedule.current.visit} 투수 기록
-          </h2>
+        </SectionLayout>
+
+        <SectionLayout
+          title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
+        >
           <PitcherRecordTable data={boxScoreData.data.vpitchers} />
-        </div>
+        </SectionLayout>
       </div>
     </div>
   );
