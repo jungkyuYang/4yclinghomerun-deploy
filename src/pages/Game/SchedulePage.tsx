@@ -36,7 +36,7 @@ const SchedulePage = () => {
   };
 
   return (
-    <div className="mx-10 p-10">
+    <>
       <h1 className="mb-5 text-2xl font-extrabold">정규 리그 일정</h1>
       <motion.div
         ref={ref}
@@ -100,7 +100,7 @@ const SchedulePage = () => {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

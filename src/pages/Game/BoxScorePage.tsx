@@ -58,55 +58,53 @@ const BoxScorePage = () => {
   };
 
   return (
-    <div className="mx-10 p-10">
-      <div className="flex flex-col gap-12">
-        <SectionLayout title="해당 경기 정보">
-          {isLoading ? (
-            <BoxScoreSkeleton />
-          ) : (
-            boxScoreData?.data && (
-              <BoxScoreItem
-                game={boxScoreData.data.schedule.current}
-                scoreBoard={boxScoreData.data.scoreboard}
-                onNextGame={handleNextGame}
-                onPrevGame={handlePrevGame}
-                hasNextGame={!!boxScoreData.data.schedule.next}
-                hasPrevGame={!!boxScoreData.data.schedule.prev}
-              />
-            )
-          )}
-        </SectionLayout>
+    <div className="flex flex-col gap-12">
+      <SectionLayout title="해당 경기 정보">
+        {isLoading ? (
+          <BoxScoreSkeleton />
+        ) : (
+          boxScoreData?.data && (
+            <BoxScoreItem
+              game={boxScoreData.data.schedule.current}
+              scoreBoard={boxScoreData.data.scoreboard}
+              onNextGame={handleNextGame}
+              onPrevGame={handlePrevGame}
+              hasNextGame={!!boxScoreData.data.schedule.next}
+              hasPrevGame={!!boxScoreData.data.schedule.prev}
+            />
+          )
+        )}
+      </SectionLayout>
 
-        {/* 주요 기록 */}
-        <SectionLayout title="주요 기록">
-          <MainRecordTable etcgames={boxScoreData.data.etcgames} />
-        </SectionLayout>
+      {/* 주요 기록 */}
+      <SectionLayout title="주요 기록">
+        <MainRecordTable etcgames={boxScoreData.data.etcgames} />
+      </SectionLayout>
 
-        {/* 타자 기록 */}
-        <SectionLayout
-          title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
-        >
-          <BatterRecordTable data={boxScoreData.data.hbatters} />
-        </SectionLayout>
-        <SectionLayout
-          title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
-        >
-          <BatterRecordTable data={boxScoreData.data.vbatters} />
-        </SectionLayout>
+      {/* 타자 기록 */}
+      <SectionLayout
+        title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
+      >
+        <BatterRecordTable data={boxScoreData.data.hbatters} />
+      </SectionLayout>
+      <SectionLayout
+        title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
+      >
+        <BatterRecordTable data={boxScoreData.data.vbatters} />
+      </SectionLayout>
 
-        {/* 투수 기록 */}
-        <SectionLayout
-          title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
-        >
-          <PitcherRecordTable data={boxScoreData.data.hpitchers} />
-        </SectionLayout>
+      {/* 투수 기록 */}
+      <SectionLayout
+        title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
+      >
+        <PitcherRecordTable data={boxScoreData.data.hpitchers} />
+      </SectionLayout>
 
-        <SectionLayout
-          title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
-        >
-          <PitcherRecordTable data={boxScoreData.data.vpitchers} />
-        </SectionLayout>
-      </div>
+      <SectionLayout
+        title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
+      >
+        <PitcherRecordTable data={boxScoreData.data.vpitchers} />
+      </SectionLayout>
     </div>
   );
 };
