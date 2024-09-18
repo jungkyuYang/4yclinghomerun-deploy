@@ -36,21 +36,24 @@ const DataTable = <T extends object>({
 
   return (
     <div className={cn('overflow-hidden rounded-t-md', containerClassName)}>
-      <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead>
+      <div className="max-h-[400px] overflow-x-auto">
+        <table className="relative min-w-full">
+          <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
                 className={cn(
-                  'bg-kt-red-2 bg-opacity-40 text-base text-white',
+                  'bg-kt-red-2 bg-opacity-40 text-base text-white backdrop-blur-md',
                   headerRowClassName,
                 )}
               >
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className={cn('px-3 py-3', headerCellClassName)}
+                    className={cn(
+                      'sticky top-0 px-3 py-3',
+                      headerCellClassName,
+                    )}
                   >
                     {header.isPlaceholder
                       ? null
