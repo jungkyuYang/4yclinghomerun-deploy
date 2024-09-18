@@ -38,4 +38,8 @@ export const ROUTER_PATH = {
   NEWS: '/news',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  SCHEDULE: '/game/schedule',
+  BOXSCORE: '/game/boxscore',
+  RANKING: '/game/ranking',
+  WATCHPOINT: '/game/watchpoint',
 };
