@@ -39,7 +39,7 @@ const IntroductionHistory = () => {
           style={{ flexBasis: 'auto' }}
         >
           {IntroductionHistoryData.map((item) => (
-            <IntroductionHistoryItem listItem={item} />
+            <IntroductionHistoryItem listItem={item} key={item.year} />
           ))}
         </div>
       </div>

@@ -19,7 +19,6 @@ const IntroductionHistoryItem = ({
     <motion.div
       ref={cardRef}
       initial={{ rotateY: 0 }}
-      key={listItem.year}
       className="relative flex h-4/5 w-[50vw] items-center justify-center"
       style={{
         transformStyle: 'preserve-3d',
@@ -42,12 +41,14 @@ const IntroductionHistoryItem = ({
           {listItem.year}
         </h1>
         <main className="border-l-2 border-kt-gray-1 p-3">
-          {listItem.desc.map((desc) => {
-            if (desc === '') {
-              return <br />;
-            } else {
-              return <li className="flex text-kt-gray-1">{desc}</li>;
-            }
+          {listItem.desc.map((desc, index) => {
+            return desc === '' ? (
+              <br key={index} />
+            ) : (
+              <li key={index} className="flex text-kt-gray-1">
+                {desc}
+              </li>
+            );
           })}
         </main>
       </section>
