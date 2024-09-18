@@ -5,7 +5,7 @@ import { TNews } from '@/types/news';
 const NewsItem = ({ items }: { items: TNews }) => {
   return (
     <>
-      <li className="w-[400px] list-none px-[12px] hover:text-kt-red-3">
+      <li className="h-[25vw] w-[19.6vw] list-none px-[12px] hover:text-kt-red-3">
         <Link to={items.linkUrl}>
           <div
             style={{
@@ -14,7 +14,7 @@ const NewsItem = ({ items }: { items: TNews }) => {
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}
-            className="relative h-[520px] w-full"
+            className="relative h-full w-full"
           >
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-65 opacity-0 transition-opacity duration-300 hover:opacity-100">
               <button className="relative z-10 rounded-full bg-kt-red-3 px-6 py-3 text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-kt-red-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-kt-red-3 focus:ring-offset-2">
