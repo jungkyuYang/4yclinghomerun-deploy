@@ -59,22 +59,23 @@ const BoxScorePage = () => {
   return (
     <div className="mx-10 p-10">
       <div className="flex flex-col gap-12">
-        <h1 className="text-2xl font-extrabold">해당 경기 정보</h1>
-        {isLoading ? (
-          <BoxScoreSkeleton />
-        ) : (
-          boxScoreData?.data && (
-            <BoxScoreItem
-              game={boxScoreData.data.schedule.current}
-              logo={monthScheduleData?.data.list || []}
-              scoreBoard={boxScoreData.data.scoreboard}
-              onNextGame={handleNextGame}
-              onPrevGame={handlePrevGame}
-              hasNextGame={!!boxScoreData.data.schedule.next}
-              hasPrevGame={!!boxScoreData.data.schedule.prev}
-            />
-          )
-        )}
+        <div className="flex flex-col gap-4">
+          <h1 className="text-2xl font-extrabold">해당 경기 정보</h1>
+          {isLoading ? (
+            <BoxScoreSkeleton />
+          ) : (
+            boxScoreData?.data && (
+              <BoxScoreItem
+                game={boxScoreData.data.schedule.current}
+                scoreBoard={boxScoreData.data.scoreboard}
+                onNextGame={handleNextGame}
+                onPrevGame={handlePrevGame}
+                hasNextGame={!!boxScoreData.data.schedule.next}
+                hasPrevGame={!!boxScoreData.data.schedule.prev}
+              />
+            )
+          )}
+        </div>
 
         <div className="flex flex-col gap-4">
           <h2 className="text-2xl font-extrabold">주요 기록</h2>

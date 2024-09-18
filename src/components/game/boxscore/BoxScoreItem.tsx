@@ -5,12 +5,10 @@ import {
   BoxScoreGameScheduleType,
   BoxScoreScoreBoardType,
 } from '@/types/BoxScoreType';
-import { KtWizMonthSchedule } from '@/types/ScheduleType';
 import { cn } from '@/utils/cn';
 
 type BoxScoreItemProps = {
   game: BoxScoreGameScheduleType;
-  logo: KtWizMonthSchedule[];
   scoreBoard: BoxScoreScoreBoardType[];
   onNextGame: () => void;
   onPrevGame: () => void;
@@ -20,27 +18,12 @@ type BoxScoreItemProps = {
 
 const BoxScoreItem = ({
   game,
-  logo,
   scoreBoard,
   onNextGame,
   onPrevGame,
   hasNextGame,
   hasPrevGame,
 }: BoxScoreItemProps) => {
-  const getTeamLogo = (teamKey: string) => {
-    const teamSchedule = logo.find(
-      (item) =>
-        item.gmkey === game.gmkey &&
-        (item.homeKey === teamKey || item.visitKey === teamKey),
-    );
-    return teamKey === game.homeKey
-      ? teamSchedule?.homeLogo
-      : teamSchedule?.visitLogo;
-  };
-
-  const visitLogo = getTeamLogo(game.visitKey);
-  const homeLogo = getTeamLogo(game.homeKey);
-
   return (
     <section className="relative mb-6 rounded-lg bg-kt-black-4 p-12">
       <header className="flex flex-col">
@@ -95,7 +78,7 @@ const BoxScoreItem = ({
       <main className="grid grid-cols-3 gap-2">
         <article className="flex flex-col items-center justify-center gap-2">
           <img
-            src={visitLogo}
+            src={game.visitLogo}
             alt={game.visit}
             className="h-36 w-36 object-contain"
           />
@@ -111,7 +94,7 @@ const BoxScoreItem = ({
 
         <section className="flex flex-col items-center justify-center gap-2">
           <img
-            src={homeLogo}
+            src={game.homeLogo}
             alt={game.home}
             className="h-36 w-36 object-contain"
           />

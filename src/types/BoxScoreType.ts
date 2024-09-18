@@ -12,11 +12,13 @@ export type BoxScoreGameScheduleType = {
   gyear: string;
   home: string;
   homeKey: string;
+  homeLogo: string;
   hscore: number;
   stadium: string;
   stadiumKey: string;
   visit: string;
   visitKey: string;
+  visitLogo: string;
   vscore: number;
 };
 
