@@ -74,9 +74,9 @@ const CardItem = ({ items }: CardItemProps) => {
                     r="16"
                     fill="none"
                     className="stroke-current text-gray-200 dark:text-neutral-700"
-                    stroke-width="1.5"
-                    stroke-dasharray="75 100"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeDasharray="75 100"
+                    strokeLinecap="round"
                   ></circle>
                   <circle
                     cx="18"
@@ -84,9 +84,9 @@ const CardItem = ({ items }: CardItemProps) => {
                     r="16"
                     fill="none"
                     className="stroke-current text-red-600 dark:text-red-500"
-                    stroke-width="1.5"
-                    stroke-dasharray="55.5 100"
-                    stroke-linecap="round"
+                    strokeWidth="1.5"
+                    strokeDasharray="55.5 100"
+                    strokeLinecap="round"
                   ></circle>
                 </svg>
                 <div className="absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center">

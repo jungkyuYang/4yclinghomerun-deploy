@@ -34,7 +34,7 @@ const ListView = ({ year, month }: ListViewProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={cn(
-              'overflow-hidden rounded-lg bg-gradient-to-r',
+              'bg-gradient-to-r overflow-hidden rounded-lg',
               game.home
                 ? 'from-gray-900 to-gray-800'
                 : 'from-black to-kt-black-4',
