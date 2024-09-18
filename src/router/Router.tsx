@@ -12,6 +12,10 @@ import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
 import ScrollToTop from '@/common/ScrollToTop';
 import { ROUTER_PATH } from '@/constants/constant';
+import CoachPage from '@/pages/Player/CoachPage';
+import PitcherPage from '@/pages/Player/PitcherPage';
+import HitterPage from '@/pages/Player/HitterPage';
+import CheerPage from '@/pages/Player/CheerPage';
 
 const Router = () => {
   const {
@@ -39,7 +43,16 @@ const Router = () => {
         { path: WIZ_PARK, element: <WizParkPage /> },
         { path: DIRECTION, element: <DirectionPage /> },
         { path: GAME, element: <GamePage /> },
-        { path: PLAYER, element: <PlayerPage /> },
+        {
+          path: PLAYER,
+          element: <PlayerPage />,
+          children: [
+            { path: 'coach', element: <CoachPage /> },
+            { path: 'pitcher', element: <PitcherPage /> },
+            { path: 'hitter', element: <HitterPage /> },
+            { path: 'cheer', element: <CheerPage /> },
+          ],
+        },
         { path: NEWS, element: <NewsPage /> },
         { path: LOGIN, element: <LoginPage /> },
         { path: SIGNUP, element: <SingupPage /> },

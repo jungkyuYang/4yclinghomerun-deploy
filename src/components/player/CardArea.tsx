@@ -1,4 +1,14 @@
-const CardArea = ({ children }: { children: React.ReactNode }) => {
+const CardArea = ({
+  children,
+  isError,
+}: {
+  children: React.ReactNode;
+  isError: boolean;
+}) => {
+  if (isError) {
+    throw new Error('Error');
+  }
+
   return (
     <article className="">
       <ul

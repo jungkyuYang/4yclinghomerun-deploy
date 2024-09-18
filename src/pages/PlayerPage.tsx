@@ -1,63 +1,50 @@
-import useAxios from '@/hooks/useAxios';
+import { useCallback, useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { playerTabs } from '@/mocks/player/playerTabs';
+import { ROUTER_PATH } from '@/constants/constant';
 
 import DetailPageLayout from '@/common/DetailPageLayout';
-import CardArea from '@/components/player/CardArea';
-import CardItem from '@/components/player/CardItem';
-import { useState } from 'react';
-import CategoryButton from '@/components/player/CategoryButton';
+
+const { COACH } = ROUTER_PATH;
 
 const PlayerPage = () => {
-  const [category, setCategory] = useState('api/player/pitcherlist');
+  const [activeTab, setActiveTab] = useState(0);
+  const [subTitle, setSubTitle] = useState(playerTabs[0].subTitle);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const { data: pitcherData } = useAxios<TPitcher[]>({
-    method: 'GET',
-    url: `${category}`,
-    initialData: [],
-    shouldFetchOnMount: true,
-  });
+  useEffect(() => {
+    const currentTab = playerTabs.findIndex((tab) =>
+      location.pathname.startsWith(tab.path),
+    );
 
-  const handleFetch = (newCategory: string) => {
-    setCategory(newCategory);
-  };
+    if (currentTab !== -1) {
+      setActiveTab(currentTab);
+      setSubTitle(playerTabs[currentTab].subTitle);
+    } else {
+      navigate(COACH, { replace: true });
+    }
+  }, [location.pathname, navigate]);
+
+  const handleTabChange = useCallback(
+    (index: number) => {
+      navigate(playerTabs[index].path);
+    },
+    [navigate],
+  );
 
   return (
     <>
       <DetailPageLayout
         topImg="/src/assets/home/hero/hero_banner.jpg"
         title="Player"
-        subTitle="kt wiz의 자랑스런 ‘첫 번째 선수단’을 소개합니다."
+        subTitle={subTitle}
+        tabs={playerTabs}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
       >
-        <CategoryButton
-          label="코치"
-          category="api/player/coachlist"
-          onClick={handleFetch}
-        />
-        <CategoryButton
-          label="투수"
-          category="api/player/pitcherlist"
-          onClick={handleFetch}
-        />
-        <CategoryButton
-          label="내야수"
-          category="api/player/infielderlist"
-          onClick={handleFetch}
-        />
-        <CategoryButton
-          label="외야수"
-          category="api/player/outfielderlist"
-          onClick={handleFetch}
-        />
-        <CategoryButton
-          label="응원단"
-          category="api/player/cheerleader"
-          onClick={handleFetch}
-        />
-
-        <CardArea>
-          {pitcherData.map((item, index) => (
-            <CardItem key={index} items={item} />
-          ))}
-        </CardArea>
+        <Outlet />
       </DetailPageLayout>
     </>
   );
