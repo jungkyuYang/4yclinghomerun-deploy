@@ -4,6 +4,7 @@ import { useInView, motion } from 'framer-motion';
 
 import h1Border from '@/assets/introduction/history_h1_border.png';
 import { TIntroductionClub } from '@/types/IntroductionClub';
+import { cn } from '@/utils/cn';
 
 const IntroductionClubItem = ({
   data,
@@ -18,7 +19,7 @@ const IntroductionClubItem = ({
   return (
     <motion.div
       ref={ref}
-      className={`flex gap-20 ${index % 2 === 0 && 'flex-row-reverse'}`}
+      className={cn('flex gap-20', index % 2 === 0 && 'flex-row-reverse')}
       key={data.id}
       initial={{ opacity: 0, x: -100 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
