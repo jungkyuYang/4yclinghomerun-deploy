@@ -1,6 +1,5 @@
 import { cn } from '@/utils/cn';
-import { BiFirstPage } from 'react-icons/bi';
-import { BiLastPage } from 'react-icons/bi';
+import { BiFirstPage, BiLastPage } from 'react-icons/bi';
 
 type PaginationProps = {
   currentPage: number;
@@ -13,10 +12,24 @@ const Pagination = ({
   totalPages,
   onPageChange,
 }: PaginationProps) => {
-  const pageNumbers = Array.from(
-    { length: totalPages },
-    (_, index) => index + 1,
-  );
+  // 현재 페이지 기준 5개 페이지 번호만 노출
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className="mt-4 flex justify-center gap-2">
       {/* 처음 페이지로 */}
@@ -38,7 +51,7 @@ const Pagination = ({
       </button>
 
       {/* 페이지 번호 */}
-      {pageNumbers.map((pageNumber) => (
+      {getPageNumbers().map((pageNumber) => (
         <button
           key={pageNumber}
           onClick={() => onPageChange(pageNumber)}

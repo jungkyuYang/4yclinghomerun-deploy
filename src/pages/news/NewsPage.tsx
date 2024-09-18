@@ -6,7 +6,7 @@ import WizNews from '@/components/wiz-news/WizNews';
 
 import useAxios from '@/hooks/useAxios';
 import topImg from '@/assets/wiz-news/top_sub_bg.png';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 const tabs = [
   {
@@ -30,6 +30,8 @@ const NewsPage = () => {
   const { tab } = useParams();
   const [activeTab, setActiveTab] = useState(0);
   const [subTitle, setSubTitle] = useState(tabs[0].subTitle);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchWord, setSearchWord] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,24 +40,24 @@ const NewsPage = () => {
     if (currentTab !== -1) {
       setActiveTab(currentTab);
       setSubTitle(tabs[currentTab].subTitle);
+      setCurrentPage(1);
     } else {
       navigate('/news/wiznews', { replace: true });
     }
   }, [tab, navigate]);
 
   const urls = [
-    '/article/newslistpage?itemCount=100&pageNum=1',
-    '/article/wizpresslist',
-    '/article/navernewslist',
+    `/article/newslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
+    `/article/wizpresslist?searchWord=${searchWord}&pageNum=${currentPage}`,
+    `/article/navernewslist?searchWord=${searchWord}&pageNum=${currentPage}`,
   ];
 
-  // 각 탭 데이터 일관된 형태로 가공
   const processData = (responseData: any) => {
     if (activeTab === 2) {
-      // navernewslist
+      // navernewslist 데이터
       return responseData.list || [];
     } else {
-      // newslistpage와 wizpresslist
+      // newslistpage와 wizpresslist 데이터
       return responseData.data?.list || [];
     }
   };
@@ -68,15 +70,32 @@ const NewsPage = () => {
     processData,
   });
 
+  // 검색어 및 페이지 변경 시 API 요청
+  useEffect(() => {
+    handleRequest();
+  }, [searchWord, currentPage, activeTab]);
+
   // 탭 변경 시 라우팅 처리 및 API 재요청
-  const handleTabChange = useCallback(
+  const tabChangeHandler = useCallback(
     (index: number) => {
       navigate(`/news/${tabs[index].path}`);
       setActiveTab(index);
+      setCurrentPage(1);
       handleRequest();
     },
     [navigate, handleRequest],
   );
+
+  const pageChangeHandler = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    handleRequest(); // 페이지 변경 시 데이터 요청
+  };
+
+  const searchHandler = (newSearchWord: string) => {
+    setSearchWord(newSearchWord);
+    setCurrentPage(1);
+    handleRequest();
+  };
 
   // 데이터 확인용 로그
   useEffect(() => {
@@ -97,14 +116,19 @@ const NewsPage = () => {
         subTitle={subTitle}
         tabs={tabs}
         activeTab={activeTab}
-        onTabChange={handleTabChange}
+        onTabChange={tabChangeHandler}
       >
         <WizNews
           newsList={data}
           isLoading={isLoading}
           isError={isError}
           error={error}
+          currentPage={currentPage}
+          totalPages={20}
+          onPageChange={pageChangeHandler}
+          onSearch={searchHandler}
         />
+        <Outlet />
       </DetailPageLayout>
     </>
   );
