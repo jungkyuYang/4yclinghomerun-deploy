@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 import ListSkeleton from './ListSkeleton';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
 import { cn } from '@/utils/cn';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
+import { useScheduleStore } from '@/stores/ScheduleStore';
 
-type ListViewProps = {
-  year: number;
-  month: number;
-};
-
-const ListView = ({ year, month }: ListViewProps) => {
+const ListView = () => {
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const { year, month } = useScheduleStore();
   const { flatDays } = useCalendarGenerate(year, month);
   const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
 
@@ -124,9 +122,12 @@ const ListView = ({ year, month }: ListViewProps) => {
                 >
                   {game.outcome}
                 </span>
-                <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
-                  상세 보기
-                </button>
+
+                <Link to={`/game/boxscore?${game.gameDate}&${game.gmkey}`}>
+                  <button className="text-base text-gray-200 transition-colors duration-200 hover:text-gray-400">
+                    상세 보기
+                  </button>
+                </Link>
               </div>
             </div>
           </motion.div>

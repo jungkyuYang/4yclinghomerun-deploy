@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import ResultFlag from './ResultFlag';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
 import { cn } from '@/utils/cn';
@@ -33,24 +35,26 @@ const CalendarCell = ({ day, data }: CalendarCellProps) => {
           </div>
           {data && (
             <>
-              <div className="flex flex-grow flex-col items-center justify-center">
-                <img
-                  src={data.home === 'KT' ? data.visitLogo : data.homeLogo}
-                  alt={data.home === 'KT' ? data.visit : data.home}
-                  className="h-20 w-20 object-contain"
-                />
-                <div className="flex items-center justify-center gap-2">
-                  <div className="text-sm">{data.gtime}</div>
-                  <div className="text-sm text-red-300">
-                    {data.home === 'KT' ? '수원' : data.stadium}
+              <Link to={`/game/boxscore?${data.gameDate}&${data.gmkey}`}>
+                <div className="flex flex-grow flex-col items-center justify-center">
+                  <img
+                    src={data.home === 'KT' ? data.visitLogo : data.homeLogo}
+                    alt={data.home === 'KT' ? data.visit : data.home}
+                    className="h-20 w-20 object-contain"
+                  />
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="text-sm">{data.gtime}</div>
+                    <div className="text-sm text-red-300">
+                      {data.home === 'KT' ? '수원' : data.stadium}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex justify-center">
-                <div className="text-xs text-gray-200">
-                  {formatBroadcast(data.broadcast)}
+                <div className="flex justify-center">
+                  <div className="text-xs text-gray-200">
+                    {formatBroadcast(data.broadcast)}
+                  </div>
                 </div>
-              </div>
+              </Link>
             </>
           )}
         </div>

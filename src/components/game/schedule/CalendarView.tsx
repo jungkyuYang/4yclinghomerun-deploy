@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import { motion } from 'framer-motion';
 
 import CalendarCell from './CalendarCell';
+import CalendarSkeleton from './CalendarSkeleton';
 import { useCalendarGenerate } from '@/hooks/useCalendarGenerate';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
-import CalendarSkeleton from './CalendarSkeleton';
+import { useScheduleStore } from '@/stores/ScheduleStore';
 
-type CalendarViewProps = {
-  year: number;
-  month: number;
-};
-
-const CalendarView = ({ year, month }: CalendarViewProps) => {
+const CalendarView = () => {
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const { year, month } = useScheduleStore();
   const { days, weekdays } = useCalendarGenerate(year, month);
   const { data, isLoading, isError, error } = GetMonthSchedule(year, month);
 

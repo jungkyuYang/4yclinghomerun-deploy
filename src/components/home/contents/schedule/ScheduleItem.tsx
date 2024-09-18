@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { LuCalendarDays } from 'react-icons/lu';
 import { IoLocationOutline } from 'react-icons/io5';
 
@@ -138,13 +139,15 @@ const ScheduleItem = ({ game, isFirstUpcoming }: ScheduleItemProps) => {
       </div>
 
       <HoverOverlay>
-        <Button
-          variant={isActive ? 'secondary' : 'primary'}
-          size="large"
-          className="hover:scale-105"
-        >
-          경기 정보
-        </Button>
+        <Link to={`/game/boxscore?${game.gameDate}&${game.gmkey}`}>
+          <Button
+            variant={isActive ? 'secondary' : 'primary'}
+            size="large"
+            className="hover:scale-105"
+          >
+            경기 정보
+          </Button>
+        </Link>
       </HoverOverlay>
     </article>
   );
