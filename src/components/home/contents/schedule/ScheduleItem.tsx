@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { LuCalendarDays } from 'react-icons/lu';
 import { IoLocationOutline } from 'react-icons/io5';
 
-import HoverOverlay from '@/common/HoverOverlay';
+import HoverOverlay from '@/components/common/HoverOverlay';
 import { cn } from '@/utils/cn';
 import { KtWizMonthSchedule } from '@/types/ScheduleType';
-import { Button } from '@/ui/button/button';
+import { Button } from '@/components/common/ui/button/button';
 
 type ScheduleItemProps = {
   game: KtWizMonthSchedule;

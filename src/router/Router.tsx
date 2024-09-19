@@ -7,7 +7,7 @@ import WizParkPage from '@/pages/WizParkPage';
 import DirectionPage from '@/pages/DirectionPage';
 import GamePage from '@/pages/Game/GamePage';
 import PlayerPage from '@/pages/PlayerPage';
-import NewsPage from '@/pages/NewsPage';
+import NewsPage from '@/pages/news/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
 import { ROUTER_PATH } from '@/constants/constant';
@@ -17,6 +17,7 @@ import SchedulePage from '@/pages/Game/SchedulePage';
 import BoxScorePage from '@/pages/Game/BoxScorePage';
 import RankingPage from '@/pages/Game/RankingPage';
 import WatchPointPage from '@/pages/Game/WatchPointPage';
+import NewsDetailPage from '@/pages/news/NewsDetailPage';
 
 const Router = () => {
   const {
@@ -58,7 +59,11 @@ const Router = () => {
           ],
         },
         { path: PLAYER, element: <PlayerPage /> },
-        { path: NEWS, element: <NewsPage /> },
+        {
+          path: `${NEWS}/*`,
+          element: <NewsPage />,
+          children: [{ path: 'detail/:id', element: <NewsDetailPage /> }],
+        },
         { path: LOGIN, element: <LoginPage /> },
         { path: SIGNUP, element: <SingupPage /> },
       ],
