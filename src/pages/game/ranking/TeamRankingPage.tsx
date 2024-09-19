@@ -4,21 +4,22 @@ import {
   APITeamRankingBatterTable,
   APITeamRankingGraph,
   APITeamRankingPitcherTable,
-  // APITeamRankingTeamVSTable,
+  APITeamRankingTeamVSTable,
   APITeamRankingYearTable,
   TTeamRankingBatterTable,
   TTeamRankingGraph,
   TTeamRankingPitcherTable,
-  // TTeamRankingTeamVSTable,
+  TTeamRankingTeamVSTable,
   TTeamRankingYearTable,
 } from '@/types/GameTeamRanking';
-import GameTeamRankingGraph from '@/components/game/ranking/team/GameTeamRankingGraph';
+import GameTeamRankingBarGraph from '@/components/game/ranking/team/GameTeamRankingBarGraph';
 import GameRankingSectionFrame from '@/components/game/GameRankingSectionFrame';
 import { teamRankingPitcherColumns } from '@/data/TeamRankingPitcherTableData';
 import { teamRankingYearColumns } from '@/data/TeamRankingYearTableData';
 import GameRankingTable from '@/components/game/ranking/GameRankingTable';
 import { teamRankingBatterColumns } from '@/data/TeamRankingBatterTableData';
-// import { teamRankingTeamVSColumns } from '@/data/TeamRankingTeamVSTableData copy';
+import GameTeamRankingPieGraphFrame from '@/components/game/ranking/team/GameTeamRankingPieGraphFrame';
+import GameTeamRankingTitle from '@/components/game/ranking/team/GameTeamRankingTitle';
 
 const TeamRankingPage = () => {
   const {
@@ -73,18 +74,19 @@ const TeamRankingPage = () => {
     processData: (data: APITeamRankingBatterTable) => data.data.list,
   });
 
-  // const {
-  //   data: TeamRankingTeamVSTableData,
-  //   isLoading: isTeamVSTableLoading,
-  //   isError: isTeamVSTableError,
-  //   error: teamVSTableError,
-  // } = useAxios<APITeamRankingTeamVSTable, TTeamRankingTeamVSTable[]>({
-  //   url: '/game/rank/batting',
-  //   method: 'GET',
-  //   initialData: { data: { list: [] } },
-  //   shouldFetchOnMount: true,
-  //   processData: (data: APITeamRankingTeamVSTable) => data.data.list,
-  // });
+  const {
+    data: TeamRankingTeamVSTableData,
+    // isLoading: isTeamVSTableLoading,
+    // isError: isTeamVSTableError,
+    // error: teamVSTableError,
+  } = useAxios<APITeamRankingTeamVSTable, TTeamRankingTeamVSTable[]>({
+    url: '/game/rank/teamvs',
+    method: 'GET',
+    initialData: { data: { list: [] } },
+    shouldFetchOnMount: true,
+    processData: (data: APITeamRankingTeamVSTable) =>
+      data.data.list.filter((item) => item.teamCode === 'KT'),
+  });
 
   // 데이터를 받기 전이거나 처리 중일 때는 로딩 처리
   if (isGraphLoading) {
@@ -107,7 +109,7 @@ const TeamRankingPage = () => {
         height="h-[50vh]"
         type="graph"
       >
-        <GameTeamRankingGraph graphInfo={TeamRankingGraphData} />
+        <GameTeamRankingBarGraph graphInfo={TeamRankingGraphData} />
       </GameRankingSectionFrame>
       {Array.isArray(TeamRankingYearTableData) && (
         <GameRankingTable<TTeamRankingYearTable>
@@ -129,6 +131,14 @@ const TeamRankingPage = () => {
           tableInfo={TeamRankingBatterTableData}
           columns={teamRankingBatterColumns}
         />
+      )}
+      {Array.isArray(TeamRankingTeamVSTableData) && (
+        <div>
+          <GameTeamRankingTitle title="2024 시즌 팀 간 승패" />
+          <GameTeamRankingPieGraphFrame
+            graphInfo={TeamRankingTeamVSTableData}
+          />
+        </div>
       )}
     </div>
   );
