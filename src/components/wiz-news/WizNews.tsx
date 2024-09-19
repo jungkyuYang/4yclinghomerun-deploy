@@ -3,10 +3,10 @@ import SearchInput from '../common/ui/SearchInput';
 import Pagination from './Pagination';
 import NewsList from './NewsList';
 
-import { TWizNewsItem } from '@/types/wizNews';
+import { TNaverNewsItem, TWizNewsItem } from '@/types/wizNews';
 
 type WizNewsProps = {
-  newsList: TWizNewsItem[];
+  newsList: (TWizNewsItem | TNaverNewsItem)[];
   isLoading: boolean;
   isError: boolean;
   error: string | null;
@@ -14,6 +14,10 @@ type WizNewsProps = {
   totalPages: number;
   onPageChange: (pageNumber: number) => void;
   onSearch: (searchWord: string) => void;
+};
+
+const isNaverNews = (newsList: (TWizNewsItem | TNaverNewsItem)[]): boolean => {
+  return newsList.some((news) => (news as TWizNewsItem).artcTitle == undefined);
 };
 
 const WizNews = ({
@@ -37,14 +41,17 @@ const WizNews = ({
   if (isError) return <div>Error: {error}</div>;
 
   const selectOptions = ['제목', '내용'];
+  const noSearchInput = isNaverNews(newsList);
 
   return (
     <div className="m-auto mt-10 flex max-w-screen-2xl flex-col gap-4">
-      <SearchInput
-        onSearch={onSearch}
-        showSelect={true}
-        selectOptions={selectOptions}
-      />
+      {!noSearchInput && (
+        <SearchInput
+          onSearch={onSearch}
+          showSelect={true}
+          selectOptions={selectOptions}
+        />
+      )}
 
       <NewsList newsItems={currentNews} />
 
