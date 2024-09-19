@@ -11,6 +11,7 @@ import NewsPage from '@/pages/news/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
 import { ROUTER_PATH } from '@/constants/constant';
+import NewsDetailPage from '@/pages/news/NewsDetailPage';
 
 const Router = () => {
   const {
@@ -34,7 +35,11 @@ const Router = () => {
         { path: DIRECTION, element: <DirectionPage /> },
         { path: GAME, element: <GamePage /> },
         { path: PLAYER, element: <PlayerPage /> },
-        { path: `${NEWS}/*`, element: <NewsPage /> },
+        {
+          path: `${NEWS}/*`,
+          element: <NewsPage />,
+          children: [{ path: 'detail/:id', element: <NewsDetailPage /> }],
+        },
         { path: LOGIN, element: <LoginPage /> },
         { path: SIGNUP, element: <SingupPage /> },
       ],
