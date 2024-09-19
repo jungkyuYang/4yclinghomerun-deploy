@@ -6,7 +6,6 @@ const GameTeamRankingPieGraphFrame = ({
 }: {
   graphInfo: TTeamRankingTeamVSTable[];
 }) => {
-  console.log(graphInfo);
   return (
     <div className="mx-auto grid grid-cols-3 gap-4">
       {graphInfo.map((item) => (
