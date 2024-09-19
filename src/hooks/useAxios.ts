@@ -5,22 +5,24 @@ import axios, { AxiosError } from 'axios';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-interface RequestParams<T> {
+interface RequestParams<T, R> {
   url: string;
   method: HttpMethod;
   initialData: T;
   body?: BodyInit | null;
   shouldFetchOnMount?: boolean;
+  processData?: (data: T) => R;
 }
 
-const useAxios = <T>({
+const useAxios = <T, R = T>({
   url,
   method,
   initialData,
   body,
   shouldFetchOnMount,
-}: RequestParams<T>) => {
-  const [data, setData] = useState(initialData);
+  processData,
+}: RequestParams<T, R>) => {
+  const [data, setData] = useState<R | T>(initialData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +47,14 @@ const useAxios = <T>({
         default:
           throw new Error('지원하지 않는 메소드입니다.');
       }
-      setData(response.data);
+
+      const responseData = response.data;
+
+      if (processData) {
+        setData(processData(responseData));
+      } else {
+        setData(responseData);
+      }
       setIsError(false);
     } catch (error: unknown) {
       setIsError(true);
@@ -97,4 +106,4 @@ const useAxios = <T>({
   };
 };
 
-export default useAxios;
+export { useAxios };
