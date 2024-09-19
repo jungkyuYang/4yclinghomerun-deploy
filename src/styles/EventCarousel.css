@@ -2,7 +2,7 @@
 .custom-dots {
   display: flex !important;
   justify-content: space-between;
-  bottom: -25px;
+  bottom: -20px;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -13,10 +13,6 @@
   width: 23%;
   padding: 10px;
   cursor: pointer;
-}
-
-.custom-dots img {
-  max-height: 100%;
 }
 
 .custom-dots li.slick-active .container {

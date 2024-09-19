@@ -7,7 +7,7 @@ const EventItem = ({ items }: { items: TEvents }) => {
 
   return (
     <>
-      <div className="mx-[100px] mb-4 mt-14 h-[470px]">
+      <div className="mx-[100px] mb-4 mt-8">
         <Link to={linkUrl}>
           <div
             style={{
@@ -16,7 +16,7 @@ const EventItem = ({ items }: { items: TEvents }) => {
               backgroundPosition: 'center',
               backgroundSize: 'contain',
             }}
-            className="h-[470px] w-full"
+            className="grid h-[40vh] w-full grid-rows-1"
           ></div>
         </Link>
       </div>
