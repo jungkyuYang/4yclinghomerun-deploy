@@ -13,20 +13,16 @@ import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
 import IntroductionClub from '@/pages/Introduction/IntroductionClub';
 import IntroductionHistory from '@/pages/Introduction/IntroductionHistory';
-import TeamRankingPage from '@/pages/game/ranking/TeamRankingPage';
-import PlayerRankingPage from '@/pages/game/ranking/PlayerRankingPage';
-import CrowdRankingPage from '@/pages/game/ranking/CrowdRankingPage';
-import RankingPage from '@/pages/game/RankingPage';
-import { ROUTER_PATH } from '@/constants/constant';
+import TeamRankingPage from '@/pages/Game/ranking/TeamRankingPage';
+import PlayerRankingPage from '@/pages/Game/ranking/PlayerRankingPage';
+import CrowdRankingPage from '@/pages/Game/ranking/CrowdRankingPage';
+import RankingPage from '@/pages/Game/RankingPage';
 import CoachPage from '@/pages/Player/CoachPage';
 import PitcherPage from '@/pages/Player/PitcherPage';
 import HitterPage from '@/pages/Player/HitterPage';
 import CheerPage from '@/pages/Player/CheerPage';
-import IntroductionClub from '@/pages/Introduction/IntroductionClub';
-import IntroductionHistory from '@/pages/Introduction/IntroductionHistory';
 import SchedulePage from '@/pages/Game/SchedulePage';
 import BoxScorePage from '@/pages/Game/BoxScorePage';
-import RankingPage from '@/pages/Game/RankingPage';
 import WatchPointPage from '@/pages/Game/WatchPointPage';
 import NewsDetailPage from '@/pages/news/NewsDetailPage';
 
@@ -64,22 +60,6 @@ const Router = () => {
         },
         { path: WIZ_PARK, element: <WizParkPage /> },
         { path: DIRECTION, element: <DirectionPage /> },
-        {
-          path: GAME,
-          element: <GamePage />,
-          children: [
-            {
-              path: GAME_RANKING,
-              element: <RankingPage />,
-              children: [
-                { path: GAME_RANKING_TEAM, element: <TeamRankingPage /> },
-                { path: GAME_RANKING_PICHER, element: <PlayerRankingPage /> },
-                { path: GAME_RANKING_BATTER, element: <PlayerRankingPage /> },
-                { path: GAME_RANKING_CROWND, element: <CrowdRankingPage /> },
-              ],
-            },
-          ],
-        },
         { path: PLAYER, element: <PlayerPage /> },
         {
           path: PLAYER,
@@ -98,7 +78,16 @@ const Router = () => {
           children: [
             { path: 'schedule', element: <SchedulePage /> },
             { path: 'boxscore', element: <BoxScorePage /> },
-            { path: 'ranking', element: <RankingPage /> },
+            {
+              path: GAME_RANKING,
+              element: <RankingPage />,
+              children: [
+                { path: GAME_RANKING_TEAM, element: <TeamRankingPage /> },
+                { path: GAME_RANKING_PICHER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_BATTER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_CROWND, element: <CrowdRankingPage /> },
+              ],
+            },
             { path: 'watchpoint', element: <WatchPointPage /> },
           ],
         },
