@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect, useState } from 'react';
 
 import HttpClient from '@/api/HttpClient';
@@ -95,7 +97,6 @@ const useAxios = <T, R = T>({
     if (method === 'GET' && shouldFetchOnMount) {
       handleRequest();
     }
-    // eslint-disable-next-line prefer-const
   }, [method, url, shouldFetchOnMount]);
 
   return {

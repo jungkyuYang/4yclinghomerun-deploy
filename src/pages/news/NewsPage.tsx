@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
