@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import topImg from '@/assets/player/Banner_player.webp';
 import { playerTabs } from '@/mocks/player/playerTabs';
 import { ROUTER_PATH } from '@/constants/constant';
 
@@ -11,6 +12,7 @@ const { COACH } = ROUTER_PATH;
 const PlayerPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [subTitle, setSubTitle] = useState(playerTabs[0].subTitle);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,7 +39,7 @@ const PlayerPage = () => {
   return (
     <>
       <DetailPageLayout
-        topImg="/src/assets/home/hero/hero_banner.jpg"
+        topImg={topImg}
         title="Player"
         subTitle={subTitle}
         tabs={playerTabs}

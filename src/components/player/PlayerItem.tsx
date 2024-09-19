@@ -1,12 +1,14 @@
 import { FaArrowRight } from 'react-icons/fa';
 
 import { cn } from '@/utils/cn';
+import { TPlayer } from '@/types/player';
+import unknownImg from '@/assets/player/CardImage_Unknown.webp';
 
-type CardItemProps = {
-  items: TPitcher;
+type PlayerItemProps = {
+  items: TPlayer;
 };
 
-const CardItem = ({ items }: CardItemProps) => {
+const PlayerItem = ({ items }: PlayerItemProps) => {
   return (
     <>
       <div className="group h-[430px] [perspective:1100px]">
@@ -17,7 +19,7 @@ const CardItem = ({ items }: CardItemProps) => {
               `bg-[linear-gradient(#111111_30%,#35383E_70%)]`,
             )}
           >
-            <div className="flex items-center justify-between text-xl">
+            <div className="flex items-center justify-between pb-1.5 text-xl">
               <div className="flex items-center text-kt-white">
                 <span>
                   <img
@@ -26,15 +28,15 @@ const CardItem = ({ items }: CardItemProps) => {
                     src="/src/assets/logo/KTwiz_logo.svg"
                   />
                 </span>
-                <span>{items.playerName}</span>
+                <span className="pl-1">{items.playerName}</span>
               </div>
               <span className="text-kt-red-1">No.{items.backnum}</span>
             </div>
-            <div>
+            <div className="h-4/5">
               <img
-                className="h-full w-full object-contain"
+                className="h-full w-full rounded-md object-contain"
                 alt="Player 이미지"
-                src={items.playerPrvwImg}
+                src={items.mobilePlayerImg ? items.playerPrvwImg : unknownImg}
               ></img>
             </div>
             <div className="flex items-center gap-2 pt-3 text-kt-white">
@@ -52,7 +54,6 @@ const CardItem = ({ items }: CardItemProps) => {
               </div>
             </div>
           </div>
-
           <div
             className={cn(
               'card-dynamic-size card-front-back rotate-y-180',
@@ -102,7 +103,6 @@ const CardItem = ({ items }: CardItemProps) => {
               <div className="mt-8 text-5xl">{items.rank}위</div>
               <div className="flex items-center">
                 <button className="text-xl">자세히보기</button>
-
                 <FaArrowRight />
               </div>
             </div>
@@ -112,4 +112,4 @@ const CardItem = ({ items }: CardItemProps) => {
     </>
   );
 };
-export default CardItem;
+export default PlayerItem;
