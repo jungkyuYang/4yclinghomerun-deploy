@@ -36,9 +36,15 @@ const WizNews = ({
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error}</div>;
 
+  const selectOptions = ['제목', '내용'];
+
   return (
     <div className="m-auto mt-10 flex max-w-screen-2xl flex-col gap-4">
-      <SearchInput onSearch={onSearch} />
+      <SearchInput
+        onSearch={onSearch}
+        showSelect={true}
+        selectOptions={selectOptions}
+      />
 
       <NewsList newsItems={currentNews} />
 
