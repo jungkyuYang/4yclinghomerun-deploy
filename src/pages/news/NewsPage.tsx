@@ -49,7 +49,8 @@ const NewsPage = () => {
     `/article/wizpresslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
     `/article/navernewslist?date=20240918`,
   ];
-
+  
+// eslint-disable-next-line prefer-const
   const processData = (responseData: any) => {
     if (activeTab === 2) {
       // navernewslist 데이터
@@ -71,6 +72,7 @@ const NewsPage = () => {
   // 검색어 및 페이지 변경 시 API 요청
   useEffect(() => {
     handleRequest();
+    // eslint-disable-next-line prefer-const
   }, [searchWord, currentPage, activeTab]);
 
   // 탭 변경 시 라우팅 처리 및 API 재요청
