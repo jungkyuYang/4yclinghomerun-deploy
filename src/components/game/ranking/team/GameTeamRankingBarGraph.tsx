@@ -8,7 +8,7 @@ import {
 } from '@/data/GraphProperties';
 import GraphTooltipTeamRank from './GraphTooltipTeamRank';
 
-const GameTeamRankingGraph = ({
+const GameTeamRankingBarGraph = ({
   graphInfo,
 }: {
   graphInfo: TTeamRankingGraph[];
@@ -58,4 +58,4 @@ const GameTeamRankingGraph = ({
     />
   );
 };
-export default GameTeamRankingGraph;
+export default GameTeamRankingBarGraph;
