@@ -1,14 +1,16 @@
-type TeamRankProps = {
-  rank: number;
-  wins: number;
-  losses: number;
-  ties: number;
-  psRate: number;
-};
+import { GetPostSeasonPossibility } from '@/api/GetPostSeasonPossibility';
+import { GetTeamRank } from '@/api/GetTeamRank';
 
-const TeamRank = ({ rank, wins, losses, ties, psRate }: TeamRankProps) => {
-  const winningPercentage = ((wins / (wins + losses + ties)) * 100).toFixed(1);
-  const totalGames = wins + losses + ties;
+const TeamRank = () => {
+  const { data, isLoading, isError, error } = GetTeamRank();
+  const { ktPostSeasonPossibility, isLoading: ktPossibilityLoading } =
+    GetPostSeasonPossibility();
+  const teamRankData = data.data.ktWizTeamRank;
+  const { game, rank, wra, wldName } = teamRankData;
+  const formmattedWra = Number(wra) * 100;
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error}</p>;
 
   return (
     <section className="relative w-full overflow-hidden rounded-lg bg-gray-100 bg-gradient-to-br from-[#35383E] to-[#241f1f] p-1">
@@ -28,18 +30,16 @@ const TeamRank = ({ rank, wins, losses, ties, psRate }: TeamRankProps) => {
             <section className="flex items-center">
               <div>
                 <h2 className="text-base font-medium text-gray-300">
-                  현재 기록 (현재 {totalGames}경기 중)
+                  현재 기록 (현재 {game}경기 중)
                 </h2>
-                <p className="text-2xl font-bold">
-                  {wins}승 {losses}패 {ties}무
-                </p>
+                <p className="text-2xl font-bold">{wldName}</p>
               </div>
             </section>
 
             <section className="flex items-center">
               <div>
                 <h3 className="text-base font-medium text-gray-300">승률</h3>
-                <p className="text-2xl font-bold">{winningPercentage}%</p>
+                <p className="text-2xl font-bold">{formmattedWra}%</p>
               </div>
             </section>
 
@@ -48,7 +48,15 @@ const TeamRank = ({ rank, wins, losses, ties, psRate }: TeamRankProps) => {
                 <h3 className="text-base font-medium text-gray-300">
                   PS 진출 확률
                 </h3>
-                <p className="text-2xl font-bold">{psRate}%</p>
+                {ktPossibilityLoading ? (
+                  <p className="break-keep text-base font-bold">
+                    KT AI가 분석중...
+                  </p>
+                ) : (
+                  <p className="text-2xl font-bold">
+                    {ktPostSeasonPossibility}
+                  </p>
+                )}
               </div>
             </section>
           </div>

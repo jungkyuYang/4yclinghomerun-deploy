@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoCloseSharp } from 'react-icons/io5';
 
-import { Button } from '@/ui/button/button';
+import { Button } from '@/components/common/ui/button/button';
 
 type ModalProps = {
   isOpen: boolean;

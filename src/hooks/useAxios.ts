@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect, useState } from 'react';
 
 import HttpClient from '@/api/HttpClient';
@@ -107,4 +109,4 @@ const useAxios = <T, R = T>({
   };
 };
 
-export default useAxios;
+export { useAxios };
