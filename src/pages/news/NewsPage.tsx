@@ -7,6 +7,12 @@ import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 import WizNews from '@/components/wiz-news/WizNews';
 import { useAxios } from '@/hooks/useAxios';
 import topImg from '@/assets/wiz-news/top_sub_bg.png';
+import {
+  APINaverNewsItemList,
+  APIWizNewsItemList,
+  TNaverNewsItem,
+  TWizNewsItem,
+} from '@/types/wizNews';
 
 const tabs = [
   {
@@ -52,23 +58,34 @@ const NewsPage = () => {
     `/article/navernewslist?date=20240918`,
   ];
 
-  // eslint-disable-next-line prefer-const
-  const processData = (responseData: any) => {
-    if (activeTab === 2) {
-      // navernewslist 데이터
-      return responseData.list || [];
-    } else {
-      // newslistpage와 wizpresslist 데이터
-      return responseData.data?.list || [];
-    }
-  };
+  // const processData = (
+  //   responseData: APIWizNewsItemList | APINaverNewsItemList,
+  // ): (TWizNewsItem | TNaverNewsItem)[] => {
+  //   if (activeTab === 2) {
+  //     // navernewslist 데이터
+  //     return (responseData as APINaverNewsItemList).list || [];
+  //   } else {
+  //     // newslistpage와 wizpresslist 데이터
+  //     return (responseData as APIWizNewsItemList).data?.list || [];
+  //   }
+  // };
 
-  const { data, isLoading, isError, error, handleRequest } = useAxios({
+  const { data, isLoading, isError, error, handleRequest } = useAxios<
+    TNaverNewsItem[] | TWizNewsItem[]
+  >({
     url: urls[activeTab],
     method: 'GET',
-    initialData: [],
+    initialData: [] as TNaverNewsItem[] | TWizNewsItem[], // 빈 배열로 초기화
     shouldFetchOnMount: true,
-    processData,
+    processData: (responseData): TNaverNewsItem[] | TWizNewsItem[] => {
+      if (activeTab === 2) {
+        const naverData = responseData as unknown as APINaverNewsItemList;
+        return naverData.list || [];
+      } else {
+        const wizData = responseData as unknown as APIWizNewsItemList;
+        return wizData.data?.list || [];
+      }
+    },
   });
 
   // 검색어 및 페이지 변경 시 API 요청
@@ -99,11 +116,13 @@ const NewsPage = () => {
 
   // 데이터 확인용 로그
   useEffect(() => {
-    if (data) {
-      if (activeTab === 2 && data.list) {
-        console.log('NaverNews List:', data.list);
-      } else if (data.data?.list) {
-        console.log('WizNews List:', data.data.list);
+    if (data && Array.isArray(data)) {
+      if (activeTab === 2) {
+        const naverNewsData = data as TNaverNewsItem[];
+        console.log('NaverNews List:', naverNewsData);
+      } else {
+        const wizNewsData = data as TWizNewsItem[];
+        console.log('WizNews List:', wizNewsData);
       }
     }
   }, [data, activeTab]);

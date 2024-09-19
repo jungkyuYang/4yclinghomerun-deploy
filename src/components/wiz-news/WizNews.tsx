@@ -2,9 +2,9 @@ import SearchInput from '../common/ui/SearchInput';
 
 import Pagination from './Pagination';
 import NewsList from './NewsList';
+import NewsListSkeleton from './NewsSkeleton';
 
 import { TNaverNewsItem, TWizNewsItem } from '@/types/wizNews';
-import NewsListSkeleton from './NewsSkeleton';
 
 type WizNewsProps = {
   newsList: (TWizNewsItem | TNaverNewsItem)[];
@@ -18,11 +18,17 @@ type WizNewsProps = {
 };
 
 const isNaverNews = (newsList: (TWizNewsItem | TNaverNewsItem)[]): boolean => {
-  return newsList.some((news) => (news as TWizNewsItem).artcTitle == undefined);
+  if (!Array.isArray(newsList)) {
+    return false;
+  }
+
+  return newsList.some(
+    (news) => (news as TWizNewsItem).artcTitle === undefined,
+  );
 };
 
 const WizNews = ({
-  newsList,
+  newsList = [],
   isLoading,
   isError,
   error,
@@ -33,10 +39,12 @@ const WizNews = ({
   const itemsPerPage = 5;
   const totalPages = Math.ceil(newsList.length / itemsPerPage);
 
-  const currentNews = newsList.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
+  const currentNews = Array.isArray(newsList)
+    ? newsList.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+      )
+    : [];
 
   if (isError) return <div>Error: {error}</div>;
 

@@ -53,3 +53,13 @@ export type TNaverNewsDetail = {
     copyright: string;
   };
 };
+
+export type APINaverNewsItemList = {
+  list: TNaverNewsItem[];
+};
+
+export type APIWizNewsItemList = {
+  data: {
+    list: TWizNewsItem[];
+  };
+};
