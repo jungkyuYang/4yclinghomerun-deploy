@@ -41,5 +41,3 @@ export const LineGraphProperties = {
   pointColor: '#D60C0C',
   pointBorderColor: { from: 'serieColor' },
 };
-
-export const BarGraphProperties = {};

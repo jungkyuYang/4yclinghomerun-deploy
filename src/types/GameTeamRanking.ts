@@ -150,3 +150,10 @@ export type APITeamRankingTeamVSTable = {
     list: TTeamRankingTeamVSTable[];
   };
 };
+
+export type TTeamRankingPieGraph = {
+  id: string;
+  label: string;
+  value: number;
+  color: string;
+};

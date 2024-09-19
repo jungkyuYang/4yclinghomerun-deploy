@@ -5,8 +5,8 @@ import { TTeamRankingTeamVSTable } from '@/types/GameTeamRanking';
 const teamVSColumnHelper = createColumnHelper<TTeamRankingTeamVSTable>();
 
 export const teamRankingTeamVSColumns = [
-  teamVSColumnHelper.accessor('teamCode', {
-    header: () => '팀 코드',
+  teamVSColumnHelper.accessor('teamName', {
+    header: () => '팀명',
     cell: (info) => info.getValue(),
   }),
   teamVSColumnHelper.accessor('teamName', {

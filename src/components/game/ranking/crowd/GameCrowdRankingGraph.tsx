@@ -1,10 +1,7 @@
 import { ResponsiveBar } from '@nivo/bar';
 
 import { TCrowdRankingData } from '@/types/GameCrowdRanking';
-import {
-  BarGraphProperties,
-  GraphCommonProperties,
-} from '@/data/GraphProperties';
+import { GraphCommonProperties } from '@/data/GraphProperties';
 import { getGraphMaxValue } from '@/utils/parseNumber';
 import GraphTooltipCrowdRank from './GraphTooltipCrowdRank';
 
@@ -18,7 +15,6 @@ const GameCrowdRankingGraph = ({
   return (
     <ResponsiveBar
       {...GraphCommonProperties}
-      {...BarGraphProperties}
       data={graphInfo.map((item) => ({
         teamName: item.teamName,
         crowd: item.crowd,
