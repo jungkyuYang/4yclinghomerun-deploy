@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import NavigationBar from '@/components/header/NavigationBar';
-import ScrollToTop from '@/common/ScrollToTop';
+import ScrollToTop from '@/components/common/ScrollToTop';
 
 const Layout = () => {
   return (
