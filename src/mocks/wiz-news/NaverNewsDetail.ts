@@ -9,7 +9,7 @@ const naverNewsDetailData = {
         {
           caption: '',
           height: '427',
-          url: "https://imgnews.pstatic.net/image/311/2024/09/11/0001770554_001_20240911173512834.jpg",
+          url: 'https://imgnews.pstatic.net/image/311/2024/09/11/0001770554_001_20240911173512834.jpg',
         },
       ],
 

@@ -6,15 +6,15 @@ import naverNewsDetailData from '@/mocks/wiz-news/NaverNewsDetail';
 const NewsDetailPage = () => {
   const { tab, id } = useParams();
 
+  useEffect(() => {
+    console.log(tab, id);
+  }, [tab, id]);
+
   // const urls = {
   //   wiznews: `/article/newsdetail?artcSeq=${id}`,
   //   wizpress: `/article/wizpressdetail?artcSeq=${id}`,
   //   navernews: `/article/navernewsdetail?${id}`,
   // };
-
-  useEffect(() => {
-    console.log(tab, id);
-  }, [tab, id]);
 
   // const processData = (responseData: any) => {
   //   if (tab === 'navernews') {
@@ -34,7 +34,7 @@ const NewsDetailPage = () => {
   //   processData,
   // });
 
-  // if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>기사 불러오는 중...</div>;
   // if (isError) return <div>Error: {error}</div>;
 
   // HTML 태그 제거하고 텍스트만 반환
@@ -53,7 +53,7 @@ const NewsDetailPage = () => {
           </span>
           <span>
             최종 수정일 :{' '}
-            {naverNewsDetailData.articleInfo.article.serviceDatetime}
+            {naverNewsDetailData.articleInfo.article.modifyDatetime}
           </span>
         </div>
         <h1 className="border-b border-kt-white p-3 text-center text-4xl">
@@ -64,14 +64,19 @@ const NewsDetailPage = () => {
         </p>
       </div>
 
-      <img src={naverNewsDetailData.articleInfo.article.imageFiles[0].url} className='w-2/3 m-auto'/>
+      <img
+        src={naverNewsDetailData.articleInfo.article.imageFiles[0].url}
+        className="m-auto w-2/3"
+      />
 
       <div className="flex flex-col gap-2">
         <strong className="text-2xl">
           {naverNewsDetailData.articleInfo.article.subcontent}
         </strong>
         <p>{stripHtmlTags(naverNewsDetailData.articleInfo.article.content)}</p>
-        <span className="text-sm text-right">{naverNewsDetailData.articleInfo.copyright}</span>
+        <span className="text-right text-sm">
+          {naverNewsDetailData.articleInfo.copyright}
+        </span>
       </div>
     </div>
   );

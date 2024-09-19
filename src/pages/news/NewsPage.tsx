@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
-
 import WizNews from '@/components/wiz-news/WizNews';
-
 import useAxios from '@/hooks/useAxios';
 import topImg from '@/assets/wiz-news/top_sub_bg.png';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 const tabs = [
   {
@@ -27,7 +25,7 @@ const tabs = [
 ];
 
 const NewsPage = () => {
-  const { tab } = useParams();
+  const { tab, id } = useParams();
   const [activeTab, setActiveTab] = useState(0);
   const [subTitle, setSubTitle] = useState(tabs[0].subTitle);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,8 +46,8 @@ const NewsPage = () => {
 
   const urls = [
     `/article/newslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
-    `/article/wizpresslist?searchWord=${searchWord}&pageNum=${currentPage}`,
-    `/article/navernewslist?searchWord=${searchWord}&pageNum=${currentPage}`,
+    `/article/wizpresslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
+    `/article/navernewslist?date=20240918`,
   ];
 
   const processData = (responseData: any) => {
@@ -81,20 +79,18 @@ const NewsPage = () => {
       navigate(`/news/${tabs[index].path}`);
       setActiveTab(index);
       setCurrentPage(1);
-      handleRequest();
+      setSearchWord(''); // 검색어 초기화
     },
-    [navigate, handleRequest],
+    [navigate],
   );
 
   const pageChangeHandler = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    handleRequest(); // 페이지 변경 시 데이터 요청
   };
 
   const searchHandler = (newSearchWord: string) => {
     setSearchWord(newSearchWord);
     setCurrentPage(1);
-    handleRequest();
   };
 
   // 데이터 확인용 로그
@@ -106,18 +102,21 @@ const NewsPage = () => {
         console.log('WizNews List:', data.data.list);
       }
     }
-  }, [data]);
+  }, [data, activeTab]);
 
   return (
-    <>
-      <DetailPageLayout
-        topImg={topImg}
-        title="Wiz 뉴스"
-        subTitle={subTitle}
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={tabChangeHandler}
-      >
+    <DetailPageLayout
+      topImg={topImg}
+      title="Wiz 뉴스"
+      subTitle={subTitle}
+      tabs={tabs}
+      activeTab={activeTab}
+      onTabChange={tabChangeHandler}
+    >
+      {id ? (
+        // 상세 페이지 렌더링
+        <Outlet />
+      ) : (
         <WizNews
           newsList={data}
           isLoading={isLoading}
@@ -128,9 +127,8 @@ const NewsPage = () => {
           onPageChange={pageChangeHandler}
           onSearch={searchHandler}
         />
-        <Outlet />
-      </DetailPageLayout>
-    </>
+      )}
+    </DetailPageLayout>
   );
 };
 

@@ -10,7 +10,7 @@ type NewsListProps = {
   newsItems: (TWizNewsItem | TNaverNewsItem)[];
 };
 
-// 타입 확인
+// 데이터 타입 확인
 const isWizNewsItem = (
   news: TWizNewsItem | TNaverNewsItem,
 ): news is TWizNewsItem => {
@@ -29,11 +29,13 @@ const NewsList = ({ newsItems }: NewsListProps) => {
     <ul>
       {newsItems.map((news) => (
         <li
-          key={isWizNewsItem(news) ? news.updDttm : news.aid}
+          key={isWizNewsItem(news) ? news.artcSeq : news.aid}
           className="group m-4 rounded-sm bg-gradient-to-r from-kt-black-5 to-transparent transition duration-200 hover:bg-gradient-to-l"
         >
-          <Link to={``} className="flex">
-            {/* 이미지 렌더링 조건 */}
+          <Link
+            to={`/news/detail/${isWizNewsItem(news) ? news.artcSeq : `oid=${news.oid}&aid=${news.aid}`}`}
+            className="flex"
+          >
             {isWizNewsItem(news) && news.imgFilePath ? (
               <img
                 src={news.imgFilePath}
@@ -49,6 +51,7 @@ const NewsList = ({ newsItems }: NewsListProps) => {
                 className="h-[170px] w-full max-w-[300px] border-8 border-kt-black-5 object-cover object-left-top transition-all duration-200 group-hover:border-kt-gray-1"
               />
             ) : null}
+
             <div className="flex w-full justify-between">
               <div className="w-4/5 py-6 pl-5">
                 <h3 className="mb-3 text-2xl font-bold">
@@ -60,14 +63,15 @@ const NewsList = ({ newsItems }: NewsListProps) => {
                     : news.subContent}
                 </span>
               </div>
-              <div className="w-1/5 p-3">
-                <span className="flex items-center justify-end gap-1">
+
+              <div className="flex w-1/5 flex-col items-end p-3">
+                <span className="flex items-center gap-1">
                   {isWizNewsItem(news)
                     ? formatTimeStamp(news.updDttm)
                     : news.datetime}
                   <MdDateRange />
                 </span>
-                <span className="flex items-center justify-end gap-1">
+                <span className="flex items-center gap-1">
                   {isWizNewsItem(news) ? news.viewCnt : news.totalCount}
                   <GrFormView />
                 </span>
