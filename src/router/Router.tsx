@@ -1,19 +1,25 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { ROUTER_PATH } from '@/constants/constant';
 import Layout from './Layout';
 import HomePage from '@/pages/HomePage';
 import IntroductionPage from '@/pages/Introduction/IntroductionPage';
 import WizParkPage from '@/pages/WizParkPage';
 import DirectionPage from '@/pages/DirectionPage';
-import GamePage from '@/pages/GamePage';
+import GamePage from '@/pages/game/GamePage';
 import PlayerPage from '@/pages/PlayerPage';
 import NewsPage from '@/pages/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
-import ScrollToTop from '@/common/ScrollToTop';
-import { ROUTER_PATH } from '@/constants/constant';
+import SchedulePage from '@/pages/game/SchedulePage';
+import BoxScorePage from '@/pages/game/BoxScorePage';
+import WatchPointPage from '@/pages/game/WatchPointPage';
 import IntroductionClub from '@/pages/Introduction/IntroductionClub';
 import IntroductionHistory from '@/pages/Introduction/IntroductionHistory';
+import TeamRankingPage from '@/pages/game/ranking/TeamRankingPage';
+import PlayerRankingPage from '@/pages/game/ranking/PlayerRankingPage';
+import CrowdRankingPage from '@/pages/game/ranking/CrowdRankingPage';
+import RankingPage from '@/pages/game/RankingPage';
 
 const Router = () => {
   const {
@@ -24,6 +30,11 @@ const Router = () => {
     WIZ_PARK,
     DIRECTION,
     GAME,
+    GAME_RANKING,
+    GAME_RANKING_TEAM,
+    GAME_RANKING_BATTER,
+    GAME_RANKING_PICHER,
+    GAME_RANKING_CROWND,
     PLAYER,
     NEWS,
     LOGIN,
@@ -31,12 +42,7 @@ const Router = () => {
   } = ROUTER_PATH;
   const router = createBrowserRouter([
     {
-      element: (
-        <>
-          <ScrollToTop />
-          <Layout />
-        </>
-      ),
+      element: <Layout />,
       children: [
         { path: HOME, element: <HomePage /> },
         {
@@ -49,7 +55,26 @@ const Router = () => {
         },
         { path: WIZ_PARK, element: <WizParkPage /> },
         { path: DIRECTION, element: <DirectionPage /> },
-        { path: GAME, element: <GamePage /> },
+        {
+          path: GAME,
+          element: <GamePage />,
+          children: [
+            { path: 'schedule', element: <SchedulePage /> },
+            { path: 'boxscore', element: <BoxScorePage /> },
+            {
+              path: GAME_RANKING,
+              element: <RankingPage />,
+              children: [
+                { path: GAME_RANKING_TEAM, element: <TeamRankingPage /> },
+                { path: GAME_RANKING_PICHER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_BATTER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_CROWND, element: <CrowdRankingPage /> },
+              ],
+            },
+
+            { path: 'watchpoint', element: <WatchPointPage /> },
+          ],
+        },
         { path: PLAYER, element: <PlayerPage /> },
         { path: NEWS, element: <NewsPage /> },
         { path: LOGIN, element: <LoginPage /> },

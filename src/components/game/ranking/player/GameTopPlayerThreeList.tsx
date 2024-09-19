@@ -18,7 +18,7 @@ const GameTopPlayerThreeList = () => {
   ];
 
   return (
-    <section className="flex flex-col items-center justify-center text-kt-black-1">
+    <section className="flex flex-col items-center justify-center text-kt-white">
       <h1 className="mb-2 text-lg font-bold">평균자책점 TOP3</h1>
       <ul>
         {ListData.map((item) => (

@@ -1,11 +1,12 @@
+import { useEffect, useState } from 'react';
+
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import { cn } from '@/utils/cn';
-import { useEffect, useState } from 'react';
 import { gameRankingTabs } from '@/data/GameRankingTabsData';
 import { ROUTER_PATH } from '@/constants/constant';
 
-const GameRankingPage = () => {
+const RankingPage = () => {
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
@@ -45,4 +46,4 @@ const GameRankingPage = () => {
   );
 };
 
-export default GameRankingPage;
+export default RankingPage;

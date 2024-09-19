@@ -1,6 +1,6 @@
 import { ResponsiveBar } from '@nivo/bar';
 
-import { TGameCrowdRankingData } from '@/types/GameCrowdRanking';
+import { TCrowdRankingData } from '@/types/GameCrowdRanking';
 import {
   BarGraphProperties,
   GraphCommonProperties,
@@ -11,7 +11,7 @@ import GraphTooltipCrowdRank from './GraphTooltipCrowdRank';
 const GameCrowdRankingGraph = ({
   graphInfo,
 }: {
-  graphInfo: TGameCrowdRankingData[];
+  graphInfo: TCrowdRankingData[];
 }) => {
   const maxCrowd = Math.max(...graphInfo.map((item) => item.crowd));
   const maxValue = getGraphMaxValue(maxCrowd);

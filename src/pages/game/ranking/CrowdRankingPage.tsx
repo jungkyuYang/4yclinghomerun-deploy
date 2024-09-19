@@ -1,20 +1,52 @@
 import { useEffect, useState } from 'react';
 
-import useAxios from '@/hooks/useAxios';
+import { useAxios } from '@/hooks/useAxios';
 import GameRankingSectionFrame from '@/components/game/GameRankingSectionFrame';
 import {
-  APIGameCrowdRankingData,
-  TGameCrowdRankingData,
+  APICrowdRankingData,
+  TCrowdRankingData,
+  TCrowdRankingTable,
 } from '@/types/GameCrowdRanking';
 import GameCrowdRankingGraph from '@/components/game/ranking/crowd/GameCrowdRankingGraph';
 import GameCrowdRankingSelectYear from '@/components/game/ranking/crowd/GameCrowdRankingSelectYear';
+import GameRankingTable from '@/components/game/ranking/GameRankingTable';
+import { crowdRankingColumns } from '@/data/CrowdRankingTableData';
 
-const GameCrowdRanking = () => {
+const CrowdRankingPage = () => {
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear(),
   );
   const [isOpenSelectYears, setIsOpenSelectYears] = useState<boolean>(false);
   const [years, setYears] = useState<number[]>([]);
+  const [tableInfo, setTableInfo] = useState<TCrowdRankingTable[]>([]);
+
+  const {
+    data: GameCrowdRankingTotalData,
+    isLoading,
+    isError,
+    error,
+  } = useAxios<APICrowdRankingData, TCrowdRankingData[]>({
+    url: `/game/rank/crowd?gyear=${selectedYear}`,
+    method: 'GET',
+    initialData: { data: { list: [] } },
+    shouldFetchOnMount: true,
+    processData: (data: APICrowdRankingData) => data.data.list,
+  });
+
+  useEffect(() => {
+    if (Array.isArray(GameCrowdRankingTotalData)) {
+      const sortedList = GameCrowdRankingTotalData.sort(
+        (a, b) => b.crowd - a.crowd,
+      );
+
+      setTableInfo(
+        sortedList.map((item, index) => ({
+          ...item,
+          rank: index + 1,
+        })),
+      );
+    }
+  }, [GameCrowdRankingTotalData]);
 
   useEffect(() => {
     const generatedYears: number[] = [];
@@ -38,31 +70,15 @@ const GameCrowdRanking = () => {
     setIsOpenSelectYears((isOpenSelectYears) => !isOpenSelectYears);
   };
 
-  // 연도 선택 핸들러
   const handleYearClick = (year: number) => {
     setSelectedYear(year);
     setIsOpenSelectYears((isOpenSelectYears) => !isOpenSelectYears);
   };
 
-  const {
-    data: GameCrowdRankingTotalData,
-    isLoading,
-    isError,
-    error,
-  } = useAxios<APIGameCrowdRankingData, TGameCrowdRankingData[]>({
-    url: `/game/rank/crowd?gyear=${selectedYear}`,
-    method: 'GET',
-    initialData: { data: { list: [] } },
-    shouldFetchOnMount: true,
-    processData: (data: APIGameCrowdRankingData) => data.data.list,
-  });
-
-  // 데이터를 받기 전이거나 처리 중일 때는 로딩 처리
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
-  // 에러가 발생했거나 데이터가 배열이 아닌 경우 에러 처리
   if (isError || !Array.isArray(GameCrowdRankingTotalData)) {
     return <p>Error: {error}</p>;
   }
@@ -83,10 +99,14 @@ const GameCrowdRanking = () => {
         height="h-[50vh]"
         type="graph"
       >
-        {/* <div>{JSON.stringify(GameCrowdRankingTotalData)}</div> */}
         <GameCrowdRankingGraph graphInfo={GameCrowdRankingTotalData} />
       </GameRankingSectionFrame>
+      <GameRankingTable<TCrowdRankingTable>
+        title={`${selectedYear} 시즌 관중`}
+        tableInfo={tableInfo}
+        columns={crowdRankingColumns}
+      />
     </div>
   );
 };
-export default GameCrowdRanking;
+export default CrowdRankingPage;

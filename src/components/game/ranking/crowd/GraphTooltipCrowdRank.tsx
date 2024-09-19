@@ -1,12 +1,12 @@
 import { BarTooltipProps } from '@nivo/bar';
 
 import GraphTooltipFrame from '../GraphTooltipFrame';
-import { TGameCrowdRankingGraph } from '@/types/GameCrowdRanking';
+import { TCrowdRankingGraph } from '@/types/GameCrowdRanking';
 
 const GraphTooltipCrowdRank = ({
   label,
   value,
-}: BarTooltipProps<TGameCrowdRankingGraph>) => {
+}: BarTooltipProps<TCrowdRankingGraph>) => {
   return (
     <GraphTooltipFrame>
       <p>{label.slice(7)}</p>

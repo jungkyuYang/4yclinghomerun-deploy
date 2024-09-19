@@ -1,6 +1,6 @@
 import { ResponsiveLine } from '@nivo/line';
 
-import { TGameTeamRankingGraph } from '@/types/GameTeamRanking';
+import { TTeamRankingGraph } from '@/types/GameTeamRanking';
 import { parseTeamRankingDate } from '@/utils/parseDate';
 import {
   GraphCommonProperties,
@@ -11,7 +11,7 @@ import GraphTooltipTeamRank from './GraphTooltipTeamRank';
 const GameTeamRankingGraph = ({
   graphInfo,
 }: {
-  graphInfo: TGameTeamRankingGraph[];
+  graphInfo: TTeamRankingGraph[];
 }) => {
   return (
     <ResponsiveLine

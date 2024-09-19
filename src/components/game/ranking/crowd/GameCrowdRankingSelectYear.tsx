@@ -3,7 +3,7 @@ import {
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
 
-import { TGameCrowdRankingSelectYearProps } from '@/types/GameCrowdRanking';
+import { TCrowdRankingSelectYearProps } from '@/types/GameCrowdRanking';
 import { cn } from '@/utils/cn';
 
 const GameCrowdRankingSelectYear = ({
@@ -14,7 +14,7 @@ const GameCrowdRankingSelectYear = ({
   handleNextYear,
   handleOpenSelectYears,
   handleYearClick,
-}: TGameCrowdRankingSelectYearProps) => {
+}: TCrowdRankingSelectYearProps) => {
   return (
     <div className="relative flex flex-col items-center justify-center px-4">
       <div className="flex w-full items-center justify-center gap-10">

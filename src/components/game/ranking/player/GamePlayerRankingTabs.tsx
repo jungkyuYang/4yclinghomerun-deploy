@@ -22,7 +22,7 @@ const GamePlayerRankingTabs = ({
               {isActive && (
                 <motion.div
                   layoutId="activeTabBackground"
-                  className="absolute inset-0 rounded-md bg-gradient-to-tr from-kt-gray-2 to-kt-white"
+                  className="absolute inset-0 rounded-md bg-gray-300"
                   transition={{
                     type: 'tween',
                     ease: 'easeInOut',

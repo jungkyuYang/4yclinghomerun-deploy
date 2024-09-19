@@ -3,7 +3,7 @@ import { useState } from 'react';
 import GamePlayerRankingTabs from '@/components/game/ranking/player/GamePlayerRankingTabs';
 import GameTopPlayerRankingFrame from '@/components/game/ranking/player/GameTopPlayerRankingFrame';
 
-const GamePlayerRanking = () => {
+const PlayerRankingPage = () => {
   const [activeTab, setActiveTab] = useState('kt wiz 투수 순위');
 
   const handleActiveTab = (title: string) => {
@@ -19,4 +19,4 @@ const GamePlayerRanking = () => {
     </div>
   );
 };
-export default GamePlayerRanking;
+export default PlayerRankingPage;

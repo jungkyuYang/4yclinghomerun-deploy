@@ -1,4 +1,4 @@
-export type TGameCrowdRankingSelectYearProps = {
+export type TCrowdRankingSelectYearProps = {
   selectedYear: number;
   isOpenSelectYears: boolean;
   years: number[];
@@ -8,18 +8,22 @@ export type TGameCrowdRankingSelectYearProps = {
   handleYearClick: (year: number) => void;
 };
 
-export type TGameCrowdRankingGraph = {
+export type TCrowdRankingGraph = {
   crowd: number;
   teamName: string;
 };
 
-export type APIGameCrowdRankingData = {
-  data: { list: TGameCrowdRankingData[] };
+export interface TCrowdRankingTable extends TCrowdRankingData {
+  rank: number;
+}
+
+export type APICrowdRankingData = {
+  data: { list: TCrowdRankingData[] };
 };
 
-export type TGameCrowdRankingData = {
+export interface TCrowdRankingData {
   crowd: number;
   game: number;
   teamCode: string;
   teamName: string;
-};
+}
