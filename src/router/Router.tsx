@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { ROUTER_PATH } from '@/constants/constant';
 import Layout from './Layout';
 import HomePage from '@/pages/HomePage';
 import IntroductionPage from '@/pages/Introduction/IntroductionPage';
@@ -10,6 +11,12 @@ import PlayerPage from '@/pages/PlayerPage';
 import NewsPage from '@/pages/news/NewsPage';
 import LoginPage from '@/pages/LoginPage';
 import SingupPage from '@/pages/SignupPage';
+import IntroductionClub from '@/pages/Introduction/IntroductionClub';
+import IntroductionHistory from '@/pages/Introduction/IntroductionHistory';
+import TeamRankingPage from '@/pages/game/ranking/TeamRankingPage';
+import PlayerRankingPage from '@/pages/game/ranking/PlayerRankingPage';
+import CrowdRankingPage from '@/pages/game/ranking/CrowdRankingPage';
+import RankingPage from '@/pages/game/RankingPage';
 import { ROUTER_PATH } from '@/constants/constant';
 import CoachPage from '@/pages/Player/CoachPage';
 import PitcherPage from '@/pages/Player/PitcherPage';
@@ -32,6 +39,11 @@ const Router = () => {
     WIZ_PARK,
     DIRECTION,
     GAME,
+    GAME_RANKING,
+    GAME_RANKING_TEAM,
+    GAME_RANKING_BATTER,
+    GAME_RANKING_PICHER,
+    GAME_RANKING_CROWND,
     PLAYER,
     NEWS,
     LOGIN,
@@ -52,7 +64,23 @@ const Router = () => {
         },
         { path: WIZ_PARK, element: <WizParkPage /> },
         { path: DIRECTION, element: <DirectionPage /> },
-        { path: GAME, element: <GamePage /> },
+        {
+          path: GAME,
+          element: <GamePage />,
+          children: [
+            {
+              path: GAME_RANKING,
+              element: <RankingPage />,
+              children: [
+                { path: GAME_RANKING_TEAM, element: <TeamRankingPage /> },
+                { path: GAME_RANKING_PICHER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_BATTER, element: <PlayerRankingPage /> },
+                { path: GAME_RANKING_CROWND, element: <CrowdRankingPage /> },
+              ],
+            },
+          ],
+        },
+        { path: PLAYER, element: <PlayerPage /> },
         {
           path: PLAYER,
           element: <PlayerPage />,
