@@ -1,6 +1,6 @@
 export const GraphCommonProperties = {
   animate: true,
-  enableSlices: false as false,
+  enableSlices: false as const,
   enableGridX: false,
   enableGridY: false,
   useMesh: true,

@@ -15,7 +15,6 @@ const GameTopPlayerThreeList = () => {
       name: '로하스',
       value: 0.33,
     },
-    ,
   ];
 
   return (
