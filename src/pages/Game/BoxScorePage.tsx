@@ -9,6 +9,7 @@ import SectionLayout from '@/components/game/boxscore/SectionLayout';
 import { GetBoxScore } from '@/api/GetBoxScore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { useScheduleStore } from '@/stores/ScheduleStore';
+import { GAME_STATUS } from '@/constants/constant';
 
 const BoxScorePage = () => {
   const location = useLocation();
@@ -22,8 +23,8 @@ const BoxScorePage = () => {
 
   // 가장 최근에 완료된 경기 찾기
   const lastFinishedGame = monthScheduleData?.data.list
-    .filter((game) => game.status === '3')
-    .pop();
+    .filter((game) => game.status === GAME_STATUS.AFTER_GAME)
+    .slice(-1)[0];
 
   // gameDate나 gmkey가 없을 경우 가장 최근 경기 데이터 사용
   const finalGameDate = parseInt(
