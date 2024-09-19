@@ -12,7 +12,7 @@ const IntroductionHistoryItem = ({
   const cardRef = useRef(null);
   const isCardInView = useInView(cardRef, {
     once: true,
-    margin: '0px -70% 0px 0px',
+    margin: '0px -50%',
   });
 
   return (
