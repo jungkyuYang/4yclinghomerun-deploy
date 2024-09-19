@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { cn } from '@/utils/cn';
 import { gameRankingTabs } from '@/data/GameRankingTabsData';
@@ -8,15 +8,16 @@ import { ROUTER_PATH } from '@/constants/constant';
 
 const RankingPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   useEffect(() => {
     if (location.pathname === ROUTER_PATH.GAME_RANKING) {
-      setCurrentPath(ROUTER_PATH.GAME_RANKING_TEAM);
+      navigate(ROUTER_PATH.GAME_RANKING_TEAM, { replace: true });
     } else {
       setCurrentPath(location.pathname);
     }
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <>
