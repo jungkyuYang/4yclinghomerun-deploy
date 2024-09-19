@@ -31,6 +31,8 @@ export const LOGO_URL = '/src/assets/images/logo/KTwiz_logo.svg';
 export const ROUTER_PATH = {
   HOME: '/',
   INTRODUCE: '/introduce',
+  INTRODUCE_ABOUT: '/introduce/about',
+  INTRODUCE_HISTORY: '/introduce/history',
   WIZ_PARK: '/wiz-park',
   DIRECTION: '/direction',
   GAME: '/game',
@@ -38,4 +40,8 @@ export const ROUTER_PATH = {
   NEWS: '/news',
   LOGIN: '/login',
   SIGNUP: '/signup',
+  SCHEDULE: '/game/schedule',
+  BOXSCORE: '/game/boxscore',
+  RANKING: '/game/ranking',
+  WATCHPOINT: '/game/watchpoint',
 };

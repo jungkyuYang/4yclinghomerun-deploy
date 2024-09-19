@@ -108,4 +108,4 @@ const useAxios = <T, R = T>({
   };
 };
 
-export default useAxios;
+export { useAxios };

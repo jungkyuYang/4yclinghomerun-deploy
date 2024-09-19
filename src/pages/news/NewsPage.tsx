@@ -5,7 +5,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 import WizNews from '@/components/wiz-news/WizNews';
-import useAxios from '@/hooks/useAxios';
+import { useAxios } from '@/hooks/useAxios';
 import topImg from '@/assets/wiz-news/top_sub_bg.png';
 
 const tabs = [
@@ -51,8 +51,8 @@ const NewsPage = () => {
     `/article/wizpresslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
     `/article/navernewslist?date=20240918`,
   ];
-  
-// eslint-disable-next-line prefer-const
+
+  // eslint-disable-next-line prefer-const
   const processData = (responseData: any) => {
     if (activeTab === 2) {
       // navernewslist 데이터

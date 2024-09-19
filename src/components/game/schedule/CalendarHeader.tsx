@@ -2,24 +2,16 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaList, FaRegCalendarAlt } from 'react-icons/fa';
 
 import { cn } from '@/utils/cn';
+import { useScheduleStore } from '@/stores/ScheduleStore';
 
 type CalendarHeaderProps = {
-  year: number;
-  month: number;
   onPrevMonth: () => void;
   onNextMonth: () => void;
-  viewType: 'calendar' | 'list';
-  setViewType: (viewType: 'calendar' | 'list') => void;
 };
 
-const CalendarHeader = ({
-  year,
-  month,
-  onPrevMonth,
-  onNextMonth,
-  viewType,
-  setViewType,
-}: CalendarHeaderProps) => {
+const CalendarHeader = ({ onPrevMonth, onNextMonth }: CalendarHeaderProps) => {
+  const { year, month, viewType, setViewType } = useScheduleStore();
+
   return (
     <header className="mb-4 flex items-center justify-between">
       <nav className="flex items-center gap-5">
