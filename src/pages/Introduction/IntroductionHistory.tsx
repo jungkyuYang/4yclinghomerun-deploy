@@ -32,6 +32,9 @@ const IntroductionHistory = () => {
 
   return (
     <div ref={containerRef} className="relative h-[500vh] w-full">
+      <div className="absolute inset-0 z-10">
+        <div className="pointer-events-none h-full w-full bg-gradient-to-r from-black via-transparent to-black opacity-80"></div>
+      </div>
       <div className="sticky top-28 h-screen w-full items-center overflow-hidden">
         <div
           ref={cardFrameRef}
@@ -39,7 +42,7 @@ const IntroductionHistory = () => {
           style={{ flexBasis: 'auto' }}
         >
           {IntroductionHistoryData.map((item) => (
-            <IntroductionHistoryItem listItem={item} />
+            <IntroductionHistoryItem listItem={item} key={item.year} />
           ))}
         </div>
       </div>

@@ -1,19 +1,30 @@
 import { TIntroductionHistory } from '@/types/IntroductionHistory';
+import historyImg1 from '@/assets/introduction/history_1.jpg';
+import historyImg2 from '@/assets/introduction/history_2.jpg';
+import historyImg3 from '@/assets/introduction/history_3.jpg';
+import historyImg4 from '@/assets/introduction/history_4.jpg';
+import historyImg5 from '@/assets/introduction/history_5.jpg';
+import historyImg6 from '@/assets/introduction/history_6.jpg';
+import historyImg7 from '@/assets/introduction/history_7.jpg';
+import historyImg8 from '@/assets/introduction/history_8.jpg';
+import historyImg9 from '@/assets/introduction/history_9.jpg';
+import historyImg10 from '@/assets/introduction/history_10.jpg';
+import historyImg11 from '@/assets/introduction/history_11.jpg';
 
 export const IntroductionHistoryData: TIntroductionHistory[] = [
   {
     year: 2013,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/09/11/20240911133733.13f-6265c32955ab.jpg',
+    img: historyImg1,
     desc: ['kt sports 독립법인 출범', 'kt wiz 프로야구단 창단'],
   },
   {
     year: 2014,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/09/03/20240903130847.1d8-09c8aea186e6.jpg',
+    img: historyImg2,
     desc: ['Kt wiz 퓨처스리그 데뷔', '수원 케이티 위즈 파크 준공'],
   },
   {
     year: 2015,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/09/03/20240903130847.f7c-76e5472e0fde.jpg',
+    img: historyImg3,
     desc: [
       'kt wiz 프로야구단 1군리그 데뷔',
       'kt wiz 공식 어플리케이션 wizzap(위잽) 출시',
@@ -24,7 +35,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2016,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/09/03/20240903093725.e71-a67c2931542b.jpg',
+    img: historyImg4,
     desc: [
       "kt wiz 수도권 더비 'W-Match' 개최(vs SK)",
       'kt wiz 통산 100승 달성',
@@ -33,7 +44,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2017,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/30/20240830133724.760-9f7a3abc0df6.jpg',
+    img: historyImg5,
     desc: [
       '케이티 위즈파크 증축(2만 2천석)',
       '이진영 통산 2천 경기-2천 안타 달성(KBO 역대 5번째)',
@@ -43,7 +54,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2018,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/30/20240830133725.3ca-194600a46de1.jpg',
+    img: historyImg6,
     desc: [
       'Kt wiz 2018 스포노믹스 대상 수상',
       '-연고지 상생과 차별화된 팬서비스로, 프로스포츠 구단 부문 대상 수상',
@@ -62,7 +73,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2019,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/29/20240829131736.d25-2683dbefa7ae.jpg',
+    img: historyImg7,
     desc: [
       '위즈파크 5G 스타디움 개관식',
       '구단 창단 최초 9연승 달성',
@@ -75,7 +86,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2020,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/27/20240827135738.29f-2e931bd5faf0.jpg',
+    img: historyImg8,
     desc: [
       '데스파이네 구단 최다승 경신(14승)',
       '정규리그 2위 및 포스트시즌 진출 확정 (81승 62패)',
@@ -86,7 +97,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2021,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/27/20240827135738.1d2-e036ea5fca30.jpg',
+    img: historyImg9,
     desc: [
       '이강철 감독 200승 달성 (KBO 역대 31번째)',
       '김재윤 구단 최초 통산 100세이브 달성 (KBO 역대 17번째)',
@@ -97,7 +108,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2022,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/27/20240827135738.a59-3ae3ac4dce54.jpg',
+    img: historyImg10,
     desc: [
       '박병호 9년 연속 20홈런 (KBO 최초)',
       '팀 10,000안타',
@@ -110,7 +121,7 @@ export const IntroductionHistoryData: TIntroductionHistory[] = [
   },
   {
     year: 2023,
-    img: 'https://wizzap.ktwiz.co.kr/files/article/2024/08/27/20240827141304.680-c64099845ca0.jpg',
+    img: historyImg11,
     desc: [
       'kt wiz 창단 10주년',
       '7.11 김재윤 kt 최초 150세이브 (역대 9번째)',

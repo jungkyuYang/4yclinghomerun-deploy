@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import DetailPageLayout from '@/common/DetailPageLayout';
+import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 import { ROUTER_PATH } from '@/constants/constant';
 
 const { INTRODUCE_ABOUT, INTRODUCE_HISTORY } = ROUTER_PATH;
