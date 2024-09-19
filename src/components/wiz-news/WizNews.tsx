@@ -4,6 +4,7 @@ import Pagination from './Pagination';
 import NewsList from './NewsList';
 
 import { TNaverNewsItem, TWizNewsItem } from '@/types/wizNews';
+import NewsListSkeleton from './NewsSkeleton';
 
 type WizNewsProps = {
   newsList: (TWizNewsItem | TNaverNewsItem)[];
@@ -37,7 +38,6 @@ const WizNews = ({
     currentPage * itemsPerPage,
   );
 
-  if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error}</div>;
 
   const selectOptions = ['제목', '내용'];
@@ -53,7 +53,7 @@ const WizNews = ({
         />
       )}
 
-      <NewsList newsItems={currentNews} />
+      {isLoading ? <NewsListSkeleton /> : <NewsList newsItems={currentNews} />}
 
       <Pagination
         currentPage={currentPage}
