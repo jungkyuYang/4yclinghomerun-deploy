@@ -4,8 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import topImg from '@/assets/player/Banner_player.webp';
 import { playerTabs } from '@/mocks/player/playerTabs';
 import { ROUTER_PATH } from '@/constants/constant';
-
-import DetailPageLayout from '@/common/DetailPageLayout';
+import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 
 const { COACH } = ROUTER_PATH;
 

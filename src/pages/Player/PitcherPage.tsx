@@ -1,20 +1,18 @@
+import { useState } from 'react';
+import { useAxios } from '@/hooks/useAxios';
+
+import { TPlayer } from '@/types/player';
+
 import ErrorBoundary from '@/components/error/ErrorBoundary';
 import CardArea from '@/components/player/CardArea';
 import CardItem from '@/components/player/PlayerItem';
-
 import PitcherError from '@/components/player/pitcher/PitcherError';
 import PitcherSkeleton from '@/components/player/pitcher/PitcherSkeleton';
 import SectionLayout from '@/components/player/SectionLayout';
-import useAxios from '@/hooks/useAxios';
-import { TPlayer } from '@/types/player';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const PitcherPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredSearch, setFilteredSearch] = useState<TPlayer[]>([]);
-
-  const location = useLocation();
 
   const {
     data: pitcherData,
@@ -22,7 +20,7 @@ const PitcherPage = () => {
     isError,
   } = useAxios<TPlayer[]>({
     method: 'GET',
-    url: `api${location.pathname}list`,
+    url: `player/pitcherlist`,
     initialData: [],
     shouldFetchOnMount: true,
   });

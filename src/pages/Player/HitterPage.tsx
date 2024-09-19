@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import useAxios from '@/hooks/useAxios';
+import { useAxios } from '@/hooks/useAxios';
 import { TPlayer } from '@/types/player';
 
 import ErrorBoundary from '@/components/error/ErrorBoundary';
@@ -20,7 +20,7 @@ const HitterPage = () => {
     isError: isCatcherDataError,
   } = useAxios<TPlayer[]>({
     method: 'GET',
-    url: `api/player/catcherlist`,
+    url: `player/catcherlist`,
     initialData: [],
     shouldFetchOnMount: true,
   });
@@ -30,7 +30,7 @@ const HitterPage = () => {
     isError: isInfielderDataError,
   } = useAxios<TPlayer[]>({
     method: 'GET',
-    url: `api/player/infielderlist`,
+    url: `player/infielderlist`,
     initialData: [],
     shouldFetchOnMount: true,
   });
@@ -40,7 +40,7 @@ const HitterPage = () => {
     isError: isOutfielderDataError,
   } = useAxios<TPlayer[]>({
     method: 'GET',
-    url: `api/player/outfielderlist`,
+    url: `player/outfielderlist`,
     initialData: [],
     shouldFetchOnMount: true,
   });
