@@ -50,19 +50,11 @@ const WatchPointPage = () => {
     setFinalGmkey(gmkey || lastFinishedGame?.gmkey || '');
   }, [location.search, year, month, monthScheduleData]);
 
-  const handleNextGame = () => {
-    if ('schedule' in watchPointData && watchPointData.schedule.next) {
-      const { gameDate: nextGameDate, gmkey: nextGmkey } =
-        watchPointData.schedule.next;
-      navigate(`/game/watchpoint?${nextGameDate}&${nextGmkey}`);
-    }
-  };
-
-  const handlePrevGame = () => {
-    if ('schedule' in watchPointData && watchPointData.schedule.prev) {
-      const { gameDate: prevGameDate, gmkey: prevGmkey } =
-        watchPointData.schedule.prev;
-      navigate(`/game/watchpoint?${prevGameDate}&${prevGmkey}`);
+  // 버튼으로 경기 이동
+  const handleGameNavigation = (direction: 'next' | 'prev') => {
+    if ('schedule' in watchPointData && watchPointData.schedule[direction]) {
+      const { gameDate, gmkey } = watchPointData.schedule[direction];
+      navigate(`/game/watchpoint?${gameDate}&${gmkey}`);
     }
   };
 
@@ -93,8 +85,8 @@ const WatchPointPage = () => {
             awayGameRecord={watchPointData.visitTeam.rank}
             homeVsRecord={watchPointData.homeTeam.vsRecord}
             awayVsRecord={watchPointData.visitTeam.vsRecord}
-            onNextGame={handleNextGame}
-            onPrevGame={handlePrevGame}
+            onNextGame={() => handleGameNavigation('next')}
+            onPrevGame={() => handleGameNavigation('prev')}
             hasNextGame={!!watchPointData.schedule.next}
             hasPrevGame={!!watchPointData.schedule.prev}
           />
