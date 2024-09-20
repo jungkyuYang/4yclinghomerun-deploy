@@ -94,3 +94,51 @@ export type WatchPointVsRecordType = {
   teamName: string;
   vsTeamCode: string;
 };
+
+// 네이버 선발 투수 정보를 담는 타입
+export type WatchPointPitcherStatType = {
+  bb: number; // 볼넷
+  er: number; // 자책점
+  era: string; // 평균자책점
+  gday: string;
+  hit: number; // 피안타
+  hr: number; // 피홈런
+  inn2: string; // 이닝
+  kk: number; // 탈삼진
+  l: number; // 패
+  s: number; // 세이브
+  teamName: string;
+  teamCode: string;
+  w: number; // 승
+  whip: string; // WHIP
+};
+
+// 네이버 상대 전적 정보를 담는 타입
+export type PitcherStatOnOpponentType = {
+  l: number; // 패
+  s: number; // 세이브
+  w: number; // 승
+  inn: string; // 이닝
+  kk: number; // 탈삼진
+  era: string; // 평균자책점
+  gameCount: number; // 경기수
+  er: number; // 자책점
+};
+
+// 네이버 투수 구종 담는 타입
+export type PitchKindStatType = {
+  type: string;
+  speed: number;
+  pit_rt: number;
+};
+
+// 네이버 선발 투수 정보
+export type PitchInfoType = {
+  backnum: string;
+  birth: string;
+  height: string;
+  hitType: string;
+  name: string;
+  pCode: string;
+  weight: string;
+};
