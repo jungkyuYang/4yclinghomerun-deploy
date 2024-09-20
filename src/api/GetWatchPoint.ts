@@ -113,7 +113,7 @@ const GetWatchPoint = (gameDate: number, gmkey: string) => {
         visitTeamWinLose: vsRecordInitialState,
       },
     },
-    shouldFetchOnMount: true,
+    shouldFetchOnMount: !!gameDate || !!gmkey,
   });
 
   return { data, isLoading, isError, error };
