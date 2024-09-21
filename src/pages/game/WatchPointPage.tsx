@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import WatchPointItem from '@/components/game/watchpoint/WatchPointItem';
 import WatchPointSkeleton from '@/components/game/watchpoint/WatchPointSkeleton';
 import PitcherStatCompareItem from '@/components/game/watchpoint/PitcherStatCompareItem';
+import TopPlayerStatCompareItem from '@/components/game/watchpoint/TopPlayerStatCompareItem';
 import SectionHeading from '@/components/common/typography/SectionHeading';
 import { useScheduleStore } from '@/stores/ScheduleStore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
@@ -60,6 +61,8 @@ const WatchPointPage = () => {
 
   if (watchPointError || naverWatchPointError)
     return <div>Error: {watchPointError || naverWatchPointError}</div>;
+  if (watchPointLoading || naverWatchPointIsLoading)
+    return <WatchPointSkeleton />;
   if (
     !watchPointData ||
     !('gameScore' in watchPointData) ||
@@ -97,19 +100,57 @@ const WatchPointPage = () => {
         <SectionHeading title="선발 투수 비교" />
         <PitcherStatCompareItem
           homeCurrentPitKindStats={
-            naverWatchPointData?.home?.currentPitKindStats
+            naverWatchPointData.home.starter.currentPitKindStats
           }
-          homeCurrentSeasonStats={naverWatchPointData.home.currentSeasonStats}
+          homeCurrentSeasonStats={
+            naverWatchPointData.home.starter.currentSeasonStats
+          }
           homeCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.home.currentSeasonStatsOnOpponents
+            naverWatchPointData.home.starter.currentSeasonStatsOnOpponents
           }
-          homePlayerInfo={naverWatchPointData.home.playerInfo}
-          awayCurrentPitKindStats={naverWatchPointData.away.currentPitKindStats}
-          awayCurrentSeasonStats={naverWatchPointData.away.currentSeasonStats}
+          homePlayerInfo={naverWatchPointData.home.starter.playerInfo}
+          awayCurrentPitKindStats={
+            naverWatchPointData.away.starter.currentPitKindStats
+          }
+          awayCurrentSeasonStats={
+            naverWatchPointData.away.starter.currentSeasonStats
+          }
           awayCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.away.currentSeasonStatsOnOpponents
+            naverWatchPointData.away.starter.currentSeasonStatsOnOpponents
           }
-          awayPlayerInfo={naverWatchPointData.away.playerInfo}
+          awayPlayerInfo={naverWatchPointData.away.starter.playerInfo}
+        />
+      </div>
+
+      <div>
+        <SectionHeading title="키 플레이어 비교" />
+        <h1 className="flex justify-center text-base font-bold text-gray-500">
+          키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장 타율이
+          높은 선수 입니다.
+        </h1>
+        <TopPlayerStatCompareItem
+          homeCurrentSeasonStats={
+            naverWatchPointData.home.topPlayer.currentSeasonStats
+          }
+          homeCurrentSeasonStatsOnOpponents={
+            naverWatchPointData.home.topPlayer.currentSeasonStatsOnOpponents
+          }
+          homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
+          homeRecentFiveGameStats={
+            naverWatchPointData.home.topPlayer.recentFiveGamesStats
+          }
+          homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
+          awayCurrentSeasonStats={
+            naverWatchPointData.away.topPlayer.currentSeasonStats
+          }
+          awayCurrentSeasonStatsOnOpponents={
+            naverWatchPointData.away.topPlayer.currentSeasonStatsOnOpponents
+          }
+          awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
+          awayRecentFiveGameStats={
+            naverWatchPointData.away.topPlayer.recentFiveGamesStats
+          }
+          awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
         />
       </div>
     </div>
