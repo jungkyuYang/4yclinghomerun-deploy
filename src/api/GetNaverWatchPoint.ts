@@ -5,41 +5,51 @@ import {
   PitcherStatOnOpponentType,
   PitchKindStatType,
   PitchInfoType,
+  ToplayerStatType,
+  TopPlayerStatOnOpponentType,
+  TopPlayerInfoType,
+  TopPlayerRecentFiveGameStatType,
+  TopPlayerHotColdZoneType,
 } from '@/types/WatchPointType';
 
-interface NaverWatchPointData {
+interface NaverWatchPointPitcherData {
   currentPitKindStats: PitchKindStatType[];
   currentSeasonStats: WatchPointPitcherStatType;
   currentSeasonStatsOnOpponents: PitcherStatOnOpponentType;
   playerInfo: PitchInfoType;
 }
 
+interface NaverWatchPointTopPlayerData {
+  currentSeasonStats: ToplayerStatType;
+  currentSeasonStatsOnOpponents: TopPlayerStatOnOpponentType;
+  playerInfo: TopPlayerInfoType;
+  recentFiveGamesStats: TopPlayerRecentFiveGameStatType;
+  hotColdZone: TopPlayerHotColdZoneType[];
+}
+
 interface GetNaverWatchPointResponse {
   result: {
     previewData: {
-      homeStarter: NaverWatchPointData;
-      awayStarter: NaverWatchPointData;
+      homeStarter: NaverWatchPointPitcherData;
+      awayStarter: NaverWatchPointPitcherData;
+      homeTopPlayer: NaverWatchPointTopPlayerData;
+      awayTopPlayer: NaverWatchPointTopPlayerData;
     };
   };
 }
 
 const GetNaverWatchPoint = (gmkey: string) => {
   const processData = (data: GetNaverWatchPointResponse) => {
-    const { homeStarter, awayStarter } = data.result.previewData;
+    const { homeStarter, awayStarter, homeTopPlayer, awayTopPlayer } =
+      data.result.previewData;
     return {
       home: {
-        currentPitKindStats: homeStarter.currentPitKindStats,
-        currentSeasonStats: homeStarter.currentSeasonStats,
-        currentSeasonStatsOnOpponents:
-          homeStarter.currentSeasonStatsOnOpponents,
-        playerInfo: homeStarter.playerInfo,
+        starter: homeStarter,
+        topPlayer: homeTopPlayer,
       },
       away: {
-        currentPitKindStats: awayStarter.currentPitKindStats,
-        currentSeasonStats: awayStarter.currentSeasonStats,
-        currentSeasonStatsOnOpponents:
-          awayStarter.currentSeasonStatsOnOpponents,
-        playerInfo: awayStarter.playerInfo,
+        starter: awayStarter,
+        topPlayer: awayTopPlayer,
       },
     };
   };
@@ -61,6 +71,20 @@ const GetNaverWatchPoint = (gmkey: string) => {
             currentSeasonStats: {} as WatchPointPitcherStatType,
             currentSeasonStatsOnOpponents: {} as PitcherStatOnOpponentType,
             playerInfo: {} as PitchInfoType,
+          },
+          homeTopPlayer: {
+            currentSeasonStats: {} as ToplayerStatType,
+            currentSeasonStatsOnOpponents: {} as TopPlayerStatOnOpponentType,
+            playerInfo: {} as TopPlayerInfoType,
+            recentFiveGamesStats: {} as TopPlayerRecentFiveGameStatType,
+            hotColdZone: [],
+          },
+          awayTopPlayer: {
+            currentSeasonStats: {} as ToplayerStatType,
+            currentSeasonStatsOnOpponents: {} as TopPlayerStatOnOpponentType,
+            playerInfo: {} as TopPlayerInfoType,
+            recentFiveGamesStats: {} as TopPlayerRecentFiveGameStatType,
+            hotColdZone: [],
           },
         },
       },
