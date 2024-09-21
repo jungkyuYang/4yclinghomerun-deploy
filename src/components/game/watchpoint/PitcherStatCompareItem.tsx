@@ -7,6 +7,7 @@ import {
   PitchKindStatType,
   PitchInfoType,
 } from '@/types/WatchPointType';
+import { GetPlayerImg } from '@/api/GetPlayerImg';
 
 type PitcherDataProps = {
   homeCurrentPitKindStats: PitchKindStatType[];
@@ -29,8 +30,11 @@ const PitcherStatCompareItem = ({
   homePlayerInfo,
   awayPlayerInfo,
 }: PitcherDataProps) => {
+  const { imageUrl: homePitcherImg } = GetPlayerImg(homePlayerInfo.pCode);
+  const { imageUrl: awayPitcherImg } = GetPlayerImg(awayPlayerInfo.pCode);
+
   return (
-    <main className="w-full p-8 text-white shadow-lg">
+    <main className="w-full p-8 text-white">
       <section className="flex items-center justify-center gap-12">
         <PitchTypeBar stats={awayCurrentPitKindStats} side="left" />
         <article className="flex w-7/12 flex-col items-center">
@@ -38,9 +42,9 @@ const PitcherStatCompareItem = ({
           <header className="flex items-center gap-16">
             <figure className="text-center">
               <img
-                src="https://placeholder.com/100/100"
-                alt="원정팀 선수"
-                className="mb-4 h-24 w-24 rounded-full border-4 border-kt-gray-2"
+                src={awayPitcherImg}
+                alt={awayPlayerInfo.name}
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
               />
               <figcaption className="text-xl font-bold">
                 {awayCurrentSeasonStats.teamName}·{awayPlayerInfo.name}
@@ -51,9 +55,9 @@ const PitcherStatCompareItem = ({
             </p>
             <figure className="text-center">
               <img
-                src="https://placeholder.com/100/100"
-                alt="홈팀 선수"
-                className="mb-4 h-24 w-24 rounded-full border-4 border-kt-gray-2"
+                src={homePitcherImg}
+                alt={homePlayerInfo.name}
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
               />
               <figcaption className="text-xl font-bold">
                 {homeCurrentSeasonStats.teamName}·{homePlayerInfo.name}
