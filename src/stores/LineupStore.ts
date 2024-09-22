@@ -7,7 +7,7 @@ import {
   TopPlayerInfoType,
 } from '@/types/WatchPointType';
 
-type LineupStore = {
+type LineupData = {
   homeLineup: WatchPointPlayerLineupType[];
   visitLineup: WatchPointPlayerLineupType[];
   gameInfo: WatchPointGameScoreType;
@@ -15,10 +15,14 @@ type LineupStore = {
   awayPitcherInfo: PitchInfoType;
   homeTopPlayerInfo: TopPlayerInfoType;
   awayTopPlayerInfo: TopPlayerInfoType;
-  setLineupData: (data: Omit<LineupStore, 'setLineupData'>) => void; // 함수 설정하는 데에만 사용함. 함수 자체를 전달하고 싶지 않기 때문.
 };
 
-export const useLineupStore = create<LineupStore>((set) => ({
+type LineupStore = LineupData & {
+  setLineupData: (data: LineupData) => void;
+  isKtwiz: (isHome: boolean) => boolean;
+};
+
+export const useLineupStore = create<LineupStore>((set, get) => ({
   homeLineup: [],
   visitLineup: [],
   gameInfo: {} as WatchPointGameScoreType,
@@ -27,4 +31,8 @@ export const useLineupStore = create<LineupStore>((set) => ({
   homeTopPlayerInfo: {} as TopPlayerInfoType,
   awayTopPlayerInfo: {} as TopPlayerInfoType,
   setLineupData: (data) => set(data),
+  isKtwiz: (isHome) => {
+    const { gameInfo } = get();
+    return isHome ? gameInfo.home === 'KT' : gameInfo.visit === 'KT';
+  },
 }));

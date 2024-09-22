@@ -4,10 +4,9 @@ import { useLineupStore } from '@/stores/LineupStore';
 
 type TeamLineupProps = {
   isHome: boolean;
-  isKtwiz: boolean;
 };
 
-const TeamLineup = ({ isHome, isKtwiz }: TeamLineupProps) => {
+const TeamLineup = ({ isHome }: TeamLineupProps) => {
   const {
     homeLineup,
     visitLineup,
@@ -16,6 +15,7 @@ const TeamLineup = ({ isHome, isKtwiz }: TeamLineupProps) => {
     awayPitcherInfo,
     homeTopPlayerInfo,
     awayTopPlayerInfo,
+    isKtwiz,
   } = useLineupStore();
 
   const lineup = isHome ? homeLineup : visitLineup;
@@ -27,6 +27,7 @@ const TeamLineup = ({ isHome, isKtwiz }: TeamLineupProps) => {
 
   // 선발 라인업이 아닌 999번 제외
   const filteredLineup = lineup.filter((player) => player.seq !== 999);
+  const isTeamKtwiz = isKtwiz(isHome);
 
   return (
     <article className="w-full">
@@ -44,7 +45,7 @@ const TeamLineup = ({ isHome, isKtwiz }: TeamLineupProps) => {
           <li key={player.pcode}>
             <PlayerCard
               player={player}
-              isKtwiz={isKtwiz}
+              isKtwiz={isTeamKtwiz}
               isKeyPlayer={
                 player.playerName === topPlayerInfo.name ||
                 player.playerName === otherTeamTopPlayerInfo.name
@@ -54,7 +55,7 @@ const TeamLineup = ({ isHome, isKtwiz }: TeamLineupProps) => {
         ))}
       </ul>
 
-      <PitcherCard pitcherInfo={pitcherInfo} isKtwiz={isKtwiz} />
+      <PitcherCard pitcherInfo={pitcherInfo} isKtwiz={isTeamKtwiz} />
     </article>
   );
 };
