@@ -1,4 +1,4 @@
-import StatRow from './StatRow';
+import StatRow from '../common/StatRow';
 import PitchTypeBar from './PitchTypeBar';
 
 import {

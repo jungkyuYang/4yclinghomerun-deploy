@@ -26,7 +26,7 @@ const WatchPointSkeleton = () => {
             <div className="h-10 w-28 rounded-md bg-gray-600"></div>
           </div>
         </div>
-        <div className="mt-2 flex justify-center">
+        <div className="flex justify-center">
           <div className="h-6 w-24 rounded bg-gray-600"></div>
         </div>
       </header>
@@ -42,9 +42,9 @@ const WatchPointSkeleton = () => {
           {Array.from({ length: 4 }).map((_, index) => (
             <article key={index} className="mb-4 w-full">
               <div className="mb-1 flex justify-between">
-                <div className="h-6 w-14 rounded bg-gray-600"></div>
-                <div className="h-6 w-14 rounded bg-gray-600"></div>
-                <div className="h-6 w-14 rounded bg-gray-600"></div>
+                <div className="h-5 w-14 rounded bg-gray-600"></div>
+                <div className="h-5 w-14 rounded bg-gray-600"></div>
+                <div className="h-5 w-14 rounded bg-gray-600"></div>
               </div>
               <div className="relative h-2 overflow-hidden rounded-full bg-gray-700">
                 <div className="absolute left-0 top-0 h-full bg-gray-700"></div>

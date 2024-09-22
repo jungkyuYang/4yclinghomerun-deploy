@@ -1,4 +1,5 @@
-import StatRow from './StatRow';
+import StatRow from '../common/StatRow';
+import HotColdZone from './HotColdZone';
 import {
   ToplayerStatType,
   TopPlayerStatOnOpponentType,
@@ -7,7 +8,6 @@ import {
   TopPlayerHotColdZoneType,
 } from '@/types/WatchPointType';
 import { GetPlayerImg } from '@/api/GetPlayerImg';
-import HotColdZone from './HotColdZone';
 
 type TopPlayerDataProps = {
   homeCurrentSeasonStats: ToplayerStatType;
