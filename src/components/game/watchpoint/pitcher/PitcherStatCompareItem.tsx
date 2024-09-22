@@ -44,7 +44,7 @@ const PitcherStatCompareItem = ({
               <img
                 src={awayPitcherImg}
                 alt={awayPlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
               />
               <figcaption className="text-xl font-bold">
                 {awayCurrentSeasonStats.teamName}·{awayPlayerInfo.name}
@@ -57,7 +57,7 @@ const PitcherStatCompareItem = ({
               <img
                 src={homePitcherImg}
                 alt={homePlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
               />
               <figcaption className="text-xl font-bold">
                 {homeCurrentSeasonStats.teamName}·{homePlayerInfo.name}

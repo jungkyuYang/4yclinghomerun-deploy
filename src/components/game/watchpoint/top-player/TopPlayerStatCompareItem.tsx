@@ -48,7 +48,7 @@ const TopPlayerStatCompareItem = ({
               <img
                 src={awayTopPlayerImg}
                 alt={awayPlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
               />
               <figcaption className="text-xl font-bold">
                 {awayPlayerInfo.name}
@@ -61,7 +61,7 @@ const TopPlayerStatCompareItem = ({
               <img
                 src={homeTopPlayerImg}
                 alt={homePlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-contain"
+                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
               />
               <figcaption className="text-xl font-bold">
                 {homePlayerInfo.name}
