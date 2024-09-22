@@ -39,7 +39,7 @@ const SearchInput = ({
       )}
 
       <div className="flex gap-2 border-b border-kt-white bg-transparent px-2 py-2 leading-none outline-none">
-        {!showSelect && <IoMdSearch size="24" color="717781" />}
+        {!showSelect && <IoMdSearch size="24" color="ECEEF2" />}
         <input
           className="bg-transparent placeholder-kt-gray-2 outline-none"
           placeholder="검색어를 입력해 주세요"
