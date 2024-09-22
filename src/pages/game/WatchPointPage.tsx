@@ -61,19 +61,17 @@ const WatchPointPage = () => {
 
   if (watchPointError || naverWatchPointError)
     return <div>Error: {watchPointError || naverWatchPointError}</div>;
-  if (watchPointLoading || naverWatchPointIsLoading)
-    return <WatchPointSkeleton />;
-  if (
-    !watchPointData ||
-    !('gameScore' in watchPointData) ||
-    !('schedule' in watchPointData) ||
-    !('homeTeam' in watchPointData) ||
-    !('visitTeam' in watchPointData) ||
-    !naverWatchPointData ||
-    !('home' in naverWatchPointData) ||
-    !('away' in naverWatchPointData)
-  )
-    return null;
+
+  const isWatchPointDataValid =
+    watchPointData &&
+    'gameScore' in watchPointData &&
+    'schedule' in watchPointData &&
+    'homeTeam' in watchPointData &&
+    'visitTeam' in watchPointData;
+  const isNaverWatchPointDataValid =
+    naverWatchPointData &&
+    'home' in naverWatchPointData &&
+    'away' in naverWatchPointData;
 
   return (
     <div className="flex flex-col gap-10">
@@ -82,76 +80,87 @@ const WatchPointPage = () => {
         {watchPointLoading || naverWatchPointIsLoading ? (
           <WatchPointSkeleton />
         ) : (
-          <WatchPointItem
-            game={watchPointData.gameScore}
-            homeGameRecord={watchPointData.homeTeam.rank}
-            awayGameRecord={watchPointData.visitTeam.rank}
-            homeVsRecord={watchPointData.homeTeam.vsRecord}
-            awayVsRecord={watchPointData.visitTeam.vsRecord}
-            onNextGame={() => handleGameNavigation('next')}
-            onPrevGame={() => handleGameNavigation('prev')}
-            hasNextGame={!!watchPointData.schedule.next}
-            hasPrevGame={!!watchPointData.schedule.prev}
-          />
+          isWatchPointDataValid && (
+            <WatchPointItem
+              game={watchPointData.gameScore}
+              homeGameRecord={watchPointData.homeTeam.rank}
+              awayGameRecord={watchPointData.visitTeam.rank}
+              homeVsRecord={watchPointData.homeTeam.vsRecord}
+              awayVsRecord={watchPointData.visitTeam.vsRecord}
+              onNextGame={() => handleGameNavigation('next')}
+              onPrevGame={() => handleGameNavigation('prev')}
+              hasNextGame={!!watchPointData.schedule.next}
+              hasPrevGame={!!watchPointData.schedule.prev}
+            />
+          )
         )}
       </div>
 
       <div>
         <SectionHeading title="선발 투수 비교" />
-        <PitcherStatCompareItem
-          homeCurrentPitKindStats={
-            naverWatchPointData.home.starter.currentPitKindStats
-          }
-          homeCurrentSeasonStats={
-            naverWatchPointData.home.starter.currentSeasonStats
-          }
-          homeCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.home.starter.currentSeasonStatsOnOpponents
-          }
-          homePlayerInfo={naverWatchPointData.home.starter.playerInfo}
-          awayCurrentPitKindStats={
-            naverWatchPointData.away.starter.currentPitKindStats
-          }
-          awayCurrentSeasonStats={
-            naverWatchPointData.away.starter.currentSeasonStats
-          }
-          awayCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.away.starter.currentSeasonStatsOnOpponents
-          }
-          awayPlayerInfo={naverWatchPointData.away.starter.playerInfo}
-        />
+        {isNaverWatchPointDataValid && (
+          <PitcherStatCompareItem
+            homeCurrentPitKindStats={
+              naverWatchPointData.home.starter.currentPitKindStats
+            }
+            homeCurrentSeasonStats={
+              naverWatchPointData.home.starter.currentSeasonStats
+            }
+            homeCurrentSeasonStatsOnOpponents={
+              naverWatchPointData.home.starter.currentSeasonStatsOnOpponents
+            }
+            homePlayerInfo={naverWatchPointData.home.starter.playerInfo}
+            awayCurrentPitKindStats={
+              naverWatchPointData.away.starter.currentPitKindStats
+            }
+            awayCurrentSeasonStats={
+              naverWatchPointData.away.starter.currentSeasonStats
+            }
+            awayCurrentSeasonStatsOnOpponents={
+              naverWatchPointData.away.starter.currentSeasonStatsOnOpponents
+            }
+            awayPlayerInfo={naverWatchPointData.away.starter.playerInfo}
+          />
+        )}
       </div>
 
       <div>
         <SectionHeading title="키 플레이어 비교" />
-        <h1 className="flex justify-center text-base font-bold text-gray-500">
-          키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장 타율이
-          높은 선수 입니다.
-        </h1>
-        <TopPlayerStatCompareItem
-          homeCurrentSeasonStats={
-            naverWatchPointData.home.topPlayer.currentSeasonStats
-          }
-          homeCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.home.topPlayer.currentSeasonStatsOnOpponents
-          }
-          homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
-          homeRecentFiveGameStats={
-            naverWatchPointData.home.topPlayer.recentFiveGamesStats
-          }
-          homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
-          awayCurrentSeasonStats={
-            naverWatchPointData.away.topPlayer.currentSeasonStats
-          }
-          awayCurrentSeasonStatsOnOpponents={
-            naverWatchPointData.away.topPlayer.currentSeasonStatsOnOpponents
-          }
-          awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
-          awayRecentFiveGameStats={
-            naverWatchPointData.away.topPlayer.recentFiveGamesStats
-          }
-          awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
-        />
+        {isNaverWatchPointDataValid && (
+          <>
+            <h1 className="flex justify-center text-base font-bold text-gray-500">
+              키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장
+              타율이 높은 선수 입니다.
+            </h1>
+            <p className="flex justify-center text-base font-bold text-gray-500">
+              좌우의 표는 각 ZONE의 타율을 나타낸 HOT & COLD ZONE입니다.
+            </p>
+            <TopPlayerStatCompareItem
+              homeCurrentSeasonStats={
+                naverWatchPointData.home.topPlayer.currentSeasonStats
+              }
+              homeCurrentSeasonStatsOnOpponents={
+                naverWatchPointData.home.topPlayer.currentSeasonStatsOnOpponents
+              }
+              homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
+              homeRecentFiveGameStats={
+                naverWatchPointData.home.topPlayer.recentFiveGamesStats
+              }
+              homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
+              awayCurrentSeasonStats={
+                naverWatchPointData.away.topPlayer.currentSeasonStats
+              }
+              awayCurrentSeasonStatsOnOpponents={
+                naverWatchPointData.away.topPlayer.currentSeasonStatsOnOpponents
+              }
+              awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
+              awayRecentFiveGameStats={
+                naverWatchPointData.away.topPlayer.recentFiveGamesStats
+              }
+              awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
+            />
+          </>
+        )}
       </div>
     </div>
   );
