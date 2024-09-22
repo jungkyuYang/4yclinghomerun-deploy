@@ -2,6 +2,7 @@ import { useAxios } from '@/hooks/useAxios';
 
 import {
   WatchPointGameScoreType,
+  WatchPointPlayerLineupType,
   WatchPointScheduleType,
   WatchPointTeamRankType,
   WatchPointVsRecordType,
@@ -9,6 +10,8 @@ import {
 
 interface WatchPointData {
   gameScore: WatchPointGameScoreType;
+  homeLineup: WatchPointPlayerLineupType[];
+  visitLineup: WatchPointPlayerLineupType[];
   schedule: {
     current: WatchPointScheduleType;
     next: WatchPointScheduleType;
@@ -32,10 +35,12 @@ interface ProcessedWatchPointData {
     prev: WatchPointScheduleType | null;
   };
   homeTeam: {
+    lineup: WatchPointPlayerLineupType[];
     rank: WatchPointTeamRankType;
     vsRecord: WatchPointVsRecordType;
   };
   visitTeam: {
+    lineup: WatchPointPlayerLineupType[];
     rank: WatchPointTeamRankType;
     vsRecord: WatchPointVsRecordType;
   };
@@ -53,10 +58,12 @@ const GetWatchPoint = (gameDate: number, gmkey: string) => {
         prev: data.data.schedule.prev || null,
       },
       homeTeam: {
+        lineup: data.data.homeLineup,
         rank: data.data.homeTeamRank,
         vsRecord: data.data.homeTeamWinLose,
       },
       visitTeam: {
+        lineup: data.data.visitLineup,
         rank: data.data.visitTeamRank,
         vsRecord: data.data.visitTeamWinLose,
       },
@@ -69,6 +76,8 @@ const GetWatchPoint = (gameDate: number, gmkey: string) => {
     initialData: {
       data: {
         gameScore: {} as WatchPointGameScoreType,
+        homeLineup: [],
+        visitLineup: [],
         schedule: {
           current: {} as WatchPointScheduleType,
           next: {} as WatchPointScheduleType,
