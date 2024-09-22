@@ -9,11 +9,13 @@ import SectionHeading from '@/components/common/typography/SectionHeading';
 import WatchPointSkeleton from '@/components/game/watchpoint/skeleton/WatchPointSkeleton';
 import PitcherSkeleton from '@/components/game/watchpoint/skeleton/PitcherSkeleton';
 import TopPlayerSkeleton from '@/components/game/watchpoint/skeleton/TopPlayerSkeleton';
-import { useScheduleStore } from '@/stores/ScheduleStore';
+import GameLineup from '@/components/game/watchpoint/lineup/GameLineup';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { GetWatchPoint } from '@/api/GetWatchPoint';
 import { GetNaverWatchPoint } from '@/api/GetNaverWatchPoint';
 import { GAME_STATUS } from '@/constants/constant';
+import { useScheduleStore } from '@/stores/ScheduleStore';
+import { useLineupStore } from '@/stores/LineupStore';
 
 const WatchPointPage = () => {
   const [finalGameDate, setFinalGameDate] = useState(0);
@@ -21,6 +23,7 @@ const WatchPointPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { year, month } = useScheduleStore();
+  const setLineupData = useLineupStore((state) => state.setLineupData);
 
   const { data: monthScheduleData } = GetMonthSchedule(year, month);
   const {
@@ -34,6 +37,17 @@ const WatchPointPage = () => {
     isLoading: naverWatchPointIsLoading,
     error: naverWatchPointError,
   } = GetNaverWatchPoint(finalGmkey);
+
+  const isWatchPointDataValid =
+    watchPointData &&
+    'gameScore' in watchPointData &&
+    'schedule' in watchPointData &&
+    'homeTeam' in watchPointData &&
+    'visitTeam' in watchPointData;
+  const isNaverWatchPointDataValid =
+    naverWatchPointData &&
+    'home' in naverWatchPointData &&
+    'away' in naverWatchPointData;
 
   // 가장 최근 경기의 gameDate와 gmkey를 가져옴.
   useEffect(() => {
@@ -53,6 +67,26 @@ const WatchPointPage = () => {
     setFinalGmkey(gmkey || lastFinishedGame?.gmkey || '');
   }, [location.search, year, month, monthScheduleData]);
 
+  useEffect(() => {
+    if (isWatchPointDataValid && isNaverWatchPointDataValid) {
+      setLineupData({
+        homeLineup: watchPointData.homeTeam.lineup,
+        visitLineup: watchPointData.visitTeam.lineup,
+        gameInfo: watchPointData.gameScore,
+        homePitcherInfo: naverWatchPointData.home.starter.playerInfo,
+        awayPitcherInfo: naverWatchPointData.away.starter.playerInfo,
+        homeTopPlayerInfo: naverWatchPointData.home.topPlayer.playerInfo,
+        awayTopPlayerInfo: naverWatchPointData.away.topPlayer.playerInfo,
+      });
+    }
+  }, [
+    watchPointData,
+    naverWatchPointData,
+    setLineupData,
+    isWatchPointDataValid,
+    isNaverWatchPointDataValid,
+  ]);
+
   // 버튼으로 경기 이동
   const handleGameNavigation = (direction: 'next' | 'prev') => {
     if ('schedule' in watchPointData && watchPointData.schedule[direction]) {
@@ -63,17 +97,6 @@ const WatchPointPage = () => {
 
   if (watchPointError || naverWatchPointError)
     return <div>Error: {watchPointError || naverWatchPointError}</div>;
-
-  const isWatchPointDataValid =
-    watchPointData &&
-    'gameScore' in watchPointData &&
-    'schedule' in watchPointData &&
-    'homeTeam' in watchPointData &&
-    'visitTeam' in watchPointData;
-  const isNaverWatchPointDataValid =
-    naverWatchPointData &&
-    'home' in naverWatchPointData &&
-    'away' in naverWatchPointData;
 
   return (
     <div className="flex flex-col gap-10">
@@ -173,6 +196,11 @@ const WatchPointPage = () => {
             </>
           )
         )}
+      </div>
+
+      <div>
+        <SectionHeading title="선발 라인업" />
+        {isWatchPointDataValid && isNaverWatchPointDataValid && <GameLineup />}
       </div>
     </div>
   );
