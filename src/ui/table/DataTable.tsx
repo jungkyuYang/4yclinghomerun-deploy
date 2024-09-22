@@ -17,6 +17,7 @@ type DataTableProps<T extends object> = {
   headerCellClassName?: string;
   bodyClassName?: string;
   bodyCellClassName?: string;
+  highlightCondition?: (row: T) => boolean;
 };
 
 const DataTable = <T extends object>({
@@ -27,6 +28,7 @@ const DataTable = <T extends object>({
   headerCellClassName,
   bodyClassName,
   bodyCellClassName,
+  highlightCondition,
 }: DataTableProps<T>) => {
   const table = useReactTable({
     data,
@@ -79,6 +81,9 @@ const DataTable = <T extends object>({
                       index === 0 &&
                         'bg-kt-gray-1 bg-opacity-80 font-extrabold',
                       bodyCellClassName,
+                      highlightCondition && highlightCondition(row.original)
+                        ? 'bg-kt-red-2 font-extrabold opacity-80'
+                        : '',
                     )}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

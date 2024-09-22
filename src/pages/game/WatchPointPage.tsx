@@ -5,6 +5,7 @@ import WatchPointSkeleton from '@/components/game/watchpoint/WatchPointSkeleton'
 import { useScheduleStore } from '@/stores/ScheduleStore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { GetWatchPoint } from '@/api/GetWatchPoint';
+import { GAME_STATUS } from '@/constants/constant';
 
 const WatchPointPage = () => {
   const location = useLocation();
@@ -16,8 +17,12 @@ const WatchPointPage = () => {
   const { data: monthScheduleData } = GetMonthSchedule(year, month);
 
   const lastFinishedGame = monthScheduleData?.data.list
-    .filter((game) => game.status === '2')
-    .pop();
+    .filter(
+      (game) =>
+        game.status === GAME_STATUS.PLAYING_NOW ||
+        game.status === GAME_STATUS.AFTER_GAME,
+    )
+    .slice(-1)[0];
 
   const finalGameDate = parseInt(
     String(gameDate || lastFinishedGame?.gameDate || '0'),
