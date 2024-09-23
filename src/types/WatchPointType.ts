@@ -193,3 +193,20 @@ export type TopPlayerHotColdZoneType = {
   kk: number;
   zone: number;
 };
+
+// 네이버 키플레이어 상세 데이터
+export type NaverWatchPointTopPlayerData = {
+  currentSeasonStats: ToplayerStatType;
+  currentSeasonStatsOnOpponents: TopPlayerStatOnOpponentType;
+  playerInfo: TopPlayerInfoType;
+  recentFiveGamesStats: TopPlayerRecentFiveGameStatType;
+  hotColdZone: TopPlayerHotColdZoneType[];
+};
+
+// 네이버 투수 상세 데이터
+export type NaverWatchPointPitcherData = {
+  currentPitKindStats: PitchKindStatType[];
+  currentSeasonStats: WatchPointPitcherStatType;
+  currentSeasonStatsOnOpponents: PitcherStatOnOpponentType;
+  playerInfo: PitchInfoType;
+};

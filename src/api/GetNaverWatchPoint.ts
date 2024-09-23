@@ -3,29 +3,14 @@ import { useAxios } from '@/hooks/useAxios';
 import {
   WatchPointPitcherStatType,
   PitcherStatOnOpponentType,
-  PitchKindStatType,
   PitchInfoType,
   ToplayerStatType,
   TopPlayerStatOnOpponentType,
   TopPlayerInfoType,
   TopPlayerRecentFiveGameStatType,
-  TopPlayerHotColdZoneType,
+  NaverWatchPointTopPlayerData,
+  NaverWatchPointPitcherData,
 } from '@/types/WatchPointType';
-
-interface NaverWatchPointPitcherData {
-  currentPitKindStats: PitchKindStatType[];
-  currentSeasonStats: WatchPointPitcherStatType;
-  currentSeasonStatsOnOpponents: PitcherStatOnOpponentType;
-  playerInfo: PitchInfoType;
-}
-
-interface NaverWatchPointTopPlayerData {
-  currentSeasonStats: ToplayerStatType;
-  currentSeasonStatsOnOpponents: TopPlayerStatOnOpponentType;
-  playerInfo: TopPlayerInfoType;
-  recentFiveGamesStats: TopPlayerRecentFiveGameStatType;
-  hotColdZone: TopPlayerHotColdZoneType[];
-}
 
 interface GetNaverWatchPointResponse {
   result: {
