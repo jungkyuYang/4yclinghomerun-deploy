@@ -56,7 +56,7 @@ const NewsList = ({ newsItems, tab }: NewsListProps) => {
                   src={newsListData.imageUrl}
                   alt={newsListData.title}
                   width={300}
-                  className="border-8 border-kt-black-5 transition-all duration-200 group-hover:border-kt-gray-1"
+                  className="border-kt-black-5 group-hover:border-kt-gray-1 h-[170px] w-full max-w-[300px] border-8 object-cover object-top transition-all duration-200"
                 />
               )}
               <div className="flex w-full justify-between">
