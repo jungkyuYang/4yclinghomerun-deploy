@@ -63,8 +63,8 @@ const NewsDetailPage = () => {
           <span>발간일 : {newsDetail.regDate}</span>
           <span>최종 수정일 : {newsDetail.updDate}</span>
         </div>
-        <h1 className="border-b border-kt-white p-3 text-center text-5xl">
-          {newsDetail.title}
+        <h1 className="border-b border-kt-white p-3 text-center text-3xl">
+          <span className="max-w-screen-md inline-block">{newsDetail.title}</span>
         </h1>
         <p className="p-2 text-center">
           {newsDetail.viewCnt ? (
@@ -87,7 +87,7 @@ const NewsDetailPage = () => {
 
       <div className="m-auto flex max-w-screen-md flex-col gap-10">
         {tab === 'navernews' && (
-          <strong className="text-3xl">{data.article.subcontent}</strong>
+          <strong className="text-xl">{data.article.subcontent}</strong>
         )}
         {/* 뉴스 기사 본문 */}
         <p
