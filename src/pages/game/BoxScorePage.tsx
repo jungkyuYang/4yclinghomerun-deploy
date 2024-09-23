@@ -5,7 +5,7 @@ import BoxScoreSkeleton from '@/components/game/boxscore/BoxScoreSkeleton';
 import MainRecordTable from '@/components/game/boxscore/MainRecordTable';
 import BatterRecordTable from '@/components/game/boxscore/BatterRecordTable';
 import PitcherRecordTable from '@/components/game/boxscore/PitcherRecordTable';
-import SectionLayout from '@/components/game/boxscore/SectionLayout';
+import SectionHeading from '@/components/common/typography/SectionHeading';
 import { GetBoxScore } from '@/api/GetBoxScore';
 import { GetMonthSchedule } from '@/api/GetMonthSchedule';
 import { useScheduleStore } from '@/stores/ScheduleStore';
@@ -59,8 +59,9 @@ const BoxScorePage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <SectionLayout title="해당 경기 정보">
+    <div className="flex flex-col gap-10">
+      <section>
+        <SectionHeading title="해당 경기 정보" />
         {isLoading ? (
           <BoxScoreSkeleton />
         ) : (
@@ -75,37 +76,43 @@ const BoxScorePage = () => {
             />
           )
         )}
-      </SectionLayout>
+      </section>
 
       {/* 주요 기록 */}
-      <SectionLayout title="주요 기록">
+      <section>
+        <SectionHeading title="주요 기록" />
         <MainRecordTable etcgames={boxScoreData.data.etcgames} />
-      </SectionLayout>
+      </section>
 
       {/* 타자 기록 */}
-      <SectionLayout
-        title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
-      >
+      <section>
+        <SectionHeading
+          title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
+        />
         <BatterRecordTable data={boxScoreData.data.hbatters} />
-      </SectionLayout>
-      <SectionLayout
-        title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
-      >
+      </section>
+
+      <section>
+        <SectionHeading
+          title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
+        />
         <BatterRecordTable data={boxScoreData.data.vbatters} />
-      </SectionLayout>
+      </section>
 
       {/* 투수 기록 */}
-      <SectionLayout
-        title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
-      >
+      <section>
+        <SectionHeading
+          title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
+        />
         <PitcherRecordTable data={boxScoreData.data.hpitchers} />
-      </SectionLayout>
+      </section>
 
-      <SectionLayout
-        title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
-      >
+      <section>
+        <SectionHeading
+          title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
+        />
         <PitcherRecordTable data={boxScoreData.data.vpitchers} />
-      </SectionLayout>
+      </section>
     </div>
   );
 };
