@@ -8,7 +8,7 @@ type PitcherCardProps = {
 };
 
 const PitcherCard = ({ pitcherInfo, isKtwiz }: PitcherCardProps) => {
-  const { imageUrl } = GetPlayerImg(pitcherInfo.pCode);
+  const { imageUrl, isLoading } = GetPlayerImg(pitcherInfo.pCode);
 
   return (
     <div
@@ -29,11 +29,15 @@ const PitcherCard = ({ pitcherInfo, isKtwiz }: PitcherCardProps) => {
         </div>
 
         <div className="flex flex-1 items-center px-4 py-2">
-          <img
-            src={imageUrl}
-            alt={pitcherInfo.name}
-            className="h-12 w-12 rounded-md object-cover"
-          />
+          {isLoading ? (
+            <div className="h-12 w-12 rounded-md bg-gray-700 object-cover"></div>
+          ) : (
+            <img
+              src={imageUrl}
+              alt={pitcherInfo.name}
+              className="h-12 w-12 rounded-md object-cover"
+            />
+          )}
           <div className="ml-4 flex flex-1 items-center">
             <p className="flex-1 truncate text-xl font-extrabold text-white">
               {pitcherInfo.name}

@@ -5,7 +5,7 @@ import { useAxios } from '@/hooks/useAxios';
 const GetPlayerImg = (pCode: string) => {
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 
-  const { data, isError, error } = useAxios({
+  const { data, isError, error, isLoading } = useAxios({
     method: 'GET',
     url: `/game/navergameplayerimg?playerCode=${pCode}`,
     initialData: null,
@@ -31,7 +31,7 @@ const GetPlayerImg = (pCode: string) => {
     };
   }, [imageUrl]);
 
-  return { imageUrl, isError, error };
+  return { imageUrl, isError, error, isLoading };
 };
 
 export { GetPlayerImg };

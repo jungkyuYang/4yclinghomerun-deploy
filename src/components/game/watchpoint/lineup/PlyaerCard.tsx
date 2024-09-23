@@ -9,7 +9,7 @@ type PlayerCardProps = {
 };
 
 const PlayerCard = ({ player, isKtwiz, isKeyPlayer }: PlayerCardProps) => {
-  const { imageUrl } = GetPlayerImg(player.pcode);
+  const { imageUrl, isLoading } = GetPlayerImg(player.pcode);
 
   return (
     <div
@@ -34,11 +34,15 @@ const PlayerCard = ({ player, isKtwiz, isKeyPlayer }: PlayerCardProps) => {
         </div>
 
         <div className="flex flex-1 items-center px-4 py-2">
-          <img
-            src={imageUrl}
-            alt={player.playerName}
-            className="h-12 w-12 rounded-md object-cover"
-          />
+          {isLoading ? (
+            <div className="h-12 w-12 rounded-md bg-gray-700 object-cover"></div>
+          ) : (
+            <img
+              src={imageUrl}
+              alt={player.playerName}
+              className="h-12 w-12 rounded-md object-cover"
+            />
+          )}
           <div className="ml-4 flex flex-1 items-center">
             <p className="flex-1 text-xl font-extrabold text-white">
               {player.playerName}
