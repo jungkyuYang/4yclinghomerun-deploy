@@ -16,6 +16,7 @@ import { GetNaverWatchPoint } from '@/api/GetNaverWatchPoint';
 import { GAME_STATUS } from '@/constants/constant';
 import { useScheduleStore } from '@/stores/ScheduleStore';
 import { useLineupStore } from '@/stores/LineupStore';
+import LineupSkeleton from '@/components/game/watchpoint/skeleton/LineupSkeleton';
 
 const WatchPointPage = () => {
   const [finalGameDate, setFinalGameDate] = useState(0);
@@ -200,7 +201,11 @@ const WatchPointPage = () => {
 
       <div>
         <SectionHeading title="선발 라인업" />
-        {isWatchPointDataValid && isNaverWatchPointDataValid && <GameLineup />}
+        {watchPointLoading || naverWatchPointIsLoading ? (
+          <LineupSkeleton />
+        ) : (
+          isWatchPointDataValid && isNaverWatchPointDataValid && <GameLineup />
+        )}
       </div>
     </div>
   );
