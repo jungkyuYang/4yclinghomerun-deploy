@@ -30,22 +30,28 @@ const PitcherStatCompareItem = ({
   homePlayerInfo,
   awayPlayerInfo,
 }: PitcherDataProps) => {
-  const { imageUrl: homePitcherImg } = GetPlayerImg(homePlayerInfo.pCode);
-  const { imageUrl: awayPitcherImg } = GetPlayerImg(awayPlayerInfo.pCode);
+  const { imageUrl: homePitcherImg, isLoading: homePitcherImgLoading } =
+    GetPlayerImg(homePlayerInfo.pCode);
+  const { imageUrl: awayPitcherImg, isLoading: awayPitcherImgLoading } =
+    GetPlayerImg(awayPlayerInfo.pCode);
 
   return (
-    <main className="w-full p-8 text-white">
+    <main className="w-full rounded-lg bg-kt-black-4 p-8 text-white">
       <section className="flex items-center justify-center gap-12">
         <PitchTypeBar stats={awayCurrentPitKindStats} side="left" />
         <article className="flex w-7/12 flex-col items-center">
           {/* 선발 투수 */}
           <header className="flex items-center gap-16">
             <figure className="text-center">
-              <img
-                src={awayPitcherImg}
-                alt={awayPlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-              />
+              {awayPitcherImgLoading ? (
+                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
+              ) : (
+                <img
+                  src={awayPitcherImg}
+                  alt={awayPlayerInfo.name}
+                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
+                />
+              )}
               <figcaption className="text-xl font-bold">
                 {awayCurrentSeasonStats.teamName}·{awayPlayerInfo.name}
               </figcaption>
@@ -54,11 +60,15 @@ const PitcherStatCompareItem = ({
               VS
             </p>
             <figure className="text-center">
-              <img
-                src={homePitcherImg}
-                alt={homePlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-              />
+              {homePitcherImgLoading ? (
+                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
+              ) : (
+                <img
+                  src={homePitcherImg}
+                  alt={homePlayerInfo.name}
+                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
+                />
+              )}
               <figcaption className="text-xl font-bold">
                 {homeCurrentSeasonStats.teamName}·{homePlayerInfo.name}
               </figcaption>

@@ -34,22 +34,37 @@ const TopPlayerStatCompareItem = ({
   awayRecentFiveGameStats,
   awayHotColdZone,
 }: TopPlayerDataProps) => {
-  const { imageUrl: homeTopPlayerImg } = GetPlayerImg(homePlayerInfo.pCode);
-  const { imageUrl: awayTopPlayerImg } = GetPlayerImg(awayPlayerInfo.pCode);
+  const { imageUrl: homeTopPlayerImg, isLoading: homeTopPlayingImgLoading } =
+    GetPlayerImg(homePlayerInfo.pCode);
+  const { imageUrl: awayTopPlayerImg, isLoading: awayTopPlayerImgLoading } =
+    GetPlayerImg(awayPlayerInfo.pCode);
 
   return (
-    <main className="w-full p-8 text-white">
+    <main className="w-full rounded-lg bg-kt-black-4 p-8 text-white">
       <section className="flex items-center justify-center gap-12">
         <HotColdZone data={awayHotColdZone} />
         <article className="flex w-7/12 flex-col items-center">
+          {/* 설명 글 */}
+          <div className="jusitfy-center mb-4 flex flex-col items-center text-base text-gray-500">
+            <h1>
+              키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장
+              타율이 높은 선수 입니다.
+            </h1>
+            <p>좌우의 표는 각 ZONE의 타율을 나타낸 HOT & COLD ZONE입니다.</p>
+          </div>
+
           {/* 탑 플레이어 */}
           <header className="flex items-center gap-16">
             <figure className="text-center">
-              <img
-                src={awayTopPlayerImg}
-                alt={awayPlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-              />
+              {awayTopPlayerImgLoading ? (
+                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
+              ) : (
+                <img
+                  src={awayTopPlayerImg}
+                  alt={awayPlayerInfo.name}
+                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
+                />
+              )}
               <figcaption className="text-xl font-bold">
                 {awayPlayerInfo.name}
               </figcaption>
@@ -58,11 +73,15 @@ const TopPlayerStatCompareItem = ({
               VS
             </p>
             <figure className="text-center">
-              <img
-                src={homeTopPlayerImg}
-                alt={homePlayerInfo.name}
-                className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-              />
+              {homeTopPlayingImgLoading ? (
+                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
+              ) : (
+                <img
+                  src={homeTopPlayerImg}
+                  alt={homePlayerInfo.name}
+                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
+                />
+              )}
               <figcaption className="text-xl font-bold">
                 {homePlayerInfo.name}
               </figcaption>
