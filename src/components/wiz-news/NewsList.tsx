@@ -45,7 +45,7 @@ const NewsList = ({ newsItems, tab }: NewsListProps) => {
         return (
           <li
             key={newsListData.id}
-            className="from-kt-black-5 group m-4 rounded-sm bg-gradient-to-r to-transparent transition duration-200 hover:bg-gradient-to-l"
+            className="group m-4 rounded-sm bg-gradient-to-r from-kt-black-5 to-transparent transition duration-200 hover:bg-gradient-to-l"
           >
             <Link
               to={`/news/${tab}/detail/${newsListData.id}`}
@@ -56,7 +56,7 @@ const NewsList = ({ newsItems, tab }: NewsListProps) => {
                   src={newsListData.imageUrl}
                   alt={newsListData.title}
                   width={300}
-                  className="border-kt-black-5 group-hover:border-kt-gray-1 h-[170px] w-full max-w-[300px] border-8 object-cover object-top transition-all duration-200"
+                  className="h-[170px] w-full max-w-[300px] border-8 border-kt-black-5 object-cover object-top transition-all duration-200 group-hover:border-kt-gray-1"
                 />
               )}
               <div className="flex w-full justify-between">
