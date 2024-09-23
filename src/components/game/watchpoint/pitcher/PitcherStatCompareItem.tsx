@@ -1,114 +1,80 @@
-import StatRow from '../common/StatRow';
-import PitchTypeBar from './PitchTypeBar';
+import { useEffect } from 'react';
 
-import {
-  WatchPointPitcherStatType,
-  PitcherStatOnOpponentType,
-  PitchKindStatType,
-  PitchInfoType,
-} from '@/types/WatchPointType';
+import PitchTypeBar from './PitchTypeBar';
+import PlayerComparisonLayout from '../common/PlayerComparisonLayout';
+import StatComparison from '../common/StatComparison';
+import { usePlayerDataStore } from '@/stores/WatchPointPlayerStore';
+import { NaverWatchPointPitcherData } from '@/types/WatchPointType';
 import { GetPlayerImg } from '@/api/GetPlayerImg';
 
 type PitcherDataProps = {
-  homeCurrentPitKindStats: PitchKindStatType[];
-  homeCurrentSeasonStats: WatchPointPitcherStatType;
-  homeCurrentSeasonStatsOnOpponents: PitcherStatOnOpponentType;
-  awayCurrentPitKindStats: PitchKindStatType[];
-  awayCurrentSeasonStats: WatchPointPitcherStatType;
-  awayCurrentSeasonStatsOnOpponents: PitcherStatOnOpponentType;
-  homePlayerInfo: PitchInfoType;
-  awayPlayerInfo: PitchInfoType;
+  homeData: NaverWatchPointPitcherData;
+  awayData: NaverWatchPointPitcherData;
 };
 
-const PitcherStatCompareItem = ({
-  homeCurrentPitKindStats,
-  homeCurrentSeasonStats,
-  homeCurrentSeasonStatsOnOpponents,
-  awayCurrentPitKindStats,
-  awayCurrentSeasonStats,
-  awayCurrentSeasonStatsOnOpponents,
-  homePlayerInfo,
-  awayPlayerInfo,
-}: PitcherDataProps) => {
-  const { imageUrl: homePitcherImg, isLoading: homePitcherImgLoading } =
-    GetPlayerImg(homePlayerInfo.pCode);
-  const { imageUrl: awayPitcherImg, isLoading: awayPitcherImgLoading } =
-    GetPlayerImg(awayPlayerInfo.pCode);
+const PitcherStatCompareItem = ({ homeData, awayData }: PitcherDataProps) => {
+  const { setPitchers, homePitcher, awayPitcher } = usePlayerDataStore();
+
+  const { imageUrl: homePlayerImg, isLoading: isHomeImgLoading } = GetPlayerImg(
+    homeData.playerInfo.pCode,
+  );
+  const { imageUrl: awayPlayerImg, isLoading: isAwayImgLoading } = GetPlayerImg(
+    awayData.playerInfo.pCode,
+  );
+
+  useEffect(() => {
+    if (homeData && awayData) {
+      setPitchers(homeData, awayData);
+    }
+  }, [homeData, awayData, setPitchers]);
+
+  if (!homePitcher || !awayPitcher) return null;
+
+  const stats = [
+    {
+      label: '승패',
+      away: `${awayPitcher.currentSeasonStats.w}승 ${awayPitcher.currentSeasonStats.l}패`,
+      home: `${homePitcher.currentSeasonStats.w}승 ${homePitcher.currentSeasonStats.l}패`,
+    },
+    {
+      label: '이닝',
+      away: awayPitcher.currentSeasonStats.inn2,
+      home: homePitcher.currentSeasonStats.inn2,
+    },
+    {
+      label: '평균자책점',
+      away: awayPitcher.currentSeasonStats.era,
+      home: homePitcher.currentSeasonStats.era,
+    },
+    {
+      label: 'WHIP',
+      away: awayPitcher.currentSeasonStats.whip,
+      home: homePitcher.currentSeasonStats.whip,
+    },
+    {
+      label: '상대전적',
+      away: `${awayPitcher.currentSeasonStatsOnOpponents.w}승 ${awayPitcher.currentSeasonStatsOnOpponents.l}패 ERA ${awayPitcher.currentSeasonStatsOnOpponents.era}`,
+      home: `${homePitcher.currentSeasonStatsOnOpponents.w}승 ${homePitcher.currentSeasonStatsOnOpponents.l}패 ERA ${homePitcher.currentSeasonStatsOnOpponents.era}`,
+    },
+  ];
 
   return (
-    <main className="w-full rounded-lg bg-kt-black-4 p-8 text-white">
-      <section className="flex items-center justify-center gap-12">
-        <PitchTypeBar stats={awayCurrentPitKindStats} side="left" />
-        <article className="flex w-7/12 flex-col items-center">
-          {/* 선발 투수 */}
-          <header className="flex items-center gap-16">
-            <figure className="text-center">
-              {awayPitcherImgLoading ? (
-                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
-              ) : (
-                <img
-                  src={awayPitcherImg}
-                  alt={awayPlayerInfo.name}
-                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-                />
-              )}
-              <figcaption className="text-xl font-bold">
-                {awayCurrentSeasonStats.teamName}·{awayPlayerInfo.name}
-              </figcaption>
-            </figure>
-            <p className="animate-gradient bg-gradient-to-tr from-yellow-300 to-red-800 bg-clip-text text-3xl font-extrabold text-transparent">
-              VS
-            </p>
-            <figure className="text-center">
-              {homePitcherImgLoading ? (
-                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
-              ) : (
-                <img
-                  src={homePitcherImg}
-                  alt={homePlayerInfo.name}
-                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-                />
-              )}
-              <figcaption className="text-xl font-bold">
-                {homeCurrentSeasonStats.teamName}·{homePlayerInfo.name}
-              </figcaption>
-            </figure>
-          </header>
-
-          <div className="mt-4 h-1 w-full rounded-full bg-kt-gray-2"></div>
-
-          {/* 선발 투수 스탯 */}
-          <section className="w-full">
-            <StatRow
-              label="승패"
-              away={`${awayCurrentSeasonStats.w}승 ${awayCurrentSeasonStats.l}패`}
-              home={`${homeCurrentSeasonStats.w}승 ${homeCurrentSeasonStats.l}패`}
-            />
-            <StatRow
-              label="이닝"
-              away={awayCurrentSeasonStats.inn2}
-              home={homeCurrentSeasonStats.inn2}
-            />
-            <StatRow
-              label="평균자책점"
-              away={awayCurrentSeasonStats.era}
-              home={homeCurrentSeasonStats.era}
-            />
-            <StatRow
-              label="WHIP"
-              away={awayCurrentSeasonStats.whip}
-              home={homeCurrentSeasonStats.whip}
-            />
-            <StatRow
-              label="상대전적"
-              away={`${awayCurrentSeasonStatsOnOpponents.w}승 ${awayCurrentSeasonStatsOnOpponents.l}패 ERA ${awayCurrentSeasonStatsOnOpponents.era}`}
-              home={`${homeCurrentSeasonStatsOnOpponents.w}승 ${homeCurrentSeasonStatsOnOpponents.l}패 ERA ${homeCurrentSeasonStatsOnOpponents.era}`}
-            />
-          </section>
-        </article>
-        <PitchTypeBar stats={homeCurrentPitKindStats} side="right" />
-      </section>
-    </main>
+    <PlayerComparisonLayout
+      homePlayer={homePitcher.playerInfo}
+      awayPlayer={awayPitcher.playerInfo}
+      homePlayerImg={homePlayerImg ?? ''}
+      awayPlayerImg={awayPlayerImg ?? ''}
+      isHomeImgLoading={isHomeImgLoading}
+      isAwayImgLoading={isAwayImgLoading}
+      leftSide={
+        <PitchTypeBar stats={awayPitcher.currentPitKindStats} side="left" />
+      }
+      rightSide={
+        <PitchTypeBar stats={homePitcher.currentPitKindStats} side="right" />
+      }
+    >
+      <StatComparison stats={stats} />
+    </PlayerComparisonLayout>
   );
 };
 

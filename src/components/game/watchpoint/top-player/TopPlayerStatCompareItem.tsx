@@ -1,132 +1,95 @@
-import StatRow from '../common/StatRow';
+import { useEffect } from 'react';
+
 import HotColdZone from './HotColdZone';
-import {
-  ToplayerStatType,
-  TopPlayerStatOnOpponentType,
-  TopPlayerInfoType,
-  TopPlayerRecentFiveGameStatType,
-  TopPlayerHotColdZoneType,
-} from '@/types/WatchPointType';
+import PlayerComparisonLayout from '../common/PlayerComparisonLayout';
+import StatComparison from '../common/StatComparison';
+import { usePlayerDataStore } from '@/stores/WatchPointPlayerStore';
+import { NaverWatchPointTopPlayerData } from '@/types/WatchPointType';
 import { GetPlayerImg } from '@/api/GetPlayerImg';
 
 type TopPlayerDataProps = {
-  homeCurrentSeasonStats: ToplayerStatType;
-  homeCurrentSeasonStatsOnOpponents: TopPlayerStatOnOpponentType;
-  homePlayerInfo: TopPlayerInfoType;
-  homeRecentFiveGameStats: TopPlayerRecentFiveGameStatType;
-  homeHotColdZone: TopPlayerHotColdZoneType[];
-  awayCurrentSeasonStats: ToplayerStatType;
-  awayCurrentSeasonStatsOnOpponents: TopPlayerStatOnOpponentType;
-  awayPlayerInfo: TopPlayerInfoType;
-  awayRecentFiveGameStats: TopPlayerRecentFiveGameStatType;
-  awayHotColdZone: TopPlayerHotColdZoneType[];
+  homeData: NaverWatchPointTopPlayerData;
+  awayData: NaverWatchPointTopPlayerData;
 };
 
 const TopPlayerStatCompareItem = ({
-  homeCurrentSeasonStats,
-  homeCurrentSeasonStatsOnOpponents,
-  homePlayerInfo,
-  homeRecentFiveGameStats,
-  homeHotColdZone,
-  awayCurrentSeasonStats,
-  awayCurrentSeasonStatsOnOpponents,
-  awayPlayerInfo,
-  awayRecentFiveGameStats,
-  awayHotColdZone,
+  homeData,
+  awayData,
 }: TopPlayerDataProps) => {
-  const { imageUrl: homeTopPlayerImg, isLoading: homeTopPlayingImgLoading } =
-    GetPlayerImg(homePlayerInfo.pCode);
-  const { imageUrl: awayTopPlayerImg, isLoading: awayTopPlayerImgLoading } =
-    GetPlayerImg(awayPlayerInfo.pCode);
+  const { setTopPlayers, homeTopPlayer, awayTopPlayer } = usePlayerDataStore();
+
+  const { imageUrl: homePlayerImg, isLoading: isHomeImgLoading } = GetPlayerImg(
+    homeData.playerInfo.pCode,
+  );
+  const { imageUrl: awayPlayerImg, isLoading: isAwayImgLoading } = GetPlayerImg(
+    awayData.playerInfo.pCode,
+  );
+
+  useEffect(() => {
+    if (homeData && awayData) {
+      setTopPlayers(homeData, awayData);
+    }
+  }, [homeData, awayData, setTopPlayers]);
+
+  if (!homeTopPlayer || !awayTopPlayer) return null;
+
+  const stats = [
+    {
+      label: '타율',
+      away: awayTopPlayer.currentSeasonStats.hra,
+      home: homeTopPlayer.currentSeasonStats.hra,
+    },
+    {
+      label: '안타',
+      away: awayTopPlayer.currentSeasonStats.hit,
+      home: homeTopPlayer.currentSeasonStats.hit,
+    },
+    {
+      label: '홈런',
+      away: awayTopPlayer.currentSeasonStats.hr,
+      home: homeTopPlayer.currentSeasonStats.hr,
+    },
+    {
+      label: '타점',
+      away: awayTopPlayer.currentSeasonStats.rbi,
+      home: homeTopPlayer.currentSeasonStats.rbi,
+    },
+    {
+      label: '상대 전적',
+      away: `타율 ${awayTopPlayer.currentSeasonStatsOnOpponents.hra} · 안타 ${awayTopPlayer.currentSeasonStatsOnOpponents.hit} · 홈런 ${awayTopPlayer.currentSeasonStatsOnOpponents.hr}`,
+      home: `타율 ${homeTopPlayer.currentSeasonStatsOnOpponents.hra} · 안타 ${homeTopPlayer.currentSeasonStatsOnOpponents.hit} · 홈런 ${homeTopPlayer.currentSeasonStatsOnOpponents.hr}`,
+    },
+    {
+      label: '최근 5경기',
+      away: `타율 ${awayTopPlayer.recentFiveGamesStats.hra} · 안타 ${awayTopPlayer.recentFiveGamesStats.hit} · 홈런 ${awayTopPlayer.recentFiveGamesStats.hr}`,
+      home: `타율 ${homeTopPlayer.recentFiveGamesStats.hra} · 안타 ${homeTopPlayer.recentFiveGamesStats.hit} · 홈런 ${homeTopPlayer.recentFiveGamesStats.hr}`,
+    },
+  ];
+
+  const headerText = (
+    <>
+      <h1>
+        키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장 타율이 높은
+        선수 입니다.
+      </h1>
+      <p>좌우의 표는 각 ZONE의 타율을 나타낸 HOT & COLD ZONE입니다.</p>
+    </>
+  );
 
   return (
-    <main className="w-full rounded-lg bg-kt-black-4 p-8 text-white">
-      <section className="flex items-center justify-center gap-12">
-        <HotColdZone data={awayHotColdZone} />
-        <article className="flex w-7/12 flex-col items-center">
-          {/* 설명 글 */}
-          <div className="jusitfy-center mb-4 flex flex-col items-center text-base text-gray-500">
-            <h1>
-              키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장
-              타율이 높은 선수 입니다.
-            </h1>
-            <p>좌우의 표는 각 ZONE의 타율을 나타낸 HOT & COLD ZONE입니다.</p>
-          </div>
-
-          {/* 탑 플레이어 */}
-          <header className="flex items-center gap-16">
-            <figure className="text-center">
-              {awayTopPlayerImgLoading ? (
-                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
-              ) : (
-                <img
-                  src={awayTopPlayerImg}
-                  alt={awayPlayerInfo.name}
-                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-                />
-              )}
-              <figcaption className="text-xl font-bold">
-                {awayPlayerInfo.name}
-              </figcaption>
-            </figure>
-            <p className="animate-gradient bg-gradient-to-tr from-yellow-300 to-red-800 bg-clip-text text-3xl font-extrabold text-transparent">
-              VS
-            </p>
-            <figure className="text-center">
-              {homeTopPlayingImgLoading ? (
-                <div className="animate-pulse h-32 w-32 rounded-full border-2 border-kt-gray-2 bg-gray-800"></div>
-              ) : (
-                <img
-                  src={homeTopPlayerImg}
-                  alt={homePlayerInfo.name}
-                  className="mb-4 h-32 w-32 rounded-full border-2 border-kt-gray-2 object-cover"
-                />
-              )}
-              <figcaption className="text-xl font-bold">
-                {homePlayerInfo.name}
-              </figcaption>
-            </figure>
-          </header>
-
-          <div className="mt-4 h-1 w-full rounded-full bg-kt-gray-2"></div>
-
-          {/* 탑 플레이어 스탯 */}
-          <section className="w-full">
-            <StatRow
-              label="타율"
-              away={awayCurrentSeasonStats.hra}
-              home={homeCurrentSeasonStats.hra}
-            />
-            <StatRow
-              label="안타"
-              away={awayCurrentSeasonStats.hit}
-              home={homeCurrentSeasonStats.hit}
-            />
-            <StatRow
-              label="홈런"
-              away={awayCurrentSeasonStats.hr}
-              home={homeCurrentSeasonStats.hr}
-            />
-            <StatRow
-              label="타점"
-              away={awayCurrentSeasonStats.rbi}
-              home={homeCurrentSeasonStats.rbi}
-            />
-            <StatRow
-              label="상대 전적"
-              away={`타율 ${awayCurrentSeasonStatsOnOpponents.hra} · 안타 ${awayCurrentSeasonStatsOnOpponents.hit} · 홈런 ${awayCurrentSeasonStatsOnOpponents.hr}`}
-              home={`타율 ${homeCurrentSeasonStatsOnOpponents.hra} · 안타 ${homeCurrentSeasonStatsOnOpponents.hit} · 홈런 ${homeCurrentSeasonStatsOnOpponents.hr}`}
-            />
-            <StatRow
-              label="최근 5경기"
-              away={`타율 ${awayRecentFiveGameStats.hra} · 안타 ${awayRecentFiveGameStats.hit} · 홈런 ${awayRecentFiveGameStats.hr}`}
-              home={`타율 ${homeRecentFiveGameStats.hra} · 안타 ${homeRecentFiveGameStats.hit} · 홈런 ${homeRecentFiveGameStats.hr}`}
-            />
-          </section>
-        </article>
-        <HotColdZone data={homeHotColdZone} />
-      </section>
-    </main>
+    <PlayerComparisonLayout
+      homePlayer={homeTopPlayer.playerInfo}
+      awayPlayer={awayTopPlayer.playerInfo}
+      homePlayerImg={homePlayerImg ?? ''}
+      awayPlayerImg={awayPlayerImg ?? ''}
+      isHomeImgLoading={isHomeImgLoading}
+      isAwayImgLoading={isAwayImgLoading}
+      leftSide={<HotColdZone data={awayTopPlayer.hotColdZone} />}
+      rightSide={<HotColdZone data={homeTopPlayer.hotColdZone} />}
+      headerText={headerText}
+    >
+      <StatComparison stats={stats} />
+    </PlayerComparisonLayout>
   );
 };
 export default TopPlayerStatCompareItem;

@@ -7,6 +7,7 @@ import PitcherStatCompareItem from '@/components/game/watchpoint/pitcher/Pitcher
 import TopPlayerStatCompareItem from '@/components/game/watchpoint/top-player/TopPlayerStatCompareItem';
 import SectionHeading from '@/components/common/typography/SectionHeading';
 import WatchPointSkeleton from '@/components/game/watchpoint/skeleton/WatchPointSkeleton';
+import LineupSkeleton from '@/components/game/watchpoint/skeleton/LineupSkeleton';
 import PitcherSkeleton from '@/components/game/watchpoint/skeleton/PitcherSkeleton';
 import TopPlayerSkeleton from '@/components/game/watchpoint/skeleton/TopPlayerSkeleton';
 import GameLineup from '@/components/game/watchpoint/lineup/GameLineup';
@@ -16,7 +17,6 @@ import { GetNaverWatchPoint } from '@/api/GetNaverWatchPoint';
 import { GAME_STATUS } from '@/constants/constant';
 import { useScheduleStore } from '@/stores/ScheduleStore';
 import { useLineupStore } from '@/stores/LineupStore';
-import LineupSkeleton from '@/components/game/watchpoint/skeleton/LineupSkeleton';
 
 const WatchPointPage = () => {
   const [finalGameDate, setFinalGameDate] = useState(0);
@@ -129,26 +129,8 @@ const WatchPointPage = () => {
         ) : (
           isNaverWatchPointDataValid && (
             <PitcherStatCompareItem
-              homeCurrentPitKindStats={
-                naverWatchPointData.home.starter.currentPitKindStats
-              }
-              homeCurrentSeasonStats={
-                naverWatchPointData.home.starter.currentSeasonStats
-              }
-              homeCurrentSeasonStatsOnOpponents={
-                naverWatchPointData.home.starter.currentSeasonStatsOnOpponents
-              }
-              homePlayerInfo={naverWatchPointData.home.starter.playerInfo}
-              awayCurrentPitKindStats={
-                naverWatchPointData.away.starter.currentPitKindStats
-              }
-              awayCurrentSeasonStats={
-                naverWatchPointData.away.starter.currentSeasonStats
-              }
-              awayCurrentSeasonStatsOnOpponents={
-                naverWatchPointData.away.starter.currentSeasonStatsOnOpponents
-              }
-              awayPlayerInfo={naverWatchPointData.away.starter.playerInfo}
+              homeData={naverWatchPointData.home.starter}
+              awayData={naverWatchPointData.away.starter}
             />
           )
         )}
@@ -161,28 +143,8 @@ const WatchPointPage = () => {
         ) : (
           isNaverWatchPointDataValid && (
             <TopPlayerStatCompareItem
-              homeCurrentSeasonStats={
-                naverWatchPointData.home.topPlayer.currentSeasonStats
-              }
-              homeCurrentSeasonStatsOnOpponents={
-                naverWatchPointData.home.topPlayer.currentSeasonStatsOnOpponents
-              }
-              homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
-              homeRecentFiveGameStats={
-                naverWatchPointData.home.topPlayer.recentFiveGamesStats
-              }
-              homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
-              awayCurrentSeasonStats={
-                naverWatchPointData.away.topPlayer.currentSeasonStats
-              }
-              awayCurrentSeasonStatsOnOpponents={
-                naverWatchPointData.away.topPlayer.currentSeasonStatsOnOpponents
-              }
-              awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
-              awayRecentFiveGameStats={
-                naverWatchPointData.away.topPlayer.recentFiveGamesStats
-              }
-              awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
+              homeData={naverWatchPointData.home.topPlayer}
+              awayData={naverWatchPointData.away.topPlayer}
             />
           )
         )}
