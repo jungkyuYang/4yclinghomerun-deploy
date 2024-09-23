@@ -160,41 +160,30 @@ const WatchPointPage = () => {
           <TopPlayerSkeleton />
         ) : (
           isNaverWatchPointDataValid && (
-            <>
-              <h1 className="flex justify-center text-base font-bold text-gray-500">
-                키플레이어는 팀의 최근 5경기 중 3경기 이상 출장 선수 중 가장
-                타율이 높은 선수 입니다.
-              </h1>
-              <p className="flex justify-center text-base font-bold text-gray-500">
-                좌우의 표는 각 ZONE의 타율을 나타낸 HOT & COLD ZONE입니다.
-              </p>
-              <TopPlayerStatCompareItem
-                homeCurrentSeasonStats={
-                  naverWatchPointData.home.topPlayer.currentSeasonStats
-                }
-                homeCurrentSeasonStatsOnOpponents={
-                  naverWatchPointData.home.topPlayer
-                    .currentSeasonStatsOnOpponents
-                }
-                homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
-                homeRecentFiveGameStats={
-                  naverWatchPointData.home.topPlayer.recentFiveGamesStats
-                }
-                homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
-                awayCurrentSeasonStats={
-                  naverWatchPointData.away.topPlayer.currentSeasonStats
-                }
-                awayCurrentSeasonStatsOnOpponents={
-                  naverWatchPointData.away.topPlayer
-                    .currentSeasonStatsOnOpponents
-                }
-                awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
-                awayRecentFiveGameStats={
-                  naverWatchPointData.away.topPlayer.recentFiveGamesStats
-                }
-                awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
-              />
-            </>
+            <TopPlayerStatCompareItem
+              homeCurrentSeasonStats={
+                naverWatchPointData.home.topPlayer.currentSeasonStats
+              }
+              homeCurrentSeasonStatsOnOpponents={
+                naverWatchPointData.home.topPlayer.currentSeasonStatsOnOpponents
+              }
+              homePlayerInfo={naverWatchPointData.home.topPlayer.playerInfo}
+              homeRecentFiveGameStats={
+                naverWatchPointData.home.topPlayer.recentFiveGamesStats
+              }
+              homeHotColdZone={naverWatchPointData.home.topPlayer.hotColdZone}
+              awayCurrentSeasonStats={
+                naverWatchPointData.away.topPlayer.currentSeasonStats
+              }
+              awayCurrentSeasonStatsOnOpponents={
+                naverWatchPointData.away.topPlayer.currentSeasonStatsOnOpponents
+              }
+              awayPlayerInfo={naverWatchPointData.away.topPlayer.playerInfo}
+              awayRecentFiveGameStats={
+                naverWatchPointData.away.topPlayer.recentFiveGamesStats
+              }
+              awayHotColdZone={naverWatchPointData.away.topPlayer.hotColdZone}
+            />
           )
         )}
       </div>

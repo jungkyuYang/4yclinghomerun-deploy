@@ -6,7 +6,7 @@ import HotColdZoneSkeleton from './HotColdZoneSkeleton';
 const TopPlayerSkeleton = () => {
   return (
     <motion.main
-      className="w-full p-8"
+      className="w-full"
       animate={{
         opacity: [0.7, 1, 0.7],
         transition: {
@@ -16,7 +16,7 @@ const TopPlayerSkeleton = () => {
         },
       }}
     >
-      <section className="flex items-center justify-center gap-12">
+      <section className="flex items-center justify-center gap-12 rounded-lg bg-kt-black-4 p-8">
         <HotColdZoneSkeleton />
         <PlayerCompareSkeleton />
         <HotColdZoneSkeleton />
