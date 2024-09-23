@@ -103,10 +103,6 @@ const NewsPage = () => {
     setCurrentPage(1);
   };
 
-  useEffect(() => {
-    console.log('currentPage:', currentPage);
-  }, [currentPage]);
-
   return (
     <DetailPageLayout
       topImg={topImg}

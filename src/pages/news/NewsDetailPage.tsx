@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { useParams } from 'react-router-dom';
 import { GrFormView } from 'react-icons/gr';
 
@@ -12,11 +10,6 @@ import { TNaverNewsDetail, TWizNewsDetail } from '@/types/wizNews';
 
 const NewsDetailPage = () => {
   const { tab, id } = useParams();
-
-  useEffect(() => {
-    console.log('Tab:', tab);
-    console.log('Id:', id);
-  }, [tab, id]);
 
   const urls = {
     wiznews: `/article/newsdetail?artcSeq=${id}`,
@@ -66,11 +59,11 @@ const NewsDetailPage = () => {
   return (
     <div className="m-auto flex max-w-screen-2xl flex-col gap-20">
       <div className="flex flex-col">
-        <div className="flex justify-between border-b border-kt-white p-2 px-5 pt-10">
+        <div className="border-kt-white flex justify-between border-b p-2 px-5 pt-10">
           <span>발간일 : {newsDetail.regDate}</span>
           <span>최종 수정일 : {newsDetail.updDate}</span>
         </div>
-        <h1 className="border-b border-kt-white p-3 text-center text-5xl">
+        <h1 className="border-kt-white border-b p-3 text-center text-5xl">
           {newsDetail.title}
         </h1>
         <p className="p-2 text-center">
