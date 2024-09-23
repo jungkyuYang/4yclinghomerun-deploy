@@ -48,14 +48,15 @@ const NewsPage = () => {
       setActiveTab(currentTab);
       setSubTitle(tabs[currentTab].subTitle);
       setCurrentPage(1);
+      setSearchWord('');
     } else {
       navigate('/news/wiznews', { replace: true });
     }
   }, [tab, navigate]);
 
   const urls = [
-    `/article/newslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
-    `/article/wizpresslistpage?itemCount=100&pageNum=${currentPage}&searchWord=${searchWord}`,
+    `/article/newslist?searchWord=${searchWord}`,
+    `/article/wizpresslist?searchWord=${searchWord}`,
     `/article/navernewslist`,
   ];
 
@@ -86,8 +87,9 @@ const NewsPage = () => {
     (index: number) => {
       navigate(`/news/${tabs[index].path}`);
       setActiveTab(index);
+      setSubTitle(tabs[index].subTitle);
       setCurrentPage(1);
-      setSearchWord(''); // 검색어 초기화
+      searchHandler('');
     },
     [navigate],
   );
@@ -101,10 +103,14 @@ const NewsPage = () => {
     setCurrentPage(1);
   };
 
+  useEffect(() => {
+    console.log('currentPage:', currentPage);
+  }, [currentPage]);
+
   return (
     <DetailPageLayout
       topImg={topImg}
-      title="Wiz 뉴스"
+      title={tabs[activeTab].name}
       subTitle={subTitle}
       tabs={tabs}
       activeTab={activeTab}
