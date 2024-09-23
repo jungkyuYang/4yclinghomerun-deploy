@@ -93,9 +93,9 @@ const Router = () => {
         },
         { path: PLAYER, element: <PlayerPage /> },
         {
-          path: `${NEWS}/*`,
+          path: `${NEWS}/:tab`,
           element: <NewsPage />,
-          children: [{ path: 'detail/:id', element: <NewsDetailPage /> }],
+          children: [{ path: `${NEWS}/:tab/detail/:id`, element: <NewsDetailPage /> }],
         },
         { path: LOGIN, element: <LoginPage /> },
         { path: SIGNUP, element: <SingupPage /> },

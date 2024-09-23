@@ -13,6 +13,7 @@ type WizNewsProps = {
   error: string | null;
   currentPage: number;
   totalPages: number;
+  tab: string;
   onPageChange: (pageNumber: number) => void;
   onSearch: (searchWord: string) => void;
 };
@@ -33,6 +34,7 @@ const WizNews = ({
   isError,
   error,
   currentPage,
+  tab,
   onPageChange,
   onSearch,
 }: WizNewsProps) => {
@@ -61,7 +63,11 @@ const WizNews = ({
         />
       )}
 
-      {isLoading ? <NewsListSkeleton /> : <NewsList newsItems={currentNews} />}
+      {isLoading ? (
+        <NewsListSkeleton />
+      ) : (
+        <NewsList newsItems={currentNews} tab={tab} />
+      )}
 
       <Pagination
         currentPage={currentPage}
