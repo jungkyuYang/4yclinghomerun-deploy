@@ -17,7 +17,7 @@ const NewsDetailPage = () => {
     navernews: `/article/navernewsdetail?${id}`,
   };
 
-  const processData = (responseData: any) => {
+  const processData = (responseData: unknown) => {
     if (tab === 'navernews') {
       // navernewsdetail 데이터
       return responseData.result.articleInfo || {};
