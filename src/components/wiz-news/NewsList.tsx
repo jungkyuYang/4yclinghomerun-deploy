@@ -45,7 +45,7 @@ const NewsList = ({ newsItems, tab }: NewsListProps) => {
         return (
           <li
             key={newsListData.id}
-            className="group m-4 rounded-sm bg-gradient-to-r from-kt-black-5 to-transparent transition duration-200 hover:bg-gradient-to-l"
+            className="from-kt-black-5 group m-4 rounded-sm bg-gradient-to-r to-transparent transition duration-200 hover:bg-gradient-to-l"
           >
             <Link
               to={`/news/${tab}/detail/${newsListData.id}`}
