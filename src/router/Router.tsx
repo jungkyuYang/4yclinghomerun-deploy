@@ -26,7 +26,6 @@ import BoxScorePage from '@/pages/game/BoxScorePage';
 import WatchPointPage from '@/pages/game/WatchPointPage';
 import NewsDetailPage from '@/pages/news/NewsDetailPage';
 import WizParkIntro from '@/pages/wiz-park/WizParkIntro';
-import WizParkGuideFacilityInfo from '@/components/wiz-park/WizParkGuideFacilityInfo';
 import WizParkGuide from '@/pages/wiz-park/WizParkGuide';
 
 const Router = () => {
