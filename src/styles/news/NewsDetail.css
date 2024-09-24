@@ -2,6 +2,10 @@
   color: inherit !important;
   font-family: Pretendard-Regular !important;
   font-size: 18px !important;
+
+  word-break: keep-all !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
 }
 
 .custom-html img {

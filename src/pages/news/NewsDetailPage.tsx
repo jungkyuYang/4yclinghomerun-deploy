@@ -64,7 +64,9 @@ const NewsDetailPage = () => {
           <span>최종 수정일 : {newsDetail.updDate}</span>
         </div>
         <h1 className="border-b border-kt-white p-3 text-center text-3xl">
-          <span className="max-w-screen-md inline-block">{newsDetail.title}</span>
+          <span className="inline-block max-w-screen-md break-keep">
+            {newsDetail.title}
+          </span>
         </h1>
         <p className="p-2 text-center">
           {newsDetail.viewCnt ? (
@@ -90,7 +92,7 @@ const NewsDetailPage = () => {
           <strong className="text-xl">{data.article.subcontent}</strong>
         )}
         {/* 뉴스 기사 본문 */}
-        <p
+        <div
           className="custom-html"
           dangerouslySetInnerHTML={{
             __html: newsDetail.content,
