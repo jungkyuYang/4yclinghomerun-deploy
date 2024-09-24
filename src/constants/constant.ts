@@ -38,6 +38,8 @@ export const ROUTER_PATH = {
   INTRODUCE_ABOUT: '/introduce/about',
   INTRODUCE_HISTORY: '/introduce/history',
   WIZ_PARK: '/wiz-park',
+  WIZ_PARK_INTRO: '/wiz-park/intro',
+  WIZ_PARK_GUIDE: '/wiz-park/guide',
   DIRECTION: '/direction',
   GAME: '/game',
   GAME_RANKING: '/game/ranking',
