@@ -2,15 +2,15 @@ import { motion } from 'framer-motion';
 
 import { cn } from '@/utils/cn';
 
-const GamePlayerRankingTabs = ({
+const PlayerRankingTabs = ({
   activeTab,
   handleActiveTab,
+  tabsList,
 }: {
   activeTab: string;
   handleActiveTab: (title: string) => void;
+  tabsList: string[];
 }) => {
-  const tabsList = ['kt wiz 투수 순위', '전체 투수 순위'];
-
   return (
     <>
       <div className="relative flex w-fit gap-3 rounded-md bg-kt-gray-1 px-3 py-2 text-center text-sm font-medium">
@@ -48,4 +48,4 @@ const GamePlayerRankingTabs = ({
   );
 };
 
-export default GamePlayerRankingTabs;
+export default PlayerRankingTabs;

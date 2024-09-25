@@ -1,4 +1,10 @@
-export type TPlayerRankingTable = {
+import { ColumnDef } from '@tanstack/react-table';
+
+export type APITotalPitcherRankingTable = {
+  data: { list: TTotalPitcherRankingTable[] };
+};
+
+export type TTotalPitcherRankingTable = {
   ab: number; // 타석 수
   bb: number; // 볼넷 수
   bb9: number; // 9타석당 볼넷 수
@@ -70,3 +76,116 @@ export type TPlayerRankingTable = {
   wp: number; // 폭투 수
   wra: string; // WAR (Wins Above Replacement)
 };
+
+export type APIKTPitcherRankingTable = {
+  data: { list: TKTPitcherRankingTable[] };
+};
+
+export type TKTPitcherRankingTable = {
+  playerName: string;
+  teamName: string;
+  era: string;
+  gamenum: number;
+  w: number;
+  l: number;
+  sv: number;
+  inBa: string;
+  hit: number;
+  hr: number;
+  hold: number;
+  hp: number;
+  wra: number;
+  kk: number;
+  bb: number;
+  kk9: number;
+  r: number;
+  er: number;
+};
+
+export type APITotalBatterRankingTable = {
+  data: { list: TTotalBatterRankingTable[] };
+};
+
+export type TTotalBatterRankingTable = {
+  playerName: string;
+  teamName: string;
+  hra: string;
+  gamenum: number;
+  ab: number;
+  run: number;
+  hit: number;
+  h2: number;
+  h3: number;
+  hr: number;
+  rbi: number;
+  sb: number;
+  bb: number;
+  hp: number;
+  kk: number;
+  slg: string;
+  bra: string;
+};
+
+export type TKTBatterRankingTable = {
+  playerName: string;
+  teamName: string;
+  hra: string;
+  gamenum: number;
+  ab: number;
+  run: number;
+  hit: number;
+  h2: number;
+  h3: number;
+  hr: number;
+  rbi: number;
+  sb: number;
+  bb: number;
+  hp: number;
+  kk: number;
+  slg: string;
+  bra: string;
+  playerPrvwImg: string;
+  pcode: string;
+  gyear: string;
+  // Add other fields as necessary
+};
+
+export type TPlayerRankigTableData = {
+  tableName: string;
+  apiUrl: string;
+  tableColums:
+    | ColumnDef<TTotalPitcherRankingTable>[]
+    | ColumnDef<TKTPitcherRankingTable>[]
+    | ColumnDef<TTotalBatterRankingTable>[]
+    | ColumnDef<TKTBatterRankingTable>[];
+};
+
+export type TPlayerRankingTopThree = {
+  rank: number;
+  playerName: string;
+  playerPrvwImg: string;
+  era?: string;
+  w?: number;
+  hra?: number;
+  hr?: number;
+};
+
+export type TTopThreePlayerListData = {
+  title: string;
+  url: string;
+  data: string;
+};
+
+export type TPlayerRankingTopFive = {
+  rank: number;
+  playerName: string;
+  teamName: string;
+  era?: string;
+  hra?: number;
+};
+
+export type TPlayerRankingTable =
+  | TTotalPitcherRankingTable
+  | TKTPitcherRankingTable
+  | TTotalBatterRankingTable
+  | TKTBatterRankingTable;
