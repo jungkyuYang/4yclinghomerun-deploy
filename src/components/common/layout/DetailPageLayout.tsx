@@ -40,7 +40,7 @@ const DetailPageLayout = ({
           alt="topImg"
           className="h-full w-full scale-110 object-cover"
         />
-        <div className="absolute inset-0 bg-black opacity-55"></div>
+        <div className="absolute inset-0 bg-black opacity-75"></div>
       </div>
 
       <div className="relative z-10">
