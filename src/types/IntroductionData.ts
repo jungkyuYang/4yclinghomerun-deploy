@@ -1,4 +1,4 @@
-export type TIntroductionClub = {
+export type TIntroductionData = {
   id: string;
   header: string;
   desc: string;

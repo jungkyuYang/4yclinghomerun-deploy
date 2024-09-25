@@ -4,7 +4,7 @@ import { ROUTER_PATH } from '@/constants/constant';
 import Layout from './Layout';
 import HomePage from '@/pages/HomePage';
 import IntroductionPage from '@/pages/Introduction/IntroductionPage';
-import WizParkPage from '@/pages/WizParkPage';
+import WizParkPage from '@/pages/wiz-park/WizParkPage';
 import DirectionPage from '@/pages/DirectionPage';
 import GamePage from '@/pages/game/GamePage';
 import PlayerPage from '@/pages/PlayerPage';
@@ -25,6 +25,8 @@ import SchedulePage from '@/pages/game/SchedulePage';
 import BoxScorePage from '@/pages/game/BoxScorePage';
 import WatchPointPage from '@/pages/game/WatchPointPage';
 import NewsDetailPage from '@/pages/news/NewsDetailPage';
+import WizParkIntro from '@/pages/wiz-park/WizParkIntro';
+import WizParkGuide from '@/pages/wiz-park/WizParkGuide';
 
 const Router = () => {
   const {
@@ -33,6 +35,8 @@ const Router = () => {
     INTRODUCE_ABOUT,
     INTRODUCE_HISTORY,
     WIZ_PARK,
+    WIZ_PARK_INTRO,
+    WIZ_PARK_GUIDE,
     DIRECTION,
     GAME,
     GAME_RANKING,
@@ -58,7 +62,14 @@ const Router = () => {
             { path: INTRODUCE_HISTORY, element: <IntroductionHistory /> },
           ],
         },
-        { path: WIZ_PARK, element: <WizParkPage /> },
+        {
+          path: WIZ_PARK,
+          element: <WizParkPage />,
+          children: [
+            { path: WIZ_PARK_INTRO, element: <WizParkIntro /> },
+            { path: WIZ_PARK_GUIDE, element: <WizParkGuide /> },
+          ],
+        },
         { path: DIRECTION, element: <DirectionPage /> },
         { path: PLAYER, element: <PlayerPage /> },
         {
