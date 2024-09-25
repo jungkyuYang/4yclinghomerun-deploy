@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import HttpClient from '@/api/HttpClient';
 import axios, { AxiosError, ResponseType } from 'axios';
+
+import HttpClient from '@/api/HttpClient';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -27,12 +28,19 @@ const useAxios = <T, R = T>({
   responseType,
 }: RequestParams<T, R>) => {
   const [data, setData] = useState<R | T>(initialData);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [delayLoading, setDelayLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const MINIMUM_LOADING_TIME = 500;
+
   const handleRequest = async () => {
     setIsLoading(true);
+    const timer = setTimeout(() => {
+      setDelayLoading(true);
+    }, MINIMUM_LOADING_TIME);
+
     try {
       let response;
       const config = responseType ? { responseType } : {};
@@ -92,7 +100,9 @@ const useAxios = <T, R = T>({
         }
       }
     } finally {
+      clearTimeout(timer);
       setIsLoading(false);
+      setDelayLoading(false);
     }
   };
 
@@ -100,11 +110,13 @@ const useAxios = <T, R = T>({
     if (method === 'GET' && shouldFetchOnMount) {
       handleRequest();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [method, url, shouldFetchOnMount]);
 
   return {
     data,
     isLoading,
+    delayLoading,
     isError,
     error,
     handleRequest,
