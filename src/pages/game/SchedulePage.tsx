@@ -6,6 +6,7 @@ import ScheduleCarousel from '@/components/home/contents/schedule/ScheduleCarous
 import CalendarHeader from '@/components/game/schedule/CalendarHeader';
 import CalendarView from '@/components/game/schedule/CalendarView';
 import ListView from '@/components/game/schedule/ListView';
+import SectionHeading from '@/components/common/typography/SectionHeading';
 import { useScheduleStore } from '@/stores/ScheduleStore';
 
 const SchedulePage = () => {
@@ -37,7 +38,7 @@ const SchedulePage = () => {
 
   return (
     <>
-      <h1 className="mb-5 text-2xl font-extrabold">정규 리그 일정</h1>
+      <SectionHeading title="정규 리그 일정" />
       <motion.div
         ref={ref}
         initial={{ opacity: 0, x: -50 }}

@@ -9,7 +9,10 @@ const GameTeamRankingPieGraphFrame = ({
   return (
     <div className="mx-auto grid grid-cols-3 gap-4">
       {graphInfo.map((item) => (
-        <GameTeamRankingPieGraph key={item.teamCode} graphInfo={item} />
+        <GameTeamRankingPieGraph
+          key={`${item.teamCode}-${item.vsTeamCode}-${item.teamName}-${item.teamCode}`}
+          graphInfo={item}
+        />
       ))}
     </div>
   );

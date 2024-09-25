@@ -106,7 +106,7 @@ const DetailPageLayout = ({
             </div>
           </div>
 
-          <div className="bg-black p-4 px-40 text-white">
+          <div className="bg-black px-40 py-28 text-white">
             <div className="h-full">{children}</div>
           </div>
         </motion.div>

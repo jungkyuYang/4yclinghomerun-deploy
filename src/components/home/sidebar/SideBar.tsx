@@ -1,5 +1,4 @@
 import { IconType } from 'react-icons';
-
 import { AiFillInstagram } from 'react-icons/ai';
 import { FaCarSide } from 'react-icons/fa6';
 import { FaYoutube } from 'react-icons/fa';
@@ -31,6 +30,13 @@ const SideBar = () => {
     window.location.href = toUrl[i];
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <>
       <ul className="fixed right-6 top-[50%] -translate-y-1/2 transform text-white">
@@ -49,7 +55,7 @@ const SideBar = () => {
         })}
         <span
           className="mb-3 flex cursor-pointer flex-col items-center text-xs opacity-80 hover:opacity-100"
-          onClick={() => window.scrollTo(0, 0)}
+          onClick={scrollToTop}
         >
           <MdOutlineVerticalAlignTop size="20" color="#fff" />
           TOP
