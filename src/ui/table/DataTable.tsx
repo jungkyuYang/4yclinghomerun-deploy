@@ -4,8 +4,8 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-
 import { cn } from '@/utils/cn';
+import DataTableSkeleton from './DataTableSkeleton';
 
 type CellValue = string | number | boolean | null | undefined;
 
@@ -18,6 +18,7 @@ type DataTableProps<T extends object> = {
   bodyClassName?: string;
   bodyCellClassName?: string;
   highlightCondition?: (row: T) => boolean;
+  isLoading?: boolean;
 };
 
 const DataTable = <T extends object>({
@@ -29,6 +30,7 @@ const DataTable = <T extends object>({
   bodyClassName,
   bodyCellClassName,
   highlightCondition,
+  isLoading = false,
 }: DataTableProps<T>) => {
   const table = useReactTable({
     data,
@@ -36,7 +38,9 @@ const DataTable = <T extends object>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return (
+  return isLoading ? (
+    <DataTableSkeleton rows={10} columns={columns.length} />
+  ) : (
     <div className={cn('overflow-hidden rounded-t-md', containerClassName)}>
       <div className="max-h-[400px] overflow-x-auto">
         <table className="relative min-w-full">
