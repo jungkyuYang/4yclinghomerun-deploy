@@ -1,4 +1,4 @@
-import { DataTable } from '@/ui/table/DataTable';
+import { DataTable } from '@/components/common/ui/table/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import GameRankingSectionFrame from '../GameRankingSectionFrame';
 
