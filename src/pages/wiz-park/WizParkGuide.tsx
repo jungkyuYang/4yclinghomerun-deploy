@@ -1,4 +1,4 @@
-import wizParkGuideImg from '@/assets/wiz-park/wiz_park_guide.webp';
+import wizParkGuideImg from '@/assets/wiz-park/wiz_park_guide.svg';
 import SectionHeading from '@/components/common/typography/SectionHeading';
 import WizParkGuideFacilityInfo from '@/components/wiz-park/WizParkGuideFacilityInfo';
 import WizParkGuideSeatInfo from '@/components/wiz-park/WizParkGuideSeatInfo';
