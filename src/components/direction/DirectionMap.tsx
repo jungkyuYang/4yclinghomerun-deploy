@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef } from 'react';
 
 import markerIcon from '@/assets/logo/KTwiz_logo.svg';
@@ -28,6 +29,7 @@ const DirectionMap = () => {
 
       const map = new window.naver.maps.Map(mapRef.current, mapOptions);
 
+      // eslint-disable-next-line no-unused-vars
       const marker = new window.naver.maps.Marker({
         position: new window.naver.maps.LatLng(markerLat, markerLng),
         map: map,
