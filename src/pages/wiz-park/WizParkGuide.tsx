@@ -14,7 +14,7 @@ const WizParkGuide = () => {
       <SectionHeading title="kt wiz park 좌석 안내도" />
       <div className="flex w-full gap-4">
         <img src={wizParkGuideImg} className="w-1/2" />
-        <div className="w-1/2 space-y-10">
+        <div className="flex w-1/2 flex-col justify-center gap-6">
           <WizParkGuideSection
             title="좌석안내"
             children={WizParkGuideSeatInfoData.map((item) => (

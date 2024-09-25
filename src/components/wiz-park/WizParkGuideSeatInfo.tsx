@@ -11,7 +11,9 @@ const WizParkGuideSeatInfo = ({
     <div
       className={cn('mr-2 h-6 w-6 rounded-full border-2 border-white', color)}
     />
-    <p className="text-sm">{label}</p>
+    <p className={cn('text-sm', label.length > 10 && '-tracking-widest')}>
+      {label}
+    </p>
   </div>
 );
 
