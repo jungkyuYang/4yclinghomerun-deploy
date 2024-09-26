@@ -52,7 +52,7 @@ const Profile = ({ items, type, isError }: ProfileProps) => {
                 </span>
               ))}
             </div>
-            {type === 'pitcher' || type === 'hitter' ? (
+            {(type === 'pitcher' || type === 'hitter') && (
               <>
                 <div className="mb-2">
                   <span className="mr-1 font-semibold text-kt-gray-2">
@@ -73,8 +73,6 @@ const Profile = ({ items, type, isError }: ProfileProps) => {
                   {items.energybarName}
                 </div>
               </>
-            ) : (
-              <></>
             )}
             <div className="mb-2">
               <div className="flex max-h-full">
@@ -88,7 +86,7 @@ const Profile = ({ items, type, isError }: ProfileProps) => {
                     <img
                       src={item[1]}
                       alt="대표사진 이미지"
-                      className="h-full w-full rounded-lg"
+                      className="h-28 w-28 rounded-lg object-cover"
                     />
                   </a>
                 ))}
