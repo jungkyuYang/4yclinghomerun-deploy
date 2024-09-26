@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 
+import logoImg from '@/assets/logo/KTwiz_logo.svg';
 import { cn } from '@/utils/cn';
 import { TCard } from '@/types/player';
 
@@ -43,11 +44,7 @@ const CardItem = ({ items, type }: CardItemProps) => {
             <div className="flex items-center justify-between pb-1.5 text-xl">
               <div className="flex items-center text-kt-white">
                 <span>
-                  <img
-                    className="w-9"
-                    alt="KT 로고"
-                    src="/src/assets/logo/KTwiz_logo.svg"
-                  />
+                  <img className="w-9" alt="KT 로고" src={logoImg} />
                 </span>
                 {type === 'cheer' ? items.leaderName : items.playerName}
                 <span className="pl-1"></span>
@@ -84,11 +81,7 @@ const CardItem = ({ items, type }: CardItemProps) => {
           >
             <div className="flex h-full flex-col items-center justify-between">
               <span className="">
-                <img
-                  className="w-12"
-                  alt="KT 로고"
-                  src="/src/assets/logo/KTwiz_logo.svg"
-                />
+                <img className="w-12" alt="KT 로고" src={logoImg} />
               </span>
               <div className="flex flex-col items-center">
                 <div className="cursor-pointer text-4xl font-bold text-kt-white">
