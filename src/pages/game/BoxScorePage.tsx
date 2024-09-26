@@ -81,7 +81,10 @@ const BoxScorePage = () => {
       {/* 주요 기록 */}
       <section>
         <SectionHeading title="주요 기록" />
-        <MainRecordTable etcgames={boxScoreData.data.etcgames} />
+        <MainRecordTable
+          etcgames={boxScoreData.data.etcgames}
+          isLoading={isLoading}
+        />
       </section>
 
       {/* 타자 기록 */}
@@ -89,14 +92,20 @@ const BoxScorePage = () => {
         <SectionHeading
           title={`${boxScoreData.data.schedule.current.home} 타자 기록`}
         />
-        <BatterRecordTable data={boxScoreData.data.hbatters} />
+        <BatterRecordTable
+          data={boxScoreData.data.hbatters}
+          isLoading={isLoading}
+        />
       </section>
 
       <section>
         <SectionHeading
           title={`${boxScoreData.data.schedule.current.visit} 타자 기록`}
         />
-        <BatterRecordTable data={boxScoreData.data.vbatters} />
+        <BatterRecordTable
+          data={boxScoreData.data.vbatters}
+          isLoading={isLoading}
+        />
       </section>
 
       {/* 투수 기록 */}
@@ -104,14 +113,20 @@ const BoxScorePage = () => {
         <SectionHeading
           title={`${boxScoreData.data.schedule.current.home} 투수 기록`}
         />
-        <PitcherRecordTable data={boxScoreData.data.hpitchers} />
+        <PitcherRecordTable
+          data={boxScoreData.data.hpitchers}
+          isLoading={isLoading}
+        />
       </section>
 
       <section>
         <SectionHeading
           title={`${boxScoreData.data.schedule.current.visit} 투수 기록`}
         />
-        <PitcherRecordTable data={boxScoreData.data.vpitchers} />
+        <PitcherRecordTable
+          data={boxScoreData.data.vpitchers}
+          isLoading={isLoading}
+        />
       </section>
     </div>
   );

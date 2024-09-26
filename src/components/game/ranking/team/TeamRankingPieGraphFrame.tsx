@@ -1,7 +1,7 @@
-import { TTeamRankingTeamVSTable } from '@/types/GameTeamRanking';
-import GameTeamRankingPieGraph from './GameTeamRankingPieGraph';
+import { TTeamRankingTeamVSTable } from '@/types/TeamRanking';
+import TeamRankingPieGraph from './TeamRankingPieGraph';
 
-const GameTeamRankingPieGraphFrame = ({
+const TeamRankingPieGraphFrame = ({
   graphInfo,
 }: {
   graphInfo: TTeamRankingTeamVSTable[];
@@ -9,7 +9,7 @@ const GameTeamRankingPieGraphFrame = ({
   return (
     <div className="mx-auto grid grid-cols-3 gap-4">
       {graphInfo.map((item) => (
-        <GameTeamRankingPieGraph
+        <TeamRankingPieGraph
           key={`${item.teamCode}-${item.vsTeamCode}-${item.teamName}-${item.teamCode}`}
           graphInfo={item}
         />
@@ -17,4 +17,4 @@ const GameTeamRankingPieGraphFrame = ({
     </div>
   );
 };
-export default GameTeamRankingPieGraphFrame;
+export default TeamRankingPieGraphFrame;

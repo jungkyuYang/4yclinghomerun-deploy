@@ -1,8 +1,8 @@
 import { ResponsivePie } from '@nivo/pie';
 
-import { TTeamRankingTeamVSTable } from '@/types/GameTeamRanking';
+import { TTeamRankingTeamVSTable } from '@/types/TeamRanking';
 
-const GameTeamRankingPieGraph = ({
+const TeamRankingPieGraph = ({
   graphInfo,
 }: {
   graphInfo: TTeamRankingTeamVSTable;
@@ -94,4 +94,4 @@ const GameTeamRankingPieGraph = ({
     </div>
   );
 };
-export default GameTeamRankingPieGraph;
+export default TeamRankingPieGraph;

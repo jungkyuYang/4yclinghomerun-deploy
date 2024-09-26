@@ -1,5 +1,5 @@
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
-import { TTeamRankingBatterTable } from '@/types/GameTeamRanking';
+import { TTeamRankingBatterTable } from '@/types/TeamRanking';
 
 const batterColumnHelper = createColumnHelper<TTeamRankingBatterTable>();
 

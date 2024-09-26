@@ -1,6 +1,6 @@
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 
-import { TTeamRankingYearTable } from '@/types/GameTeamRanking';
+import { TTeamRankingYearTable } from '@/types/TeamRanking';
 
 const yearColumnHelper = createColumnHelper<TTeamRankingYearTable>();
 

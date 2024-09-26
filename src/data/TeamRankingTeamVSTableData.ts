@@ -1,6 +1,6 @@
 import { createColumnHelper, ColumnDef } from '@tanstack/react-table';
 
-import { TTeamRankingTeamVSTable } from '@/types/GameTeamRanking';
+import { TTeamRankingTeamVSTable } from '@/types/TeamRanking';
 
 const teamVSColumnHelper = createColumnHelper<TTeamRankingTeamVSTable>();
 

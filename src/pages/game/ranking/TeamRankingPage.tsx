@@ -11,15 +11,15 @@ import {
   TTeamRankingPitcherTable,
   TTeamRankingTeamVSTable,
   TTeamRankingYearTable,
-} from '@/types/GameTeamRanking';
-import GameTeamRankingBarGraph from '@/components/game/ranking/team/GameTeamRankingBarGraph';
+} from '@/types/TeamRanking';
+import TeamRankingBarGraph from '@/components/game/ranking/team/TeamRankingBarGraph';
 import GameRankingSectionFrame from '@/components/game/GameRankingSectionFrame';
+import GameRankingTable from '@/components/game/ranking/GameRankingTable';
+import TeamRankingPieGraphFrame from '@/components/game/ranking/team/TeamRankingPieGraphFrame';
+import SectionHeading from '@/components/common/typography/SectionHeading';
 import { teamRankingPitcherColumns } from '@/data/TeamRankingPitcherTableData';
 import { teamRankingYearColumns } from '@/data/TeamRankingYearTableData';
-import GameRankingTable from '@/components/game/ranking/GameRankingTable';
 import { teamRankingBatterColumns } from '@/data/TeamRankingBatterTableData';
-import GameTeamRankingPieGraphFrame from '@/components/game/ranking/team/GameTeamRankingPieGraphFrame';
-import GameTeamRankingTitle from '@/components/game/ranking/team/GameTeamRankingTitle';
 
 const TeamRankingPage = () => {
   const {
@@ -104,7 +104,7 @@ const TeamRankingPage = () => {
         height="h-[50vh]"
         type="graph"
       >
-        <GameTeamRankingBarGraph graphInfo={TeamRankingGraphData} />
+        <TeamRankingBarGraph graphInfo={TeamRankingGraphData} />
       </GameRankingSectionFrame>
       {Array.isArray(TeamRankingYearTableData) && (
         <GameRankingTable<TTeamRankingYearTable>
@@ -132,10 +132,8 @@ const TeamRankingPage = () => {
       )}
       {Array.isArray(TeamRankingTeamVSTableData) && (
         <div>
-          <GameTeamRankingTitle title="2024 시즌 팀 간 승패" />
-          <GameTeamRankingPieGraphFrame
-            graphInfo={TeamRankingTeamVSTableData}
-          />
+          <SectionHeading title="2024 시즌 팀 간 승패" />
+          <TeamRankingPieGraphFrame graphInfo={TeamRankingTeamVSTableData} />
         </div>
       )}
     </div>
