@@ -3,7 +3,7 @@ import { useState } from 'react';
 import GamePlayerRankingTabs from '@/components/game/ranking/player/GamePlayerRankingTabs';
 import GameTopPlayerRankingFrame from '@/components/game/ranking/player/GameTopPlayerRankingFrame';
 import SearchInput from '@/components/common/ui/SearchInput';
-import { DataTable } from '@/ui/table/DataTable';
+import { DataTable } from '@/components/common/ui/table/DataTable';
 import { playerColumns } from '@/data/PlayerRankingTableData';
 import { TPlayerRankingTable } from '@/types/GamePlayerRanking ';
 

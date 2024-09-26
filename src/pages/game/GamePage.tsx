@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import topImg from '@/assets/game/top_img.webp';
+import topImg from '@/assets/game/top.webp';
 import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
 import { gameTabs } from '@/mocks/game/GameTabs';
 
