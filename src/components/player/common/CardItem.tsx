@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 
 import logoImg from '@/assets/logo/KTwiz_logo.svg';
+import unknownImg from '@/assets/player/CardImage_Unknown.webp';
 import { cn } from '@/utils/cn';
 import { TCard } from '@/types/player';
 
@@ -31,6 +32,12 @@ const CardItem = ({ items, type }: CardItemProps) => {
     return `${month}${day}`; // '0000' + '00' 형태로 결합
   };
 
+  const isWhiteImgPlayer =
+    items.playerName === '김주완' || items.playerName === '이현민';
+  if (isWhiteImgPlayer) {
+    items.playerPrvwImg = unknownImg;
+  }
+
   return (
     <>
       <div className="group h-[380px] [perspective:1100px]">
@@ -58,7 +65,7 @@ const CardItem = ({ items, type }: CardItemProps) => {
                   src={
                     type === 'cheer' ? items.imgPrvwPath : items.playerPrvwImg
                   }
-                ></img>
+                />
               </div>
             </div>
             <div className="flex items-center gap-2 pt-3 text-kt-white">
