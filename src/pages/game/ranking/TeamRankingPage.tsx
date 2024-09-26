@@ -20,14 +20,13 @@ import SectionHeading from '@/components/common/typography/SectionHeading';
 import { teamRankingPitcherColumns } from '@/data/TeamRankingPitcherTableData';
 import { teamRankingYearColumns } from '@/data/TeamRankingYearTableData';
 import { teamRankingBatterColumns } from '@/data/TeamRankingBatterTableData';
+import BarGraphSkeleton from '@/components/game/ranking/BarGraphSkeleton';
 
 const TeamRankingPage = () => {
-  const {
-    data: TeamRankingGraphData,
-    // isLoading: isGraphLoading,
-    isError: isGraphError,
-    error: graphError,
-  } = useAxios<APITeamRankingGraph, TTeamRankingGraph[]>({
+  const { data: TeamRankingGraphData, delayLoading: isGraphLoading } = useAxios<
+    APITeamRankingGraph,
+    TTeamRankingGraph[]
+  >({
     url: '/game/rank/periodteamrank',
     method: 'GET',
     initialData: { data: { list: [] } },
@@ -35,24 +34,18 @@ const TeamRankingPage = () => {
     processData: (data: APITeamRankingGraph) => data.data.list,
   });
 
-  const {
-    data: TeamRankingYearTableData,
-    delayLoading: isYearTableLoading,
-    // isError: isYearTableError,
-    // error: yearTableError,
-  } = useAxios<APITeamRankingYearTable, TTeamRankingYearTable[]>({
-    url: '/game/teamrankbyyear',
-    method: 'GET',
-    initialData: { data: { list: [] } },
-    shouldFetchOnMount: true,
-    processData: (data: APITeamRankingYearTable) => data.data.list,
-  });
+  const { data: TeamRankingYearTableData, delayLoading: isYearTableLoading } =
+    useAxios<APITeamRankingYearTable, TTeamRankingYearTable[]>({
+      url: '/game/teamrankbyyear',
+      method: 'GET',
+      initialData: { data: { list: [] } },
+      shouldFetchOnMount: true,
+      processData: (data: APITeamRankingYearTable) => data.data.list,
+    });
 
   const {
     data: TeamRankingPitcherTableData,
     delayLoading: isPitcherTableLoading,
-    // isError: isPitcherTableError,
-    // error: picherTableError,
   } = useAxios<APITeamRankingPitcherTable, TTeamRankingPitcherTable[]>({
     url: '/game/rank/pitching',
     method: 'GET',
@@ -64,8 +57,6 @@ const TeamRankingPage = () => {
   const {
     data: TeamRankingBatterTableData,
     delayLoading: isBatterTableLoading,
-    // isError: isBatterTableError,
-    // error: batterTableError,
   } = useAxios<APITeamRankingBatterTable, TTeamRankingBatterTable[]>({
     url: '/game/rank/batting',
     method: 'GET',
@@ -76,9 +67,7 @@ const TeamRankingPage = () => {
 
   const {
     data: TeamRankingTeamVSTableData,
-    // delayLoading: isTeamVSTableLoading,
-    // isError: isTeamVSTableError,
-    // error: teamVSTableError,
+    delayLoading: isTeamVSTableLoading,
   } = useAxios<APITeamRankingTeamVSTable, TTeamRankingTeamVSTable[]>({
     url: '/game/rank/teamvs',
     method: 'GET',
@@ -88,14 +77,14 @@ const TeamRankingPage = () => {
       data.data.list.filter((item) => item.teamCode === 'KT'),
   });
 
-  // 에러가 발생했거나 데이터가 배열이 아닌 경우 에러 처리
   if (
-    isGraphError ||
     !Array.isArray(TeamRankingGraphData) ||
     !Array.isArray(TeamRankingPitcherTableData) ||
-    !Array.isArray(TeamRankingBatterTableData)
+    !Array.isArray(TeamRankingBatterTableData) ||
+    !Array.isArray(TeamRankingYearTableData) ||
+    !Array.isArray(TeamRankingTeamVSTableData)
   ) {
-    return <p>Error: {graphError}</p>;
+    return <p>Error</p>;
   }
   return (
     <div className="flex flex-col gap-10">
@@ -104,38 +93,37 @@ const TeamRankingPage = () => {
         height="h-[50vh]"
         type="graph"
       >
-        <TeamRankingBarGraph graphInfo={TeamRankingGraphData} />
+        {isGraphLoading ? (
+          <BarGraphSkeleton />
+        ) : (
+          <TeamRankingBarGraph graphInfo={TeamRankingGraphData} />
+        )}
       </GameRankingSectionFrame>
-      {Array.isArray(TeamRankingYearTableData) && (
-        <GameRankingTable<TTeamRankingYearTable>
-          title="2024 시즌 팀 기록"
-          tableInfo={TeamRankingYearTableData}
-          columns={teamRankingYearColumns}
-          isLoading={isYearTableLoading}
+      <GameRankingTable<TTeamRankingYearTable>
+        title="2024 시즌 팀 기록"
+        tableInfo={TeamRankingYearTableData}
+        columns={teamRankingYearColumns}
+        isLoading={isYearTableLoading}
+      />
+      <GameRankingTable<TTeamRankingPitcherTable>
+        title="2024 시즌 팀 투수 기록"
+        tableInfo={TeamRankingPitcherTableData}
+        columns={teamRankingPitcherColumns}
+        isLoading={isPitcherTableLoading}
+      />
+      <GameRankingTable<TTeamRankingBatterTable>
+        title="2024 시즌 팀 타자 기록"
+        tableInfo={TeamRankingBatterTableData}
+        columns={teamRankingBatterColumns}
+        isLoading={isBatterTableLoading}
+      />
+      <div>
+        <SectionHeading title="2024 시즌 팀 간 승패" />
+        <TeamRankingPieGraphFrame
+          graphInfo={TeamRankingTeamVSTableData}
+          isLoading={isTeamVSTableLoading}
         />
-      )}
-      {Array.isArray(TeamRankingPitcherTableData) && (
-        <GameRankingTable<TTeamRankingPitcherTable>
-          title="2024 시즌 팀 투수 기록"
-          tableInfo={TeamRankingPitcherTableData}
-          columns={teamRankingPitcherColumns}
-          isLoading={isPitcherTableLoading}
-        />
-      )}
-      {Array.isArray(TeamRankingBatterTableData) && (
-        <GameRankingTable<TTeamRankingBatterTable>
-          title="2024 시즌 팀 타자 기록"
-          tableInfo={TeamRankingBatterTableData}
-          columns={teamRankingBatterColumns}
-          isLoading={isBatterTableLoading}
-        />
-      )}
-      {Array.isArray(TeamRankingTeamVSTableData) && (
-        <div>
-          <SectionHeading title="2024 시즌 팀 간 승패" />
-          <TeamRankingPieGraphFrame graphInfo={TeamRankingTeamVSTableData} />
-        </div>
-      )}
+      </div>
     </div>
   );
 };

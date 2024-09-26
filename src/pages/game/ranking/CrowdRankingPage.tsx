@@ -11,6 +11,7 @@ import CrowdRankingGraph from '@/components/game/ranking/crowd/CrowdRankingGraph
 import CrowdRankingSelectYear from '@/components/game/ranking/crowd/CrowdRankingSelectYear';
 import GameRankingTable from '@/components/game/ranking/GameRankingTable';
 import { crowdRankingColumns } from '@/data/CrowdRankingTableData';
+import BarGraphSkeleton from '@/components/game/ranking/BarGraphSkeleton';
 
 const CrowdRankingPage = () => {
   const [selectedYear, setSelectedYear] = useState<number>(
@@ -95,7 +96,11 @@ const CrowdRankingPage = () => {
         height="h-[50vh]"
         type="graph"
       >
-        <CrowdRankingGraph graphInfo={CrowdRankingTotalData} />
+        {delayLoading ? (
+          <BarGraphSkeleton />
+        ) : (
+          <CrowdRankingGraph graphInfo={CrowdRankingTotalData} />
+        )}
       </GameRankingSectionFrame>
       <GameRankingTable<TCrowdRankingTable>
         title={`${selectedYear} 시즌 관중`}
