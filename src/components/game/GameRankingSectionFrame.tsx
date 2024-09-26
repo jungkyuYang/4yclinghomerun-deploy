@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn';
-import GameTeamRankingTitle from './ranking/team/GameTeamRankingTitle';
+import SectionHeading from '../common/typography/SectionHeading';
 
 const GameRankingSectionFrame = ({
   title,
@@ -14,7 +14,7 @@ const GameRankingSectionFrame = ({
 }) => {
   return (
     <section>
-      <GameTeamRankingTitle title={title} />
+      <SectionHeading title={title} />
       {type === 'graph' ? (
         <div className={cn(height, 'w-full border-2 border-kt-gray-2')}>
           {children}
