@@ -65,13 +65,13 @@ const Profile = ({ items, isError }: { items: TCheer; isError: boolean }) => {
                   <a
                     key={index}
                     href={item[1]}
-                    className="hover: w-full px-2"
+                    className="w-full px-2"
                     download={item[0]}
                   >
                     <img
                       src={item[1]}
                       alt="대표사진 이미지"
-                      className="h-full w-full rounded-lg"
+                      className="h-full w-full rounded-lg object-cover"
                     />
                   </a>
                 ))}
