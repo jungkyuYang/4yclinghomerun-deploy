@@ -9,7 +9,7 @@ const GraphTooltipCrowdRank = ({
 }: BarTooltipProps<TCrowdRankingGraph>) => {
   return (
     <GraphTooltipFrame>
-      <p>{label.slice(7)}</p>
+      <p className="font-extrabold">{label.slice(7)}</p>
       <p>{`${new Intl.NumberFormat('en-US').format(value)}명`}</p>
     </GraphTooltipFrame>
   );
