@@ -5,6 +5,7 @@ import { DataTable } from '@/components/common/ui/table/DataTable';
 
 type MainRecordTableProps = {
   etcgames: EtcGamesType[];
+  isLoading?: boolean;
 };
 
 const columnHelper = createColumnHelper<EtcGamesType>();
@@ -20,13 +21,14 @@ const columns = [
   }),
 ] as ColumnDef<EtcGamesType>[];
 
-const MainRecordTable = ({ etcgames }: MainRecordTableProps) => {
+const MainRecordTable = ({ etcgames, isLoading }: MainRecordTableProps) => {
   return (
     <DataTable
       data={etcgames}
       columns={columns}
       bodyCellClassName="border-b border-gray-600"
       headerCellClassName="text-left"
+      isLoading={isLoading}
     />
   );
 };

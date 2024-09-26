@@ -5,6 +5,7 @@ import { DataTable } from '@/components/common/ui/table/DataTable';
 
 type BatterRecordTableProps = {
   data: BattersType[];
+  isLoading?: boolean;
 };
 
 const columnHelper = createColumnHelper<BattersType>();
@@ -57,12 +58,13 @@ const columns = [
   ),
 ] as ColumnDef<BattersType>[];
 
-const BatterRecordTable = ({ data }: BatterRecordTableProps) => {
+const BatterRecordTable = ({ data, isLoading }: BatterRecordTableProps) => {
   return (
     <DataTable
       data={data}
       columns={columns}
       bodyCellClassName="border-b border-gray-600 text-center"
+      isLoading={isLoading}
     />
   );
 };

@@ -5,6 +5,7 @@ import { DataTable } from '@/components/common/ui/table/DataTable';
 
 type PitcherRecordTableProps = {
   data: PitchersType[];
+  isLoading?: boolean;
 };
 
 const columnHelper = createColumnHelper<PitchersType>();
@@ -96,12 +97,13 @@ const columns = [
   ),
 ] as ColumnDef<PitchersType>[];
 
-const PitcherRecordTable = ({ data }: PitcherRecordTableProps) => {
+const PitcherRecordTable = ({ data, isLoading }: PitcherRecordTableProps) => {
   return (
     <DataTable
       data={data}
       columns={columns}
       bodyCellClassName="border-b border-gray-600 text-center"
+      isLoading={isLoading}
     />
   );
 };

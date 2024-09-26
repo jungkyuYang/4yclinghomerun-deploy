@@ -46,14 +46,14 @@ const NewsDetailPage = () => {
   const newsDetail = {
     regDate: isWizNew(data)
       ? formatTimeStamp(data.regDttm)
-      : data.article.serviceDatetime,
+      : data.article?.serviceDatetime,
     updDate: isWizNew(data)
       ? formatTimeStamp(data.updDttm)
-      : data.article.modifyDatetime,
-    title: isWizNew(data) ? data.artcTitle : data.article.title,
+      : data.article?.modifyDatetime,
+    title: isWizNew(data) ? data.artcTitle : data.article?.title,
     viewCnt: isWizNew(data) ? data.viewCnt : null,
-    reporter: isWizNew(data) ? null : data.article.reporter,
-    content: isWizNew(data) ? data.artcContents : data.article.content,
+    reporter: isWizNew(data) ? null : data.article?.reporter,
+    content: isWizNew(data) ? data.artcContents : data.article?.content,
   };
 
   return (
@@ -64,7 +64,9 @@ const NewsDetailPage = () => {
           <span>최종 수정일 : {newsDetail.updDate}</span>
         </div>
         <h1 className="border-b border-kt-white p-3 text-center text-3xl">
-          <span className="max-w-screen-md inline-block">{newsDetail.title}</span>
+          <span className="inline-block max-w-screen-md break-keep">
+            {newsDetail.title}
+          </span>
         </h1>
         <p className="p-2 text-center">
           {newsDetail.viewCnt ? (
@@ -87,10 +89,10 @@ const NewsDetailPage = () => {
 
       <div className="m-auto flex max-w-screen-md flex-col gap-10">
         {tab === 'navernews' && (
-          <strong className="text-xl">{data.article.subcontent}</strong>
+          <strong className="text-xl">{data.article?.subcontent}</strong>
         )}
         {/* 뉴스 기사 본문 */}
-        <p
+        <div
           className="custom-html"
           dangerouslySetInnerHTML={{
             __html: newsDetail.content,
