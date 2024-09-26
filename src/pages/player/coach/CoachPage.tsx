@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ICoachListReponse, TCard, TCoach } from '@/types/player';
+import { ICoachListReponse, TCard } from '@/types/player';
 
 import ErrorBoundary from '@/components/error/ErrorBoundary';
 import SectionLayout from '@/components/player/common/SectionLayout';
@@ -10,7 +10,6 @@ import CardSkeleton from '@/components/player/common/CardSkeleton';
 import CardError from '@/components/player/common/CardError';
 import { useAxios } from '@/hooks/useAxios';
 import SearchInput from '@/components/common/ui/SearchInput';
-import SectionHeading from '@/components/common/typography/SectionHeading';
 
 const CoachPage = () => {
   const [filteredSearch, setFilteredSearch] = useState<TCard[]>([]);
