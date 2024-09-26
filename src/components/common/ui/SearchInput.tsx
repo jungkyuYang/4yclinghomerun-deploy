@@ -28,22 +28,22 @@ const SearchInput = ({
   };
 
   return (
-    <div className="flex gap-2 text-kt-gray-2">
+    <div className="flex gap-2 text-kt-white">
       {showSelect && (
         <select name="search-news" className="bg-transparent p-2 outline-none">
           {selectOptions &&
             selectOptions.map((option, index) => (
-              <option key={index} value={option}>
+              <option key={index} value={option} className="bg-kt-gray-1">
                 {option}
               </option>
             ))}
         </select>
       )}
 
-      <div className="flex gap-2 border-b border-kt-gray-2 bg-transparent px-2 py-2 leading-none outline-none">
-        {!showSelect && <IoMdSearch size="24" color="717781" />}
+      <div className="flex gap-2 border-b border-kt-white bg-transparent px-2 py-2 leading-none outline-none">
+        {!showSelect && <IoMdSearch size="24" color="ECEEF2" />}
         <input
-          className="bg-transparent placeholder-kt-gray-1 outline-none"
+          className="bg-transparent placeholder-kt-gray-2 outline-none"
           placeholder={placeholder}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}

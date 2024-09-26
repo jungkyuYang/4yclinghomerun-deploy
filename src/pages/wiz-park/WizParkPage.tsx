@@ -2,34 +2,47 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import topImg from '@/assets/game/top.webp';
 import DetailPageLayout from '@/components/common/layout/DetailPageLayout';
-import { gameTabs } from '@/mocks/game/GameTabs';
+import { ROUTER_PATH } from '@/constants/constant';
+import topImg from '@/assets/game/top_img.webp';
 
-const GamePage = () => {
+const { WIZ_PARK_INTRO, WIZ_PARK_GUIDE } = ROUTER_PATH;
+
+const tabs = [
+  {
+    name: '구장 소개',
+    path: WIZ_PARK_INTRO,
+    subTitle: 'suwon kt wiz park를 소개합니다.',
+  },
+  {
+    name: '구장 안내도',
+    path: WIZ_PARK_GUIDE,
+    subTitle: 'suwon kt wiz park를 소개합니다.',
+  },
+];
+
+const WizParkPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [subTitle, setSubTitle] = useState(gameTabs[0].subTitle);
+  const [subTitle, setSubTitle] = useState(tabs[0].subTitle);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 현재 페이지가 어떤 탭에 속하는지 확인
   useEffect(() => {
-    const currentTab = gameTabs.findIndex((tab) =>
+    const currentTab = tabs.findIndex((tab) =>
       location.pathname.startsWith(tab.path),
     );
 
     if (currentTab !== -1) {
       setActiveTab(currentTab);
-      setSubTitle(gameTabs[currentTab].subTitle);
+      setSubTitle(tabs[currentTab].subTitle);
     } else {
-      navigate('/game/schedule', { replace: true });
+      navigate(WIZ_PARK_INTRO, { replace: true });
     }
   }, [location.pathname, navigate]);
 
-  // 탭 변경 시 페이지 이동
   const handleTabChange = useCallback(
     (index: number) => {
-      navigate(gameTabs[index].path);
+      navigate(tabs[index].path);
     },
     [navigate],
   );
@@ -37,9 +50,9 @@ const GamePage = () => {
   return (
     <DetailPageLayout
       topImg={topImg}
-      title="정규 리그"
+      title="Suwon kt wiz park"
       subTitle={subTitle}
-      tabs={gameTabs}
+      tabs={tabs}
       activeTab={activeTab}
       onTabChange={handleTabChange}
     >
@@ -48,4 +61,4 @@ const GamePage = () => {
   );
 };
 
-export default GamePage;
+export default WizParkPage;
