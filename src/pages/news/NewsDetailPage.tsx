@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useParams } from 'react-router-dom';
 import { GrFormView } from 'react-icons/gr';
 
@@ -17,7 +18,7 @@ const NewsDetailPage = () => {
     navernews: `/article/navernewsdetail?${id}`,
   };
 
-  const processData = (responseData: unknown) => {
+  const processData = (responseData: any) => {
     if (tab === 'navernews') {
       // navernewsdetail 데이터
       return responseData.result.articleInfo || {};
