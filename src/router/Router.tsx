@@ -17,16 +17,21 @@ import TeamRankingPage from '@/pages/game/ranking/TeamRankingPage';
 import PlayerRankingPage from '@/pages/game/ranking/PlayerRankingPage';
 import CrowdRankingPage from '@/pages/game/ranking/CrowdRankingPage';
 import RankingPage from '@/pages/game/RankingPage';
-import CoachPage from '@/pages/Player/CoachPage';
-import PitcherPage from '@/pages/Player/PitcherPage';
-import HitterPage from '@/pages/Player/HitterPage';
-import CheerPage from '@/pages/Player/CheerPage';
+
 import SchedulePage from '@/pages/game/SchedulePage';
 import BoxScorePage from '@/pages/game/BoxScorePage';
 import WatchPointPage from '@/pages/game/WatchPointPage';
 import NewsDetailPage from '@/pages/news/NewsDetailPage';
 import WizParkIntro from '@/pages/wiz-park/WizParkIntro';
 import WizParkGuide from '@/pages/wiz-park/WizParkGuide';
+import PitcherPage from '@/pages/player/pitcher/PitcherPage';
+import PitcherDetailPage from '@/pages/player/pitcher/PitcherDetailPage';
+import HitterPage from '@/pages/player/hitter/HitterPage';
+import HitterDetailPage from '@/pages/player/hitter/HitterDetailPage';
+import CheerPage from '@/pages/player/cheer/CheerPage';
+import CheerDetailPage from '@/pages/player/cheer/CheerDetailPage';
+import CoachPage from '@/pages/player/coach/CoachPage';
+import CoachDetailPage from '@/pages/player/coach/CoachDetailPage';
 
 const Router = () => {
   const {
@@ -71,17 +76,6 @@ const Router = () => {
           ],
         },
         { path: DIRECTION, element: <DirectionPage /> },
-        { path: PLAYER, element: <PlayerPage /> },
-        {
-          path: PLAYER,
-          element: <PlayerPage />,
-          children: [
-            { path: 'coach', element: <CoachPage /> },
-            { path: 'pitcher', element: <PitcherPage /> },
-            { path: 'hitter', element: <HitterPage /> },
-            { path: 'cheer', element: <CheerPage /> },
-          ],
-        },
         { path: NEWS, element: <NewsPage /> },
         {
           path: GAME,
@@ -102,7 +96,20 @@ const Router = () => {
             { path: 'watchpoint', element: <WatchPointPage /> },
           ],
         },
-        { path: PLAYER, element: <PlayerPage /> },
+        {
+          path: PLAYER,
+          element: <PlayerPage />,
+          children: [
+            { path: 'coach', element: <CoachPage /> },
+            { path: 'coach/detail/:id', element: <CoachDetailPage /> },
+            { path: 'pitcher', element: <PitcherPage /> },
+            { path: 'pitcher/detail/:id', element: <PitcherDetailPage /> },
+            { path: 'hitter', element: <HitterPage /> },
+            { path: 'hitter/detail/:id', element: <HitterDetailPage /> },
+            { path: 'cheer', element: <CheerPage /> },
+            { path: 'cheer/detail/:id', element: <CheerDetailPage /> },
+          ],
+        },
         {
           path: `${NEWS}/:tab`,
           element: <NewsPage />,
