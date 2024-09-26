@@ -46,14 +46,14 @@ const NewsDetailPage = () => {
   const newsDetail = {
     regDate: isWizNew(data)
       ? formatTimeStamp(data.regDttm)
-      : data.article.serviceDatetime,
+      : data.article?.serviceDatetime,
     updDate: isWizNew(data)
       ? formatTimeStamp(data.updDttm)
-      : data.article.modifyDatetime,
-    title: isWizNew(data) ? data.artcTitle : data.article.title,
+      : data.article?.modifyDatetime,
+    title: isWizNew(data) ? data.artcTitle : data.article?.title,
     viewCnt: isWizNew(data) ? data.viewCnt : null,
-    reporter: isWizNew(data) ? null : data.article.reporter,
-    content: isWizNew(data) ? data.artcContents : data.article.content,
+    reporter: isWizNew(data) ? null : data.article?.reporter,
+    content: isWizNew(data) ? data.artcContents : data.article?.content,
   };
 
   return (
@@ -89,7 +89,7 @@ const NewsDetailPage = () => {
 
       <div className="m-auto flex max-w-screen-md flex-col gap-10">
         {tab === 'navernews' && (
-          <strong className="text-xl">{data.article.subcontent}</strong>
+          <strong className="text-xl">{data.article?.subcontent}</strong>
         )}
         {/* 뉴스 기사 본문 */}
         <div
