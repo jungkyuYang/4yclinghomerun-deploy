@@ -22,7 +22,7 @@ const CrowdRankingPage = () => {
 
   const {
     data: GameCrowdRankingTotalData,
-    isLoading,
+    delayLoading,
     isError,
     error,
   } = useAxios<APICrowdRankingData, TCrowdRankingData[]>({
@@ -75,10 +75,6 @@ const CrowdRankingPage = () => {
     setIsOpenSelectYears((isOpenSelectYears) => !isOpenSelectYears);
   };
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   if (isError || !Array.isArray(GameCrowdRankingTotalData)) {
     return <p>Error: {error}</p>;
   }
@@ -105,6 +101,7 @@ const CrowdRankingPage = () => {
         title={`${selectedYear} 시즌 관중`}
         tableInfo={tableInfo}
         columns={crowdRankingColumns}
+        isLoading={delayLoading}
       />
     </div>
   );

@@ -24,7 +24,7 @@ import GameTeamRankingTitle from '@/components/game/ranking/team/GameTeamRanking
 const TeamRankingPage = () => {
   const {
     data: TeamRankingGraphData,
-    isLoading: isGraphLoading,
+    // isLoading: isGraphLoading,
     isError: isGraphError,
     error: graphError,
   } = useAxios<APITeamRankingGraph, TTeamRankingGraph[]>({
@@ -37,7 +37,7 @@ const TeamRankingPage = () => {
 
   const {
     data: TeamRankingYearTableData,
-    // isLoading: isYearTableLoading,
+    delayLoading: isYearTableLoading,
     // isError: isYearTableError,
     // error: yearTableError,
   } = useAxios<APITeamRankingYearTable, TTeamRankingYearTable[]>({
@@ -50,7 +50,7 @@ const TeamRankingPage = () => {
 
   const {
     data: TeamRankingPitcherTableData,
-    // isLoading: isPitcherTableLoading,
+    delayLoading: isPitcherTableLoading,
     // isError: isPitcherTableError,
     // error: picherTableError,
   } = useAxios<APITeamRankingPitcherTable, TTeamRankingPitcherTable[]>({
@@ -63,7 +63,7 @@ const TeamRankingPage = () => {
 
   const {
     data: TeamRankingBatterTableData,
-    // isLoading: isBatterTableLoading,
+    delayLoading: isBatterTableLoading,
     // isError: isBatterTableError,
     // error: batterTableError,
   } = useAxios<APITeamRankingBatterTable, TTeamRankingBatterTable[]>({
@@ -76,7 +76,7 @@ const TeamRankingPage = () => {
 
   const {
     data: TeamRankingTeamVSTableData,
-    // isLoading: isTeamVSTableLoading,
+    // delayLoading: isTeamVSTableLoading,
     // isError: isTeamVSTableError,
     // error: teamVSTableError,
   } = useAxios<APITeamRankingTeamVSTable, TTeamRankingTeamVSTable[]>({
@@ -87,11 +87,6 @@ const TeamRankingPage = () => {
     processData: (data: APITeamRankingTeamVSTable) =>
       data.data.list.filter((item) => item.teamCode === 'KT'),
   });
-
-  // 데이터를 받기 전이거나 처리 중일 때는 로딩 처리
-  if (isGraphLoading) {
-    return <p>Loading...</p>;
-  }
 
   // 에러가 발생했거나 데이터가 배열이 아닌 경우 에러 처리
   if (
@@ -116,6 +111,7 @@ const TeamRankingPage = () => {
           title="2024 시즌 팀 기록"
           tableInfo={TeamRankingYearTableData}
           columns={teamRankingYearColumns}
+          isLoading={isYearTableLoading}
         />
       )}
       {Array.isArray(TeamRankingPitcherTableData) && (
@@ -123,6 +119,7 @@ const TeamRankingPage = () => {
           title="2024 시즌 팀 투수 기록"
           tableInfo={TeamRankingPitcherTableData}
           columns={teamRankingPitcherColumns}
+          isLoading={isPitcherTableLoading}
         />
       )}
       {Array.isArray(TeamRankingBatterTableData) && (
@@ -130,6 +127,7 @@ const TeamRankingPage = () => {
           title="2024 시즌 팀 타자 기록"
           tableInfo={TeamRankingBatterTableData}
           columns={teamRankingBatterColumns}
+          isLoading={isBatterTableLoading}
         />
       )}
       {Array.isArray(TeamRankingTeamVSTableData) && (

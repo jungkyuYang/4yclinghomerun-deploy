@@ -6,12 +6,14 @@ type SearchInputProps = {
   onSearch: (searchWord: string) => void;
   showSelect?: boolean; // select태그 사용여부
   selectOptions?: string[];
+  placeholder?: string;
 };
 
 const SearchInput = ({
   onSearch,
   showSelect,
   selectOptions,
+  placeholder = '검색어를 입력해 주세요',
 }: SearchInputProps) => {
   const [searchValue, setSearchValue] = useState('');
 
@@ -42,7 +44,7 @@ const SearchInput = ({
         {!showSelect && <IoMdSearch size="24" color="ECEEF2" />}
         <input
           className="bg-transparent placeholder-kt-gray-2 outline-none"
-          placeholder="검색어를 입력해 주세요"
+          placeholder={placeholder}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyDown={enterKeyHandler}
