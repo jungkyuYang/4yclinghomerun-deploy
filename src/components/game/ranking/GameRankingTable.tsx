@@ -10,12 +10,14 @@ interface GameRankingTableProps<T extends WithTeamName> {
   title: string;
   tableInfo: T[];
   columns: ColumnDef<T>[];
+  isLoading: boolean;
 }
 
 const GameRankingTable = <T extends WithTeamName>({
   title,
   tableInfo,
   columns,
+  isLoading,
 }: GameRankingTableProps<T>) => {
   const isHighlighted = (row: T) => row.teamName === 'KT';
 
@@ -26,6 +28,7 @@ const GameRankingTable = <T extends WithTeamName>({
         columns={columns}
         bodyCellClassName="border-b border-gray-600 text-center"
         highlightCondition={isHighlighted}
+        isLoading={isLoading}
       />
     </GameRankingSectionFrame>
   );
