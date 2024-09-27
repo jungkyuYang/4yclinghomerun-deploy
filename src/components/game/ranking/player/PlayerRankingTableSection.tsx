@@ -9,6 +9,7 @@ import {
   TPlayerRankingColumn,
   TPlayerRankingTable,
 } from '@/types/PlayerRanking';
+import DataTableSkeleton from '@/components/common/ui/table/DataTableSkeleton';
 
 const PlayerRankingTableSection = ({
   rankingType,
@@ -38,12 +39,7 @@ const PlayerRankingTableSection = ({
     }
   }, [activeTab]);
 
-  const {
-    data,
-    delayLoading,
-    isError: isError,
-    error,
-  } = useAxios<
+  const { data, delayLoading, isError, error } = useAxios<
     { data: { list: TPlayerRankingTable[] } },
     TPlayerRankingTable[]
   >({
@@ -64,27 +60,28 @@ const PlayerRankingTableSection = ({
     if (matchingTable) {
       setTableColumns(matchingTable.tableColums);
     }
-    console.log(tableColumns);
   }, [data]);
 
   const handleActiveTab = (title: string) => {
     setActiveTab(title);
   };
 
-  if (isError || !Array.isArray(data)) {
-    return <p>Error: {error}</p>;
-  }
-
   const handleSearch = (searchWord: string) => {
-    if (searchWord.length === 0) {
-      setTableData(data);
-    } else {
-      const filterTable = data.filter((item) =>
-        item.playerName.includes(searchWord),
-      );
-      setTableData(filterTable);
+    if (Array.isArray(data)) {
+      if (searchWord.length === 0) {
+        setTableData(data);
+      } else {
+        const filterTable = data.filter((item) =>
+          item.playerName.includes(searchWord),
+        );
+        setTableData(filterTable);
+      }
     }
   };
+
+  if (isError) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <section className="space-y-2">
@@ -102,14 +99,18 @@ const PlayerRankingTableSection = ({
       <p className="w-full text-end text-kt-gray-2">
         ※ 각 항목을 클릭하시면 오름차순/내림차순 정렬이 가능합니다.
       </p>
-      <PlayerRankingTable
-        activeTab={activeTab}
-        tableData={tableData}
-        tableColumns={tableColumns}
-        isLoading={delayLoading}
-        isError={isError}
-        error={error}
-      />
+      {!Array.isArray(data) ? (
+        <DataTableSkeleton />
+      ) : (
+        <PlayerRankingTable
+          activeTab={activeTab}
+          tableData={tableData}
+          tableColumns={tableColumns}
+          isLoading={delayLoading}
+          isError={isError}
+          error={error}
+        />
+      )}
     </section>
   );
 };
